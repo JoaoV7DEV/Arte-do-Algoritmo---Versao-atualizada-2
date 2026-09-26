@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+:root {
+  font-family: 'Poppins', 'Manrope', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: dark;
+}
+
+/* Base Body Styles */
+body {
+  background-color: #272727;
+  color: #f4f4f5;
+  letter-spacing: -0.015em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Refined Typography Hierarchy & Smoothing */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.025em;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Strategic Text Gradient - Cyan → Soft Purple → Magenta (Arte do Algoritmo) */
+.text-brand-gradient {
+  background: linear-gradient(135deg, #00FFFF 0%, #B847C9 52%, #E71870 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Subtle Accent Borders for Brand Highlights */
+.border-brand-subtle {
+  border-image: linear-gradient(135deg, rgba(0, 255, 255, 0.4), rgba(184, 71, 201, 0.25), rgba(231, 24, 112, 0.4)) 1;
+}
+
+/* Subtle Card Glows & Micro-Borders */
+.card-subtle {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-subtle:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+@layer utilities {
+  /* Hide scrollbar utility for clean horizontal tab sliders */
+  .scrollbar-none::-webkit-scrollbar,
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  .scrollbar-none,
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom scrollbar for preview windows */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.5);
+  }
+}
+
+/* Lightweight Scroll & Entry Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* MOB3L Mobile/Touch Inviting Button Pulse */
+@keyframes mob3lInvitePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 0 28px rgba(234, 179, 8, 0.55);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.mob3l-mobile-pulse {
+  animation: mob3lInvitePulse 2.2s ease-in-out infinite;
+}
+
+/* 01S Mobilidade Mobile/Touch Inviting Button Pulse */
+@keyframes zeroOneInvitePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 14px rgba(78, 162, 56, 0.35);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 0 28px rgba(243, 133, 18, 0.45), 0 0 14px rgba(78, 162, 56, 0.4);
+  }
+}
+
+.zero-one-mobile-pulse {
+  animation: zeroOneInvitePulse 2.2s ease-in-out infinite;
+}
+
+/* Disable continuous pulse on hover-capable pointer devices so clean desktop hover works */
+@media (hover: hover) and (pointer: fine) {
+  .mob3l-mobile-pulse {
+    animation: none;
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
+  }
+  .mob3l-mobile-pulse:hover {
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.5);
+  }
+
+  .zero-one-mobile-pulse {
+    animation: none;
+    box-shadow: 0 0 18px rgba(78, 162, 56, 0.25);
+  }
+  .zero-one-mobile-pulse:hover {
+    box-shadow: 0 0 28px rgba(78, 162, 56, 0.45), 0 0 16px rgba(243, 133, 18, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

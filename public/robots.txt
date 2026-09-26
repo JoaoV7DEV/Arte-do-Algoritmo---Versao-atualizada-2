@@ -1,0 +1,5 @@
+# robots.txt for Arte do Algoritmo
+User-agent: *
+Allow: /
+
+Sitemap: https://artedoalgoritmo.com.br/sitemap.xml
