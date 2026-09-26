@@ -139,16 +139,19 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
     const button = navButtonRefs.current[activePillar];
     if (!container || !button) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const buttonRect = button.getBoundingClientRect();
-    const currentScroll = container.scrollLeft;
-    const buttonCenterOffset = buttonRect.left - containerRect.left + currentScroll + buttonRect.width / 2;
-    const targetScrollLeft = buttonCenterOffset - containerRect.width / 2;
+    // Only scroll horizontally if content overflows (mobile & small tablet)
+    if (container.scrollWidth > container.clientWidth + 4) {
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const currentScroll = container.scrollLeft;
+      const buttonCenterOffset = buttonRect.left - containerRect.left + currentScroll + buttonRect.width / 2;
+      const targetScrollLeft = buttonCenterOffset - containerRect.width / 2;
 
-    container.scrollTo({
-      left: Math.max(0, targetScrollLeft),
-      behavior: 'smooth',
-    });
+      container.scrollTo({
+        left: Math.max(0, targetScrollLeft),
+        behavior: 'smooth',
+      });
+    }
   }, [activePillar]);
 
   const scrollToPillar = (id: PillarId) => {
@@ -189,25 +192,25 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
       {/* ========================================================================= */}
       {/* TOP PAGE HERO (Reaches top:0 with transparent header compatibility) */}
       {/* ========================================================================= */}
-      <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-20 bg-gradient-to-b from-[#18181B] via-[#202023] to-[#272727] border-b border-white/5 overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 pb-14 sm:pb-16 bg-gradient-to-b from-[#18181B] via-[#202023] to-[#272727] border-b border-white/5 overflow-hidden flex flex-col justify-center items-center">
         {/* Ambient background glows shining through transparent header */}
         <div className="absolute -top-16 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#00FFFF]/15 via-cyan-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-16 right-1/4 w-[500px] h-[500px] bg-gradient-to-bl from-[#E71870]/15 via-pink-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00FFFF] mb-6 shadow-inner">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-10 relative z-10 text-center flex flex-col items-center justify-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00FFFF] mb-6 shadow-inner mx-auto">
             <Sparkles className="w-3.5 h-3.5" />
             <span>NOSSAS SOLUÇÕES</span>
           </div>
 
           <h1
             style={{ fontSize: '60px' }}
-            className="text-[60px] font-extrabold text-white tracking-tight mb-6 leading-tight"
+            className="text-[42px] sm:text-[52px] md:text-[60px] font-extrabold text-white tracking-tight mb-6 leading-tight text-center mx-auto"
           >
             Serviços
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed text-center">
             Do primeiro logotipo à plataforma web de alta conversão, um ecossistema completo para sua presença digital, sem complicação técnica e com contato direto.
           </p>
         </div>
@@ -218,30 +221,32 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
           <div
             ref={navScrollRef}
-            className="flex items-center justify-start sm:justify-center overflow-x-auto py-3.5 sm:py-4 gap-2.5 sm:gap-3 scrollbar-none no-scrollbar scroll-smooth"
+            className="w-full overflow-x-auto py-3.5 sm:py-4 scrollbar-none no-scrollbar scroll-smooth flex justify-center"
           >
-            {pillars.map((p) => {
-              const isActive = activePillar === p.id;
-              const Icon = p.icon;
-              return (
-                <button
-                  key={p.id}
-                  ref={(el) => {
-                    navButtonRefs.current[p.id] = el;
-                  }}
-                  onClick={() => scrollToPillar(p.id)}
-                  type="button"
-                  className={`px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 border cursor-pointer shrink-0 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] shadow-[0_0_18px_rgba(0,255,255,0.3)] font-bold border-cyan-400'
-                      : 'text-gray-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border-white/5'
-                  }`}
-                >
-                  <Icon className="w-4 h-4 shrink-0" />
-                  <span>{p.shortTitle}</span>
-                </button>
-              );
-            })}
+            <div className="flex items-center justify-center min-w-max mx-auto gap-2.5 sm:gap-3 px-4">
+              {pillars.map((p) => {
+                const isActive = activePillar === p.id;
+                const Icon = p.icon;
+                return (
+                  <button
+                    key={p.id}
+                    ref={(el) => {
+                      navButtonRefs.current[p.id] = el;
+                    }}
+                    onClick={() => scrollToPillar(p.id)}
+                    type="button"
+                    className={`px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 border cursor-pointer shrink-0 ${
+                      isActive
+                        ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] shadow-[0_0_18px_rgba(0,255,255,0.3)] font-bold border-cyan-400'
+                        : 'text-gray-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border-white/5'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4 shrink-0" />
+                    <span>{p.shortTitle}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </nav>
