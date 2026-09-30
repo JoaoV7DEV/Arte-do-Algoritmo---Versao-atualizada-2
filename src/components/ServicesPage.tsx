@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
+import { BrandIcon } from './BrandIcon';
 
 interface ServicesPageProps {
   onNavigate?: (page: PageView, anchor?: string) => void;
@@ -218,7 +219,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
 
       {/* Sticky Tab Navigation Across the 3 Pillars */}
       <nav className="sticky top-[68px] sm:top-[74px] z-40 bg-[#18181B]/95 backdrop-blur-md border-b border-white/10 shadow-xl">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 relative">
+          {/* Mobile Edge Gradient Fades for Scroll Affordance */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#18181B] to-transparent z-10 sm:hidden" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#18181B] to-transparent z-10 sm:hidden" />
+
           <div
             ref={navScrollRef}
             className="w-full overflow-x-auto py-3.5 sm:py-4 scrollbar-none no-scrollbar scroll-smooth flex justify-center"
@@ -248,6 +253,18 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
               })}
             </div>
           </div>
+
+          {/* Mobile Tab Indicator Dots (visual affordance indicating position and multi-tab row) */}
+          <div className="sm:hidden flex items-center justify-center gap-1.5 pb-2.5 -mt-1">
+            {pillars.map((p) => (
+              <span
+                key={`dot-${p.id}`}
+                className={`h-1 rounded-full transition-all duration-300 ${
+                  activePillar === p.id ? 'w-5 bg-[#00FFFF]' : 'w-1.5 bg-white/20'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </nav>
 
@@ -264,9 +281,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10 mb-10">
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-13 h-13 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-[#00FFFF] flex items-center justify-center p-3">
-                    <Code className="w-7 h-7" />
-                  </div>
+                  <BrandIcon icon={Code} size="xl" variant="cyan" />
                   <span className="text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[#00FFFF]">
                     ÁREA 01
                   </span>
@@ -332,9 +347,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10 mb-10">
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-13 h-13 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center p-3">
-                    <Palette className="w-7 h-7" />
-                  </div>
+                  <BrandIcon icon={Palette} size="xl" variant="magenta" />
                   <span className="text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-[#E71870]">
                     ÁREA 02
                   </span>
@@ -400,9 +413,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10 mb-10">
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-13 h-13 rounded-2xl bg-[#C754F0]/10 border border-[#C754F0]/20 text-[#C754F0] flex items-center justify-center p-3">
-                    <TrendingUp className="w-7 h-7" />
-                  </div>
+                  <BrandIcon icon={TrendingUp} size="xl" variant="cyan-magenta" />
                   <span className="text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-[#C754F0]/10 border border-[#C754F0]/20 text-[#C754F0]">
                     ÁREA 03
                   </span>
@@ -450,9 +461,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                          <MapPin className="w-5 h-5" />
-                        </div>
+                        <BrandIcon icon={MapPin} size="md" variant="cyan-magenta" />
                         <div>
                           <span className="text-[11px] font-mono text-emerald-400 font-bold uppercase block">
                             Tráfego Orgânico
@@ -472,37 +481,40 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                     </p>
                   </div>
 
-                  {/* 3 Action Buttons in a row (stack on mobile) */}
+                  {/* TASK 7: Desktop: 3 in a row. Mobile: WhatsApp full width on top, then Ver exemplo real & Saber mais side-by-side in 2-column row */}
                   <div className="pt-6 mt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-                    {/* Button 1: WhatsApp */}
+                    {/* Button 1: WhatsApp (full width on mobile, flex-1 on desktop) */}
                     <a
                       href={AGENCY_INFO.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[42px]"
+                      className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[42px]"
                     >
                       <MessageCircle className="w-3.5 h-3.5 fill-current" />
                       <span>Fale no WhatsApp</span>
                     </a>
 
-                    {/* Button 2: Ver exemplo real */}
-                    <a
-                      href="/projetos#case-google-meu-negocio"
-                      onClick={(e) => handleNavigateToCase('case-google-meu-negocio', e)}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[42px]"
-                    >
-                      <span>Ver exemplo real</span>
-                    </a>
+                    {/* Mobile 2-column row for buttons 2 & 3 / On desktop unfolds into the flex row */}
+                    <div className="grid grid-cols-2 gap-2.5 w-full sm:contents">
+                      {/* Button 2: Ver exemplo real */}
+                      <a
+                        href="/projetos#case-google-meu-negocio"
+                        onClick={(e) => handleNavigateToCase('case-google-meu-negocio', e)}
+                        className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[42px] text-center"
+                      >
+                        <span>Ver exemplo real</span>
+                      </a>
 
-                    {/* Button 3: Saber mais dedicated page */}
-                    <a
-                      href="/servicos/google-meu-negocio"
-                      onClick={(e) => handleNavigateToService('servico-google-meu-negocio', e)}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[42px]"
-                    >
-                      <span>Saber mais</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-emerald-400 transition-transform group-hover:translate-x-1" />
-                    </a>
+                      {/* Button 3: Saber mais dedicated page */}
+                      <a
+                        href="/servicos/google-meu-negocio"
+                        onClick={(e) => handleNavigateToService('servico-google-meu-negocio', e)}
+                        className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[42px] text-center"
+                      >
+                        <span>Saber mais</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-emerald-400 transition-transform group-hover:translate-x-1 shrink-0" />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -513,9 +525,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                 >
                   <div className="space-y-4">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                        <Search className="w-5 h-5" />
-                      </div>
+                      <BrandIcon icon={Search} size="md" variant="cyan-magenta" />
                       <div>
                         <span className="text-[11px] font-mono text-emerald-400 font-bold uppercase block">
                           Tráfego Orgânico
@@ -555,12 +565,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                 id="hub-card-trafego-pago"
                 className="rounded-2xl bg-[#141416]/95 border-2 border-[#C754F0]/40 p-7 sm:p-9 shadow-lg relative overflow-hidden group hover:border-[#C754F0]/60 transition-all flex flex-col justify-between"
               >
-                <div className="space-y-4 max-w-4xl">
-                  <div className="flex items-center justify-between gap-3">
+                <div className="space-y-4 w-full">
+                  <div className="flex items-center justify-between gap-3 w-full">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-10 h-10 rounded-xl bg-[#C754F0]/15 border border-[#C754F0]/30 text-[#C754F0] flex items-center justify-center shrink-0">
-                        <Target className="w-5 h-5" />
-                      </div>
+                      <BrandIcon icon={Target} size="md" variant="cyan-magenta" />
                       <div>
                         <span className="text-[11px] font-mono text-[#C754F0] font-bold uppercase block">
                           Tráfego Pago
@@ -570,47 +578,50 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                         </h3>
                       </div>
                     </div>
-                    <span className="hidden sm:inline-block text-[11px] font-mono text-gray-300 px-3 py-1 rounded bg-[#C754F0]/10 border border-[#C754F0]/20">
-                      Meta Ads & Google Ads
+                    <span className="hidden sm:inline-block text-[11px] font-mono text-gray-300 px-3 py-1 rounded bg-[#C754F0]/10 border border-[#C754F0]/20 ml-auto shrink-0">
+                      Facebook (Meta Ads) & Google Ads
                     </span>
                   </div>
 
-                  <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                  <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal max-w-3xl">
                     Anúncios pensados pro seu negócio ser encontrado por quem já quer comprar.
                   </p>
                 </div>
 
-                {/* 3 Action Buttons in a row (stack on mobile) */}
+                {/* TASK 7: Desktop: 3 in a row. Mobile: WhatsApp full width on top, then Ver exemplo real & Saber mais side-by-side in 2-column row */}
                 <div className="pt-6 mt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                  {/* Button 1: WhatsApp */}
+                  {/* Button 1: WhatsApp (full width on mobile, flex-1 on desktop) */}
                   <a
                     href={AGENCY_INFO.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[44px]"
+                    className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[44px]"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
                     <span>Fale no WhatsApp</span>
                   </a>
 
-                  {/* Button 2: Ver exemplo real */}
-                  <a
-                    href="/projetos#case-trafego-pago"
-                    onClick={(e) => handleNavigateToCase('case-trafego-pago', e)}
-                    className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[44px]"
-                  >
-                    <span>Ver exemplo real</span>
-                  </a>
+                  {/* Mobile 2-column row for buttons 2 & 3 / On desktop unfolds into the flex row */}
+                  <div className="grid grid-cols-2 gap-2.5 w-full sm:contents">
+                    {/* Button 2: Ver exemplo real */}
+                    <a
+                      href="/projetos#case-trafego-pago"
+                      onClick={(e) => handleNavigateToCase('case-trafego-pago', e)}
+                      className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[44px] text-center"
+                    >
+                      <span>Ver exemplo real</span>
+                    </a>
 
-                  {/* Button 3: Saber mais dedicated page */}
-                  <a
-                    href="/servicos/trafego-pago"
-                    onClick={(e) => handleNavigateToService('servico-trafego-pago', e)}
-                    className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-[#C754F0]/15 hover:bg-[#C754F0]/25 border border-[#C754F0]/30 text-purple-200 font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[44px]"
-                  >
-                    <span>Saber mais</span>
-                    <ArrowRight className="w-4 h-4 text-[#C754F0] transition-transform group-hover:translate-x-1" />
-                  </a>
+                    {/* Button 3: Saber mais dedicated page */}
+                    <a
+                      href="/servicos/trafego-pago"
+                      onClick={(e) => handleNavigateToService('servico-trafego-pago', e)}
+                      className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-3 rounded-xl bg-[#C754F0]/15 hover:bg-[#C754F0]/25 border border-[#C754F0]/30 text-purple-200 font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[44px] text-center"
+                    >
+                      <span>Saber mais</span>
+                      <ArrowRight className="w-4 h-4 text-[#C754F0] transition-transform group-hover:translate-x-1 shrink-0" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -624,9 +635,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                 className="p-7 sm:p-8 rounded-2xl bg-[#141416]/85 border border-white/[0.08] hover:border-cyan-400/30 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-[#00FFFF] flex items-center justify-center shrink-0 mt-0.5">
-                    <LifeBuoy className="w-5 h-5" />
-                  </div>
+                  <BrandIcon icon={LifeBuoy} size="md" variant="cyan" />
                   <div className="space-y-1">
                     <span className="text-[11px] font-mono text-[#00FFFF] font-bold uppercase block">
                       Acompanhamento Estratégico

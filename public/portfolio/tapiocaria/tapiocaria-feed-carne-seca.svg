@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14100C"/>
+      <stop offset="40%" stop-color="#231710"/>
+      <stop offset="100%" stop-color="#0E0A08"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FF9E00"/>
+    </linearGradient>
+    <linearGradient id="cyanMagenta" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00FFFF"/>
+      <stop offset="100%" stop-color="#E71870"/>
+    </linearGradient>
+    <linearGradient id="tapiocaShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#FDFBF7"/>
+      <stop offset="100%" stop-color="#E6D3B3"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="25" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas (4:5 Ratio) -->
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+
+  <!-- Ambient Glow Spots -->
+  <circle cx="200" cy="300" r="300" fill="#FF9E00" opacity="0.14" filter="url(#glow)"/>
+  <circle cx="650" cy="650" r="260" fill="#E71870" opacity="0.10" filter="url(#glow)"/>
+  <circle cx="400" cy="850" r="220" fill="#00FFFF" opacity="0.08" filter="url(#glow)"/>
+
+  <!-- Instagram / Meta Ads Header Bar -->
+  <rect x="40" y="44" width="720" height="70" rx="18" fill="#1C1510" fill-opacity="0.9" stroke="#3A2C22" stroke-width="1.5"/>
+  <circle cx="78" cy="79" r="22" fill="url(#goldGrad)"/>
+  <text x="78" y="86" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="900" text-anchor="middle" fill="#1A1208">DM</text>
+  <text x="115" y="72" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">tapiocariadonamoca</text>
+  <text x="115" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#A89487">Patrocinado • Meta Ads Feed</text>
+  <circle cx="710" cy="79" r="4" fill="#A89487"/>
+  <circle cx="725" cy="79" r="4" fill="#A89487"/>
+  <circle cx="740" cy="79" r="4" fill="#A89487"/>
+
+  <!-- Food Illustration / Composition (Artisanal Slate Board) -->
+  <g filter="url(#shadow)">
+    <!-- Slate board -->
+    <rect x="60" y="160" width="680" height="490" rx="30" fill="#1A1715" stroke="#332B25" stroke-width="2"/>
+    <path d="M 60,210 Q 200,180 400,190 T 740,200" stroke="#443830" stroke-width="1.5" fill="none" opacity="0.4"/>
+    
+    <!-- Plate base glow -->
+    <ellipse cx="400" cy="410" rx="280" ry="160" fill="#0D0A08" opacity="0.75"/>
+
+    <!-- Folded Gourmet Tapioca Shape -->
+    <path d="M 160,450 C 170,300 290,250 470,265 C 610,275 645,370 630,460 C 515,495 305,500 160,450 Z" fill="url(#tapiocaShine)" filter="url(#shadow)"/>
+    
+    <!-- Tapioca texture granules & golden toasted spots -->
+    <circle cx="310" cy="310" r="16" fill="#E2A855" opacity="0.5"/>
+    <circle cx="430" cy="305" r="20" fill="#D48B30" opacity="0.4"/>
+    <circle cx="510" cy="355" r="14" fill="#E2A855" opacity="0.6"/>
+    <circle cx="260" cy="390" r="12" fill="#D48B30" opacity="0.5"/>
+    <circle cx="380" cy="380" r="18" fill="#C9781E" opacity="0.35"/>
+
+    <!-- Melted Queijo Coalho overflowing -->
+    <path d="M 200,455 C 220,490 265,495 285,460 C 330,505 375,485 405,455 C 450,500 500,480 530,458 C 565,485 600,475 620,455" fill="#FFE27A" stroke="#E5B229" stroke-width="3.5"/>
+    
+    <!-- Carne Seca / Shredded Sun-dried Beef -->
+    <path d="M 230,440 Q 255,420 290,445 T 345,430 T 410,445 T 475,428 T 540,445" stroke="#7E2D18" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path d="M 270,450 Q 305,430 350,455 T 430,438 T 495,450" stroke="#5E1D0E" stroke-width="9" stroke-linecap="round" fill="none"/>
+    
+    <!-- Fresh herbs (Cebolinha / Coentro verde) -->
+    <circle cx="330" cy="420" r="5" fill="#38A169"/>
+    <circle cx="420" cy="405" r="6" fill="#2F855A"/>
+    <circle cx="475" cy="435" r="5" fill="#48BB78"/>
+    <circle cx="270" cy="430" r="5" fill="#38A169"/>
+
+    <!-- Floating Badge: Recheio Generoso -->
+    <g transform="translate(90, 190)">
+      <rect width="190" height="40" rx="20" fill="#FF9E00" fill-opacity="0.95"/>
+      <text x="95" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle" fill="#1A1208">★ MAIS PEDIDA</text>
+    </g>
+
+    <!-- Price Tag Badge -->
+    <g transform="translate(480, 190)">
+      <rect width="220" height="40" rx="20" fill="#1C1814" stroke="#FFD700" stroke-width="1.5"/>
+      <text x="110" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle" fill="#FFD700">CARNE SECA + COALHO</text>
+    </g>
+  </g>
+
+  <!-- Typography & Offer (Bottom Section) -->
+  <text x="60" y="720" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">
+    A autêntica Tapioca Nordestina.
+  </text>
+  <text x="60" y="765" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#FFD700">
+    Massa artesanal fininha, crocante e recheio de verdade.
+  </text>
+  <text x="60" y="805" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#C2B2A3">
+    Peça pelo delivery ou venha saborear quentinha na mesa. Salvador/BA.
+  </text>
+
+  <!-- Instagram Ad Action Strip -->
+  <g transform="translate(60, 875)">
+    <rect width="680" height="66" rx="20" fill="url(#cyanMagenta)"/>
+    <text x="320" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="800" text-anchor="middle" fill="#0A0A0C">
+      Fazer Pedido no WhatsApp • 10% OFF
+    </text>
+    <path d="M 540,33 L 558,33 L 550,25 M 558,33 L 550,41" stroke="#0A0A0C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>

@@ -13,10 +13,11 @@ import {
   FileCheck,
   TrendingUp,
   CheckCircle2,
-  ShieldAlert,
+  Eye,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
+import { BrandIcon } from './BrandIcon';
 
 interface TrafegoPagoPageProps {
   onNavigate?: (page: PageView, anchor?: string) => void;
@@ -49,6 +50,30 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
     }
   };
 
+  const tapiocaCreatives = [
+    {
+      src: '/portfolio/tapiocaria/tapiocaria-feed-carne-seca.svg',
+      title: 'Post Feed • Carne Seca & Coalho',
+      tag: 'Anuncio em Feed',
+      aspectClass: 'aspect-[4/5]',
+      desc: 'Anúncio focado em produto mais vendido com chamada direta para WhatsApp.',
+    },
+    {
+      src: '/portfolio/tapiocaria/tapiocaria-feed-combo.svg',
+      title: 'Post Feed • Combo Almoço Local',
+      tag: 'Anuncio em Feed',
+      aspectClass: 'aspect-[4/5]',
+      desc: 'Segmentação geográfica por raio de entrega com combo de alta conversão.',
+    },
+    {
+      src: '/portfolio/tapiocaria/tapiocaria-story-morango.svg',
+      title: 'Post Story • Sobremesa do Dia',
+      tag: 'Anuncio em Stories',
+      aspectClass: 'aspect-[9/16]',
+      desc: 'Formato vertical interativo voltado para desejo imediato e delivery.',
+    },
+  ];
+
   const faqs = [
     {
       q: 'Preciso ter site pra anunciar?',
@@ -76,7 +101,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
         <div className="absolute -top-16 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#C754F0]/15 via-purple-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-16 right-1/4 w-[500px] h-[500px] bg-gradient-to-bl from-[#00FFFF]/15 via-cyan-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Back link */}
           <div className="mb-6">
             <a
@@ -92,8 +117,8 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
 
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C754F0]/15 border border-[#C754F0]/30 text-xs font-mono text-[#C754F0] font-bold">
-                <Target className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#00FFFF]/10 via-[#C754F0]/15 to-[#E71870]/10 border border-[#C754F0]/30 text-xs font-mono text-purple-200 font-bold shadow-sm">
+                <Target className="w-3.5 h-3.5 text-[#00FFFF]" />
                 <span>ÁREA 03 • TRÁFEGO PAGO</span>
               </span>
               <span className="text-xs sm:text-sm font-mono text-gray-400">
@@ -113,118 +138,218 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
       </section>
 
       {/* Main Content Area */}
-      <main className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        {/* 2. O que é / pra quem é */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#1E1E22] border border-white/[0.08] shadow-xl space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase text-[#00FFFF] font-bold tracking-wider">
-            <Sparkles className="w-4 h-4" />
-            <span>O QUE É E PARA QUEM É</span>
+      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-20">
+        {/* ========================================================================= */}
+        {/* 2. O que é / pra quem é (UNBOXED: Plain text directly on page background) */}
+        {/* ========================================================================= */}
+        <section className="py-2 space-y-4 max-w-4xl">
+          <div className="inline-flex items-center gap-2 font-mono uppercase text-[#00FFFF] font-bold tracking-wider">
+            <BrandIcon icon={Sparkles} size="sm" variant="cyan-magenta" />
+            <span className="text-[14px]">O QUE É E PARA QUEM É?</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
             Para quem precisa parar de depender apenas de indicação
           </h2>
-          <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+
+          <p className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed font-normal pt-1">
             Gestão completa de campanhas no Meta Ads e Google Ads, pensada pra negócios locais e prestadores de serviço que querem parar de depender só do boca a boca e começar a aparecer pra quem está procurando o que eles oferecem, na hora certa.
           </p>
         </section>
 
-        {/* 3. Como funciona */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#1E1E22] border border-white/[0.08] shadow-xl space-y-8">
-          <div>
-            <span className="text-xs font-mono uppercase text-[#C754F0] block mb-2 font-bold tracking-wider">
-              ESTRATÉGIA PASSO A PASSO
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-3">
-              Como funciona o processo
-            </h2>
-            <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              Cuido da estratégia, segmentação e otimização da campanha do início ao fim, defino o público certo, ajusto o investimento e acompanho os resultados de perto, sempre te mantendo informado.
-            </p>
-          </div>
+        {/* ========================================================================= */}
+        {/* 3. Como funciona (ASYMMETRIC DESKTOP LAYOUT + WIDE LOWER CARD)           */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-2">
+          {/* Top 2 Columns: Left Narrative, Right 2 Creative Paths */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left Column (5 cols on desktop): Intro Narrative */}
+            <div className="lg:col-span-5 space-y-4">
+              <span className="text-[14px] font-mono uppercase text-[#C754F0] block font-bold tracking-wider">
+                ESTRATÉGIA PASSO A PASSO
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                Como funciona o processo?
+              </h2>
+              <p className="text-base sm:text-lg text-gray-200 leading-relaxed pt-1">
+                Cuido da estratégia, segmentação e otimização da campanha do início ao fim, defino o público certo, ajusto o investimento e acompanho os resultados de perto, sempre te mantendo informado.
+              </p>
+            </div>
 
-          {/* Creatives 2 paths */}
-          <div className="space-y-4 pt-2">
-            <h3 className="text-lg sm:text-xl font-bold text-white">
-              Sobre os criativos (as artes e vídeos do anúncio), tem dois caminhos:
-            </h3>
+            {/* Right Column (7 cols on desktop): The 2 Creatives Pathways (BOXED) */}
+            <div className="lg:col-span-7 space-y-4">
+              <h3 className="text-lg sm:text-xl font-bold text-white">
+                Sobre os criativos (as artes e vídeos do anúncio), tem dois caminhos:
+              </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2.5">
-                <span className="text-xs font-mono text-[#00FFFF] font-bold block uppercase tracking-wider">
-                  Caminho 1: Material pronto
-                </span>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
-                  Você já tem o material pronto? Eu uso, testo e otimizo em cima dele.
-                </p>
-              </div>
+              <div className="space-y-3.5">
+                {/* Caminho 1 */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-cyan-500/20 hover:border-cyan-500/40 transition-all space-y-2.5 shadow-lg group">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-xs font-mono text-[#00FFFF] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+                      Caminho 1: Material pronto
+                    </span>
+                    <CheckCircle2 className="w-4 h-4 text-[#00FFFF]/70" />
+                  </div>
+                  <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
+                    Você já tem o material pronto? Eu uso, testo e otimizo em cima dele.
+                  </p>
+                </div>
 
-              <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2.5">
-                <span className="text-xs font-mono text-[#E71870] font-bold block uppercase tracking-wider">
-                  Caminho 2: Produção dedicada
-                </span>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
-                  Não tem? Eu produzo pra você, com ou sem apoio de inteligência artificial, dependendo do que fizer mais sentido pro seu caso.
-                </p>
+                {/* Caminho 2 */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-pink-500/20 hover:border-pink-500/40 transition-all space-y-2.5 shadow-lg group">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-xs font-mono text-[#E71870] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20">
+                      Caminho 2: Produção dedicada
+                    </span>
+                    <CheckCircle2 className="w-4 h-4 text-[#E71870]/70" />
+                  </div>
+                  <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
+                    Não tem? Eu produzo pra você, com ou sem apoio de inteligência artificial, dependendo do que fizer mais sentido pro seu caso.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Image vs video based on data */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.025] border border-white/[0.08] space-y-3">
-            <h3 className="text-base sm:text-lg font-bold text-white">
-              Decisão por dados, não achismo
-            </h3>
-            <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
+          {/* Wide Rectangular Card (Spanning full width below both columns, replacing empty space) */}
+          <div className="w-full p-6 sm:p-8 rounded-2xl bg-[#1A1A1E] border border-white/[0.1] hover:border-[#00FFFF]/30 transition-all space-y-3 shadow-lg">
+            <div className="flex items-center gap-2.5">
+              <BrandIcon icon={BarChart3} size="sm" variant="cyan-magenta" />
+              <h3 className="text-base sm:text-lg font-bold text-white">
+                Decisão por dados, não achismo
+              </h3>
+            </div>
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
               Pra decidir se o anúncio vai ser em imagem, vídeo ou os dois, eu analiso o que costuma performar melhor no seu nicho. Por exemplo: pra petshop, análises mostram que vídeo geralmente converte mais que imagem, nesse caso, testamos primeiro em vídeo pra otimizar o resultado mais rápido. Se o nicho pedir imagem, ou os dois formatos, seguimos por ali. Sempre com base em dado, não em achismo.
             </p>
           </div>
         </section>
 
-        {/* 4. O que eu preciso de você */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#18181B] border border-white/[0.08] shadow-xl space-y-6">
-          <div>
-            <span className="text-xs font-mono uppercase text-yellow-400 block mb-2 font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* TASK 2 & 4: REAL CAMPAIGN IMAGERY STRIP + TYPOGRAPHIC RESULT HIGHLIGHT    */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2">
+            <div className="space-y-2 max-w-2xl">
+              {/* Task 4: Typographic Result Highlight Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#00FFFF]/15 via-[#C754F0]/20 to-[#E71870]/15 border border-[#00FFFF]/30 shadow-[0_0_15px_rgba(0,255,255,0.15)]">
+                <span className="w-2 h-2 rounded-full bg-[#00FFFF] animate-pulse" />
+                <span className="text-xs font-mono font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-purple-200 to-[#E71870]">
+                  Alcance real gerado para negócios locais
+                </span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Exemplo real de Anuncio produzido
+              </h3>
+              <p className="text-sm sm:text-base text-gray-300">
+                Criativos usados na campanha de Facebook Ads (MetaAds) para a <strong className="text-white">Tapiocaria Dona Moça</strong> em Salvador/BA (Post Feed, Stories e Video).
+              </p>
+            </div>
+
+            <div className="self-start md:self-end shrink-0 pt-1">
+              <a
+                href={AGENCY_INFO.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF]/15 hover:from-[#00FFFF]/25 to-[#C754F0]/15 hover:to-[#C754F0]/25 border border-[#00FFFF]/40 hover:border-[#00FFFF] text-white text-sm font-semibold transition-all shadow-sm group"
+              >
+                <span>Saiba mais deste serviço</span>
+                <ArrowRight className="w-4 h-4 text-[#00FFFF] group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+          </div>
+
+          {/* Gallery: 3 images side by side on desktop, horizontal scroll carousel on mobile */}
+          <div className="relative">
+            <div className="flex md:grid md:grid-cols-3 gap-5 items-start overflow-x-auto md:overflow-visible pb-4 md:pb-0 scrollbar-none snap-x snap-mandatory">
+              {tapiocaCreatives.map((item) => (
+                <div
+                  key={item.title}
+                  className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center rounded-2xl bg-[#1A1A1E] border border-white/10 hover:border-[#00FFFF]/40 transition-all overflow-hidden flex flex-col group shadow-xl"
+                >
+                  {/* Image container with specific aspect ratio: 4:5 for feed, 9:16 for stories */}
+                  <div className={`relative w-full bg-[#121214] overflow-hidden border-b border-white/10 ${item.aspectClass}`}>
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-bold text-[#00FFFF] border border-white/15">
+                      {item.tag}
+                    </div>
+                  </div>
+
+                  {/* Caption */}
+                  <div className="p-4 sm:p-5 space-y-1.5 flex-1 flex flex-col justify-between">
+                    <h4 className="text-sm sm:text-base font-bold text-white group-hover:text-[#00FFFF] transition-colors">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Mobile swipe helper */}
+            <div className="sm:hidden text-center text-[11px] font-mono text-gray-400 pt-1">
+              ← Deslize para ver todos os criativos →
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 4. O que eu preciso de você (UNBOXED OUTER CONTAINER + BOXED REQUISITOS)  */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-2">
+          <div className="space-y-2">
+            <span className="text-[14px] font-mono uppercase text-yellow-400 block font-bold tracking-wider">
               ALINHAMENTO DE CONTEÚDO
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
               O que eu preciso de você
             </h2>
-            <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-200 leading-relaxed max-w-3xl">
               Se eu for produzir os criativos, pra manter autenticidade e gerar resultado real (não um anúncio genérico), eu preciso de material seu:
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/5 space-y-2">
-              <div className="flex items-center gap-2 text-white font-bold text-base sm:text-lg">
-                <Camera className="w-5 h-5 text-[#00FFFF]" />
-                <span>Produto físico</span>
+            <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-cyan-500/30 transition-all space-y-3 shadow-lg">
+              <div className="flex items-center gap-3">
+                <BrandIcon icon={Camera} size="md" variant="cyan-magenta" />
+                <h3 className="text-lg font-bold text-white">Produto físico</h3>
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
                 Fotos reais e, se possível, um vídeo mostrando o produto em uso.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/5 space-y-2">
-              <div className="flex items-center gap-2 text-white font-bold text-base sm:text-lg">
-                <FileCheck className="w-5 h-5 text-[#E71870]" />
-                <span>Serviço</span>
+            <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-pink-500/30 transition-all space-y-3 shadow-lg">
+              <div className="flex items-center gap-3">
+                <BrandIcon icon={FileCheck} size="md" variant="cyan-magenta" />
+                <h3 className="text-lg font-bold text-white">Serviço</h3>
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
                 Resultados reais, feedback de cliente ou uma boa explicação de como funciona.
               </p>
             </div>
           </div>
 
-          <p className="text-sm text-gray-300 leading-relaxed italic bg-white/[0.02] p-4 rounded-xl border border-white/5">
+          <p className="text-sm sm:text-base text-gray-300 leading-relaxed italic bg-white/[0.02] p-4 sm:p-5 rounded-2xl border border-white/5 max-w-4xl">
             Sem esse material, eu ainda consigo criar com apoio de IA ou imagem de referência, mas quanto mais real for o que você me manda, mais autêntico (e mais resultado) o anúncio traz.
           </p>
         </section>
 
-        {/* 5. Bônus / diferencial (2 items) */}
-        <section className="space-y-6">
+        {/* ========================================================================= */}
+        {/* 5. Bônus / diferencial (2 items) (KEEP BOXED: discrete comparable items)  */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-2">
           <div>
-            <span className="text-xs font-mono uppercase text-emerald-400 block mb-2 font-bold tracking-wider">
+            <span className="text-[14px] font-mono uppercase text-emerald-400 block mb-2 font-bold tracking-wider">
               TRANSPARÊNCIA TOTAL
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
@@ -233,29 +358,25 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-7 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <BarChart3 className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <strong className="text-white text-base sm:text-lg block">
+            <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
+              <BrandIcon icon={BarChart3} size="lg" variant="emerald" />
+              <div className="space-y-2">
+                <strong className="text-white text-lg sm:text-xl block font-bold">
                   Relatório de performance simplificado
                 </strong>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
                   Relatório de performance simplificado, sem economês, te mostro o que os números significam de verdade pro seu negócio, não só gráfico bonito.
                 </p>
               </div>
             </div>
 
-            <div className="p-7 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <Clock className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <strong className="text-white text-base sm:text-lg block">
+            <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
+              <BrandIcon icon={Clock} size="lg" variant="emerald" />
+              <div className="space-y-2">
+                <strong className="text-white text-lg sm:text-xl block font-bold">
                   Otimização estendida nos primeiros 15 dias
                 </strong>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
                   Otimização estendida nos primeiros 15 dias, sem custo adicional, período em que ajusto a campanha com mais atenção enquanto os dados de performance ainda estão se estabilizando.
                 </p>
               </div>
@@ -263,22 +384,26 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
           </div>
         </section>
 
-        {/* 6. Valor */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-white/[0.04] to-transparent border-l-4 border-l-[#00FFFF] border border-white/[0.08] space-y-3">
-          <span className="text-xs font-mono uppercase text-cyan-300 block font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* 6. Valor (PARTIAL ACCENT TREATMENT KEPT, NO FULL HEAVY BOX)              */}
+        {/* ========================================================================= */}
+        <section className="py-6 border-l-4 border-l-[#00FFFF] pl-6 sm:pl-8 space-y-3 max-w-4xl">
+          <span className="text-[14px] font-mono uppercase text-cyan-300 block font-bold tracking-wider">
             RETORNO E VISIBILIDADE
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Por que investir em tráfego pago agora?
           </h2>
-          <p className="text-base sm:text-lg text-gray-100 leading-relaxed font-normal">
+          <p className="text-base sm:text-lg md:text-xl text-gray-100 leading-relaxed font-normal">
             Não adianta ter o melhor produto ou serviço da região se ninguém sabe que ele existe. Tráfego pago bem feito coloca seu negócio na frente de quem já está procurando, sem depender só de indicação, sem esperar o cliente &ldquo;passar na frente da loja&rdquo;.
           </p>
         </section>
 
-        {/* 7. Investimento + observação sobre resultado */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#141416] border border-white/[0.08] space-y-3 shadow-xl">
-          <span className="text-xs font-mono uppercase text-gray-400 block font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* 7. Investimento + observação (UNBOXED: Plain text with generous spacing) */}
+        {/* ========================================================================= */}
+        <section className="py-4 space-y-4 max-w-4xl">
+          <span className="text-[14px] font-mono uppercase text-gray-400 block font-bold tracking-wider">
             CLAREZA SOBRE VALORES
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
@@ -289,18 +414,20 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
           </p>
         </section>
 
-        {/* 8. Dúvidas frequentes (4 items) */}
-        <section className="space-y-6">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <HelpCircle className="w-5 h-5 text-[#C754F0]" />
-              <span className="text-xs font-mono uppercase text-[#C754F0] font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* 8. Dúvidas frequentes (4 items) (KEEP BOXED: discrete accordion items)    */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-2">
+          <div className="flex items-center gap-3">
+            <BrandIcon icon={HelpCircle} size="md" variant="cyan-magenta" />
+            <div>
+              <span className="text-[14px] font-mono uppercase text-[#C754F0] font-bold tracking-wider block">
                 PERGUNTAS E RESPOSTAS
               </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+                Dúvidas frequentes sobre tráfego pago
+              </h2>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-              Dúvidas frequentes sobre tráfego pago
-            </h2>
           </div>
 
           <div className="space-y-3.5">
@@ -309,7 +436,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
               return (
                 <div
                   key={faq.q}
-                  className="rounded-2xl bg-[#18181B] border border-white/[0.08] overflow-hidden transition-all"
+                  className="rounded-2xl bg-[#18181B] border border-white/[0.08] hover:border-white/[0.15] overflow-hidden transition-all shadow-sm"
                 >
                   <button
                     type="button"
@@ -334,7 +461,9 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
           </div>
         </section>
 
-        {/* 9. Dual CTA Buttons */}
+        {/* ========================================================================= */}
+        {/* 9. Dual CTA Buttons + 10. Discreet Footer Note                            */}
+        {/* ========================================================================= */}
         <section className="pt-8 border-t border-white/10 space-y-4">
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <a
@@ -359,8 +488,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
             </a>
           </div>
 
-          {/* 10. Footer CTA: Discreet */}
-          <p className="text-sm sm:text-base text-gray-300 text-center sm:text-left pt-2 font-medium">
+          <p className="text-[17px] text-gray-300 text-center sm:text-left pt-2 font-medium">
             Ficou com alguma dúvida? Fala comigo no WhatsApp, sem compromisso.
           </p>
         </section>

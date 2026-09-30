@@ -12,10 +12,13 @@ import {
   Star,
   Search,
   CalendarCheck,
-  Award,
+  Building2,
+  Image,
+  FileText,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
+import { BrandIcon } from './BrandIcon';
 
 interface GoogleMeuNegocioPageProps {
   onNavigate?: (page: PageView, anchor?: string) => void;
@@ -51,7 +54,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
   const faqs = [
     {
       q: 'Meu negócio já tem perfil no Google, ainda preciso desse serviço?',
-      a: 'Se não estiver 100% otimizado — fotos, categorias, avaliações, descrição — sim. A maioria dos perfis existe, mas está incompleto ou mal posicionado.',
+      a: 'Se não estiver 100% otimizado, fotos, categorias, avaliações, descrição, sim. A maioria dos perfis existe, mas está incompleto ou mal posicionado.',
     },
     {
       q: 'Em quanto tempo aparece resultado?',
@@ -59,11 +62,11 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
     },
     {
       q: 'Preciso pagar pra aparecer no Google Meu Negócio?',
-      a: 'Não — é um posicionamento orgânico, gratuito. O investimento é só no meu serviço de otimização.',
+      a: 'Não, é um posicionamento orgânico, gratuito. O investimento é só no meu serviço de otimização.',
     },
     {
       q: 'Isso substitui o tráfego pago?',
-      a: 'Não, são complementares — um traz visibilidade orgânica constante, o outro impulsiona resultado mais rápido. Muitos clientes usam os dois juntos.',
+      a: 'Não, são complementares, um traz visibilidade orgânica constante, o outro impulsiona resultado mais rápido. Muitos clientes usam os dois juntos.',
     },
   ];
 
@@ -75,7 +78,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
         <div className="absolute -top-16 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-emerald-500/15 via-teal-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-16 right-1/4 w-[500px] h-[500px] bg-gradient-to-bl from-[#00FFFF]/15 via-cyan-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Back link */}
           <div className="mb-6">
             <a
@@ -91,7 +94,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
 
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono text-emerald-400 font-bold">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono text-emerald-400 font-bold shadow-sm">
                 <MapPin className="w-3.5 h-3.5" />
                 <span>ÁREA 03 • TRÁFEGO ORGÂNICO</span>
               </span>
@@ -105,120 +108,169 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
             </h1>
 
             <p className="text-lg sm:text-2xl text-gray-200 font-medium max-w-3xl leading-relaxed">
-              Otimização completa do seu Perfil da Empresa no Google, pra quem já é seu cliente te achar fácil — e pra quem nunca ouviu falar de você também.
+              Otimização completa do seu Perfil da Empresa no Google, pra quem já é seu cliente te achar fácil, e pra quem nunca ouviu falar de você também.
             </p>
           </div>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <main className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        {/* 2. O que é / pra quem é */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#1E1E22] border border-white/[0.08] shadow-xl space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase text-[#00FFFF] font-bold tracking-wider">
-            <Search className="w-4 h-4" />
-            <span>O QUE É E PARA QUEM É</span>
+      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-20">
+        {/* ========================================================================= */}
+        {/* 2. O que é / pra quem é (UNBOXED: Plain text directly on page background) */}
+        {/* ========================================================================= */}
+        <section className="py-2 space-y-4 max-w-4xl">
+          <div className="inline-flex items-center gap-2 font-mono uppercase text-emerald-400 font-bold tracking-wider">
+            <BrandIcon icon={Search} size="sm" variant="cyan-magenta" />
+            <span className="text-[14px]">O QUE É E PARA QUEM É?</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
             Para negócios locais que querem destaque no mapa e na busca
           </h2>
-          <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
-            Trabalho na otimização do seu Perfil da Empresa no Google (Google Meu Negócio), pensado pra negócios locais que precisam aparecer nas buscas e no mapa quando alguém procura o que eles oferecem na região — mesmo sem nunca ter ouvido falar da marca antes.
+
+          <p className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed font-normal pt-1">
+            Trabalho na otimização do seu Perfil da Empresa no Google (Google Meu Negócio), pensado pra negócios locais que precisam aparecer nas buscas e no mapa quando alguém procura o que eles oferecem na região, mesmo sem nunca ter ouvido falar da marca antes.
           </p>
         </section>
 
-        {/* 3. Como funciona */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#1E1E22] border border-white/[0.08] shadow-xl space-y-8">
-          <div>
-            <span className="text-xs font-mono uppercase text-emerald-400 block mb-2 font-bold tracking-wider">
-              DIAGNÓSTICO E EXECUÇÃO
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-3">
-              Como funciona o processo
-            </h2>
-            <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              Analiso como seu negócio aparece hoje no Google — se o perfil existe, se está completo, se as informações estão certas, se tem fotos, avaliações, categoria certa — e ajusto tudo pra melhorar o posicionamento nas buscas locais. Isso inclui otimização de descrição, categorias, horário, fotos profissionais e uma estratégia pra conseguir mais avaliações reais de clientes.
-            </p>
-          </div>
+        {/* ========================================================================= */}
+        {/* 3. Como funciona (ASYMMETRIC DESKTOP LAYOUT + UNBOXED OUTER CONTAINER)   */}
+        {/* ========================================================================= */}
+        <section className="space-y-8 pt-2">
+          {/* Asymmetric layout on desktop: Left column diagnosis & intro, Right column 3 step cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left Column (5 cols on desktop): Intro Narrative */}
+            <div className="lg:col-span-5 space-y-5">
+              {/* Typographic Result Highlight Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/15 via-[#00FFFF]/15 to-emerald-500/15 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-xs font-mono font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-200 to-emerald-300">
+                  Visibilidade no Google Maps
+                </span>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2">
-              <span className="text-xs font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                01. Configuração Precisa
-              </span>
-              <h3 className="text-base sm:text-lg font-bold text-white">Categorias e Informações</h3>
-              <p className="text-sm text-gray-300 leading-relaxed">
-                Categorias primárias e secundárias corretas, horários de funcionamento, raio de atendimento e telefones verificados.
+              <div className="space-y-2">
+                <span className="text-[14px] font-mono uppercase text-emerald-400 block font-bold tracking-wider">
+                  DIAGNÓSTICO E EXECUÇÃO
+                </span>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                  Como funciona o processo?
+                </h2>
+              </div>
+
+              <p className="text-base sm:text-lg text-gray-200 leading-relaxed pt-1">
+                Analiso como seu negócio aparece hoje no Google, se o perfil existe, se está completo, se as informações estão certas, se tem fotos, avaliações, categoria certa, e ajusto tudo pra melhorar o posicionamento nas buscas locais. Isso inclui otimização de descrição, categorias, horário, fotos profissionais e uma estratégia pra conseguir mais avaliações reais de clientes.
               </p>
+
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent border border-emerald-500/20 text-xs sm:text-sm text-gray-300 font-mono space-y-1 shadow-sm">
+                <span className="text-emerald-400 font-bold block">OBJETIVO CENTRAL:</span>
+                <span>Alcançar os 3 primeiros lugares do mapa (Google Local 3-Pack).</span>
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2">
-              <span className="text-xs font-mono text-[#00FFFF] font-bold block uppercase tracking-wider">
-                02. Imagem e Autoridade
-              </span>
-              <h3 className="text-base sm:text-lg font-bold text-white">Fotos e Apresentação</h3>
-              <p className="text-sm text-gray-300 leading-relaxed">
-                Fotos atraentes do espaço, produtos, serviços e equipe com títulos geolocalizados e padrão visual profissional.
-              </p>
-            </div>
+            {/* Right Column (7 cols on desktop): 3 Action Cards (BOXED) */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-emerald-500/40 transition-all space-y-2.5 shadow-lg group">
+                <div className="flex items-center gap-3">
+                  <BrandIcon icon={Building2} size="md" variant="cyan-magenta" />
+                  <div>
+                    <span className="text-xs font-mono text-emerald-400 font-bold block uppercase tracking-wider">
+                      01. Configuração Precisa
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-bold text-white">Categorias e Informações</h3>
+                  </div>
+                </div>
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal pl-1">
+                  Categorias primárias e secundárias corretas, horários de funcionamento, raio de atendimento e telefones verificados.
+                </p>
+              </div>
 
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2">
-              <span className="text-xs font-mono text-[#E71870] font-bold block uppercase tracking-wider">
-                03. Prova Social
-              </span>
-              <h3 className="text-base sm:text-lg font-bold text-white">Avaliações e Respostas</h3>
-              <p className="text-sm text-gray-300 leading-relaxed">
-                Estratégia para captar depoimentos reais de 5 estrelas e modelos de resposta com palavras-chave relevantes.
-              </p>
+              <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-cyan-500/40 transition-all space-y-2.5 shadow-lg group">
+                <div className="flex items-center gap-3">
+                  <BrandIcon icon={Image} size="md" variant="cyan" />
+                  <div>
+                    <span className="text-xs font-mono text-[#00FFFF] font-bold block uppercase tracking-wider">
+                      02. Imagem e Autoridade
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-bold text-white">Fotos e Apresentação</h3>
+                  </div>
+                </div>
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal pl-1">
+                  Fotos atraentes do espaço, produtos, serviços e equipe com títulos geolocalizados e padrão visual profissional.
+                </p>
+              </div>
+
+              <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-pink-500/40 transition-all space-y-2.5 shadow-lg group">
+                <div className="flex items-center gap-3">
+                  <BrandIcon icon={Star} size="md" variant="magenta" />
+                  <div>
+                    <span className="text-xs font-mono text-[#E71870] font-bold block uppercase tracking-wider">
+                      03. Prova Social
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-bold text-white">Avaliações e Respostas</h3>
+                  </div>
+                </div>
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal pl-1">
+                  Estratégia para captar depoimentos reais de 5 estrelas e modelos de resposta com palavras-chave relevantes.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* 4. O que eu preciso de você */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#18181B] border border-white/[0.08] shadow-xl space-y-6">
-          <div>
-            <span className="text-xs font-mono uppercase text-yellow-400 block mb-2 font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* 4. O que eu preciso de você (UNBOXED OUTER CONTAINER + BOXED REQUISITOS)  */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-2">
+          <div className="space-y-2">
+            <span className="text-[14px] font-mono uppercase text-yellow-400 block font-bold tracking-wider">
               O QUE EU PRECISO DE VOCÊ
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
               Materiais e acessos iniciais
             </h2>
-            <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              Acesso ao seu Perfil da Empresa no Google (ou te ajudo a criar, se ainda não tiver), fotos do seu espaço, produto ou equipe, e as informações certas do negócio — endereço, horário, categorias, serviços.
+            <p className="text-base sm:text-lg text-gray-200 leading-relaxed max-w-3xl">
+              Acesso ao seu Perfil da Empresa no Google (ou te ajudo a criar, se ainda não tiver), fotos do seu espaço, produto ou equipe, e as informações certas do negócio, endereço, horário, categorias, serviços.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-5 rounded-2xl bg-[#141416] border border-white/5 space-y-1.5">
-              <span className="text-xs font-mono text-emerald-400 font-bold block">ACESSO</span>
-              <h3 className="text-sm sm:text-base font-bold text-white">Painel do Perfil</h3>
-              <p className="text-xs sm:text-sm text-gray-300">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="p-6 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-emerald-500/30 transition-all space-y-2 shadow-lg">
+              <BrandIcon icon={ShieldCheck} size="md" variant="emerald" />
+              <span className="text-xs font-mono text-emerald-400 font-bold block uppercase">ACESSO</span>
+              <h3 className="text-base sm:text-lg font-bold text-white">Painel do Perfil</h3>
+              <p className="text-sm text-gray-300 leading-relaxed font-normal">
                 Acesso como administrador ou suporte para criação e validação do endereço junto ao Google.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#141416] border border-white/5 space-y-1.5">
-              <span className="text-xs font-mono text-[#00FFFF] font-bold block">IMAGENS</span>
-              <h3 className="text-sm sm:text-base font-bold text-white">Fotos Reais</h3>
-              <p className="text-xs sm:text-sm text-gray-300">
+            <div className="p-6 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-cyan-500/30 transition-all space-y-2 shadow-lg">
+              <BrandIcon icon={Image} size="md" variant="cyan" />
+              <span className="text-xs font-mono text-[#00FFFF] font-bold block uppercase">IMAGENS</span>
+              <h3 className="text-base sm:text-lg font-bold text-white">Fotos Reais</h3>
+              <p className="text-sm text-gray-300 leading-relaxed font-normal">
                 Fachada, recepção, produtos e rotina para gerar confiança imediata ao visitante.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#141416] border border-white/5 space-y-1.5">
-              <span className="text-xs font-mono text-[#E71870] font-bold block">DADOS</span>
-              <h3 className="text-sm sm:text-base font-bold text-white">Informações Oficiais</h3>
-              <p className="text-xs sm:text-sm text-gray-300">
+            <div className="p-6 rounded-2xl bg-[#1E1E22] border border-white/[0.08] hover:border-pink-500/30 transition-all space-y-2 shadow-lg">
+              <BrandIcon icon={FileText} size="md" variant="magenta" />
+              <span className="text-xs font-mono text-[#E71870] font-bold block uppercase">DADOS</span>
+              <h3 className="text-base sm:text-lg font-bold text-white">Informações Oficiais</h3>
+              <p className="text-sm text-gray-300 leading-relaxed font-normal">
                 Horários oficiais, telefone de atendimento, WhatsApp e lista detalhada de serviços prestados.
               </p>
             </div>
           </div>
         </section>
 
-        {/* 5. Bônus / diferencial (2 items) */}
-        <section className="space-y-6">
+        {/* ========================================================================= */}
+        {/* 5. Bônus / diferencial (2 items) (KEEP BOXED: discrete comparable items)  */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-2">
           <div>
-            <span className="text-xs font-mono uppercase text-emerald-400 block mb-2 font-bold tracking-wider">
+            <span className="text-[14px] font-mono uppercase text-emerald-400 block mb-2 font-bold tracking-wider">
               BÔNUS INCLUSOS
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
@@ -227,29 +279,25 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-7 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <Star className="w-5 h-5 fill-current" />
-              </div>
-              <div className="space-y-1.5">
-                <strong className="text-white text-base sm:text-lg block">
+            <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
+              <BrandIcon icon={Star} size="lg" variant="emerald" />
+              <div className="space-y-2">
+                <strong className="text-white text-lg sm:text-xl block font-bold">
                   Checklist de avaliações:
                 </strong>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
-                  Te ensino como pedir avaliação de cliente de um jeito natural, sem parecer forçado — isso pesa muito no ranqueamento local.
+                <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
+                  Te ensino como pedir avaliação de cliente de um jeito natural, sem parecer forçado, isso pesa muito no ranqueamento local.
                 </p>
               </div>
             </div>
 
-            <div className="p-7 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <CalendarCheck className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <strong className="text-white text-base sm:text-lg block">
+            <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
+              <BrandIcon icon={CalendarCheck} size="lg" variant="emerald" />
+              <div className="space-y-2">
+                <strong className="text-white text-lg sm:text-xl block font-bold">
                   Revisão trimestral gratuita:
                 </strong>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
                   Revisão trimestral gratuita do perfil nos primeiros 3 meses, pra garantir que tudo continua otimizado.
                 </p>
               </div>
@@ -257,44 +305,50 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
           </div>
         </section>
 
-        {/* 6. Valor */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-white/[0.04] to-transparent border-l-4 border-l-emerald-400 border border-white/[0.08] space-y-3">
-          <span className="text-xs font-mono uppercase text-emerald-300 block font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* 6. Valor (PARTIAL ACCENT TREATMENT KEPT, NO FULL HEAVY BOX)              */}
+        {/* ========================================================================= */}
+        <section className="py-6 border-l-4 border-l-emerald-400 pl-6 sm:pl-8 space-y-3 max-w-4xl">
+          <span className="text-[14px] font-mono uppercase text-emerald-300 block font-bold tracking-wider">
             O VALOR DE ESTAR VISÍVEL
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Por que otimizar seu perfil no Google?
           </h2>
-          <p className="text-base sm:text-lg text-gray-100 leading-relaxed font-normal">
-            Muita gente pesquisa no Google antes de decidir onde comprar ou contratar — se seu negócio não aparece bem ali, ou aparece incompleto, você perde cliente pra concorrente que só tá mais visível, não necessariamente melhor.
+          <p className="text-base sm:text-lg md:text-xl text-gray-100 leading-relaxed font-normal">
+            Muita gente pesquisa no Google antes de decidir onde comprar ou contratar, se seu negócio não aparece bem ali, ou aparece incompleto, você perde cliente pra concorrente que só tá mais visível, não necessariamente melhor.
           </p>
         </section>
 
-        {/* 7. Investimento */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#141416] border border-white/[0.08] space-y-3 shadow-xl">
-          <span className="text-xs font-mono uppercase text-gray-400 block font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* 7. Investimento (UNBOXED: Plain text with generous spacing)              */}
+        {/* ========================================================================= */}
+        <section className="py-4 space-y-4 max-w-4xl">
+          <span className="text-[14px] font-mono uppercase text-gray-400 block font-bold tracking-wider">
             INVESTIMENTO SOB MEDIDA
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Investimento transparente
           </h2>
           <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-            O investimento nesse serviço é acessível e definido conforme o tamanho e a complexidade do seu negócio — os valores certos a gente fecha numa conversa rápida, olhando seu caso.
+            O investimento nesse serviço é acessível e definido conforme o tamanho e a complexidade do seu negócio, os valores certos a gente fecha numa conversa rápida, olhando seu caso.
           </p>
         </section>
 
-        {/* 8. Dúvidas frequentes (4 items) */}
-        <section className="space-y-6">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <HelpCircle className="w-5 h-5 text-emerald-400" />
-              <span className="text-xs font-mono uppercase text-emerald-400 font-bold tracking-wider">
+        {/* ========================================================================= */}
+        {/* 8. Dúvidas frequentes (4 items) (KEEP BOXED: discrete accordion items)    */}
+        {/* ========================================================================= */}
+        <section className="space-y-6 pt-2">
+          <div className="flex items-center gap-3">
+            <BrandIcon icon={HelpCircle} size="md" variant="emerald" />
+            <div>
+              <span className="text-[14px] font-mono uppercase text-emerald-400 font-bold tracking-wider block">
                 PERGUNTAS E RESPOSTAS
               </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+                Dúvidas frequentes sobre Google Meu Negócio
+              </h2>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-              Dúvidas frequentes sobre Google Meu Negócio
-            </h2>
           </div>
 
           <div className="space-y-3.5">
@@ -303,7 +357,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
               return (
                 <div
                   key={faq.q}
-                  className="rounded-2xl bg-[#18181B] border border-white/[0.08] overflow-hidden transition-all"
+                  className="rounded-2xl bg-[#18181B] border border-white/[0.08] hover:border-white/[0.15] overflow-hidden transition-all shadow-sm"
                 >
                   <button
                     type="button"
@@ -328,7 +382,9 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
           </div>
         </section>
 
-        {/* 9. Dual CTA Buttons */}
+        {/* ========================================================================= */}
+        {/* 9. Dual CTA Buttons + 10. Discreet Footer Note                            */}
+        {/* ========================================================================= */}
         <section className="pt-8 border-t border-white/10 space-y-4">
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <a
@@ -353,8 +409,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
             </a>
           </div>
 
-          {/* 10. Footer CTA: Discreet */}
-          <p className="text-sm sm:text-base text-gray-300 text-center sm:text-left pt-2 font-medium">
+          <p className="text-[17px] text-gray-300 text-center sm:text-left pt-2 font-medium">
             Ficou com alguma dúvida? Fala comigo no WhatsApp, sem compromisso.
           </p>
         </section>

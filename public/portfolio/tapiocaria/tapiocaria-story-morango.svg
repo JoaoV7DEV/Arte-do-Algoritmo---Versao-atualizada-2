@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgStory" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A0D15"/>
+      <stop offset="35%" stop-color="#281121"/>
+      <stop offset="70%" stop-color="#1B0C17"/>
+      <stop offset="100%" stop-color="#10060E"/>
+    </linearGradient>
+    <linearGradient id="berryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2A7A"/>
+      <stop offset="100%" stop-color="#D61858"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00FFFF"/>
+      <stop offset="100%" stop-color="#00B8D9"/>
+    </linearGradient>
+    <linearGradient id="chocolateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E3017"/>
+      <stop offset="100%" stop-color="#34180A"/>
+    </linearGradient>
+    <linearGradient id="storyStickerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E71870"/>
+      <stop offset="50%" stop-color="#C754F0"/>
+      <stop offset="100%" stop-color="#00FFFF"/>
+    </linearGradient>
+    <filter id="glowStory" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="30" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadowStory" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.75"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas (9:16 Ratio) -->
+  <rect width="720" height="1280" fill="url(#bgStory)"/>
+
+  <!-- Ambient Glow Spots -->
+  <circle cx="200" cy="400" r="320" fill="#E71870" opacity="0.16" filter="url(#glowStory)"/>
+  <circle cx="580" cy="300" r="280" fill="#C754F0" opacity="0.14" filter="url(#glowStory)"/>
+  <circle cx="360" cy="980" r="260" fill="#00FFFF" opacity="0.10" filter="url(#glowStory)"/>
+
+  <!-- Instagram Story Progress Bars -->
+  <g transform="translate(24, 20)">
+    <rect x="0" y="0" width="216" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.9"/>
+    <rect x="226" y="0" width="216" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.4"/>
+    <rect x="452" y="0" width="216" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.4"/>
+  </g>
+
+  <!-- Instagram Story Header -->
+  <g transform="translate(28, 42)">
+    <!-- Avatar -->
+    <circle cx="30" cy="30" r="26" fill="url(#berryGrad)"/>
+    <text x="30" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="900" text-anchor="middle" fill="#FFFFFF">DM</text>
+    
+    <!-- User Handles -->
+    <text x="70" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">tapiocariadonamoca</text>
+    <text x="70" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#DDB2D4">Patrocinado • Meta Ads Stories</text>
+    
+    <!-- Format Badge -->
+    <rect x="520" y="14" width="140" height="32" rx="16" fill="#E71870" fill-opacity="0.25" stroke="#E71870" stroke-width="1.5"/>
+    <text x="590" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle" fill="#FFA1D2">STORIES 9:16</text>
+  </g>
+
+  <!-- Story Hook & Catchphrase (Top Area) -->
+  <g transform="translate(40, 150)">
+    <rect width="210" height="38" rx="19" fill="#E71870" fill-opacity="0.9"/>
+    <text x="105" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle" fill="#FFFFFF">🍓 SOBREMESA DO DIA</text>
+    
+    <text x="0" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="38" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">
+      Impossível resistir.
+    </text>
+    <text x="0" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#FF8EC3">
+      Nutella de verdade com morango fresco.
+    </text>
+  </g>
+
+  <!-- Food Illustration / Composition (Artisanal Plate in Vertical Center) -->
+  <g filter="url(#shadowStory)">
+    <rect x="40" y="320" width="640" height="490" rx="32" fill="#180D18" stroke="#421C38" stroke-width="2"/>
+    
+    <!-- Plate base glow -->
+    <ellipse cx="360" cy="570" rx="270" ry="160" fill="#0A040A" opacity="0.8"/>
+
+    <!-- Folded Tapioca Body -->
+    <path d="M 140,610 C 150,470 260,420 430,430 C 560,440 600,530 580,625 C 470,665 280,665 140,610 Z" fill="#FDFBF7" filter="url(#shadowStory)"/>
+    
+    <!-- Chocolate / Nutella Drizzle lines -->
+    <path d="M 190,550 Q 280,500 370,540 T 540,515" stroke="url(#chocolateGrad)" stroke-width="18" stroke-linecap="round" fill="none"/>
+    <path d="M 220,600 Q 320,550 400,585 T 530,570" stroke="url(#chocolateGrad)" stroke-width="14" stroke-linecap="round" fill="none"/>
+    <path d="M 260,630 Q 360,590 440,615 T 510,610" stroke="url(#chocolateGrad)" stroke-width="10" stroke-linecap="round" fill="none"/>
+
+    <!-- Fresh Strawberries (Morangos fatiados) -->
+    <!-- Strawberry 1 -->
+    <g transform="translate(230, 520) rotate(-15)">
+      <path d="M 0,0 C 20,-20 50,0 45,35 C 40,60 15,70 0,60 C -15,70 -40,60 -45,35 C -50,0 -20,-20 0,0 Z" fill="#FF1E60"/>
+      <ellipse cx="-8" cy="20" rx="2" ry="4" fill="#FFE27A" opacity="0.8"/>
+      <ellipse cx="10" cy="30" rx="2" ry="4" fill="#FFE27A" opacity="0.8"/>
+      <ellipse cx="-2" cy="45" rx="2" ry="4" fill="#FFE27A" opacity="0.8"/>
+      <!-- Green crown -->
+      <path d="M -15,-2 Q 0,-15 0,0 Q 0,-15 15,-2 Q 0,4 0,0 Z" fill="#2ECC71"/>
+    </g>
+
+    <!-- Strawberry 2 -->
+    <g transform="translate(360, 500) rotate(20)">
+      <path d="M 0,0 C 20,-20 50,0 45,35 C 40,60 15,70 0,60 C -15,70 -40,60 -45,35 C -50,0 -20,-20 0,0 Z" fill="#E60046"/>
+      <ellipse cx="-8" cy="20" rx="2" ry="4" fill="#FFE27A" opacity="0.8"/>
+      <ellipse cx="12" cy="32" rx="2" ry="4" fill="#FFE27A" opacity="0.8"/>
+      <!-- Green crown -->
+      <path d="M -15,-2 Q 0,-15 0,0 Q 0,-15 15,-2 Q 0,4 0,0 Z" fill="#27AE60"/>
+    </g>
+
+    <!-- Strawberry 3 (cut slice) -->
+    <g transform="translate(470, 540) rotate(-30)">
+      <ellipse cx="0" cy="0" rx="28" ry="36" fill="#FF2E70"/>
+      <ellipse cx="0" cy="0" rx="18" ry="24" fill="#FFA5C0"/>
+      <path d="M 0,-15 L 0,15 M -10,0 L 10,0" stroke="#FFD1DF" stroke-width="2"/>
+    </g>
+
+    <!-- Price Tag Badge in composition -->
+    <g transform="translate(460, 350)">
+      <rect width="190" height="42" rx="21" fill="#1A0D15" stroke="#E71870" stroke-width="2"/>
+      <text x="95" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="#FF8EC3">NUTELLA + MORANGO</text>
+    </g>
+  </g>
+
+  <!-- Interactive Story Link Sticker (Middle-Bottom) -->
+  <g transform="translate(110, 860)" filter="url(#shadowStory)">
+    <!-- Sticker background -->
+    <rect width="500" height="72" rx="36" fill="#FFFFFF" stroke="#00FFFF" stroke-width="2"/>
+    <!-- Link Icon -->
+    <circle cx="48" cy="36" r="22" fill="#E71870"/>
+    <path d="M 40,36 C 40,32 44,28 48,28 L 50,28 M 46,44 L 48,44 C 52,44 56,40 56,36" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <!-- Sticker Call to Action -->
+    <text x="260" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="900" text-anchor="middle" fill="#140612">
+      PEDIR PELO WHATSAPP ➔
+    </text>
+  </g>
+
+  <text x="360" y="970" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" text-anchor="middle" fill="#D6BACF">
+    Entrega rápida em Salvador • Peça quentinha
+  </text>
+
+  <!-- Instagram Story Bottom Swipe Up Indicator -->
+  <g transform="translate(360, 1150)">
+    <circle cx="0" cy="0" r="32" fill="#20111D" stroke="#E71870" stroke-width="1.5"/>
+    <path d="M -10,6 L 0,-6 L 10,6" stroke="#00FFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <text x="0" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#FFFFFF">
+      Deslize para pedir
+    </text>
+    <text x="0" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="400" text-anchor="middle" fill="#9C7795">
+      tapiocariadonamoca.com.br
+    </text>
+  </g>
+</svg>

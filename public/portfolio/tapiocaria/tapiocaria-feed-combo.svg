@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgCombo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E1716"/>
+      <stop offset="40%" stop-color="#11221F"/>
+      <stop offset="100%" stop-color="#0A1110"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="juiceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF7A00"/>
+      <stop offset="50%" stop-color="#FF9E00"/>
+      <stop offset="100%" stop-color="#E65100"/>
+    </linearGradient>
+    <linearGradient id="cyanMagenta3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00FFFF"/>
+      <stop offset="100%" stop-color="#E71870"/>
+    </linearGradient>
+    <filter id="glowCombo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="25" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadowCombo" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.65"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas (4:5 Ratio) -->
+  <rect width="800" height="1000" fill="url(#bgCombo)"/>
+
+  <!-- Ambient Glow Spots -->
+  <circle cx="200" cy="300" r="300" fill="#10B981" opacity="0.12" filter="url(#glowCombo)"/>
+  <circle cx="650" cy="450" r="260" fill="#FF7A00" opacity="0.14" filter="url(#glowCombo)"/>
+  <circle cx="400" cy="850" r="220" fill="#00FFFF" opacity="0.08" filter="url(#glowCombo)"/>
+
+  <!-- Instagram / Meta Ads Header Bar -->
+  <rect x="40" y="44" width="720" height="70" rx="18" fill="#121D1B" fill-opacity="0.9" stroke="#253C37" stroke-width="1.5"/>
+  <circle cx="78" cy="79" r="22" fill="url(#emeraldGrad)"/>
+  <text x="78" y="86" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="900" text-anchor="middle" fill="#FFFFFF">DM</text>
+  <text x="115" y="72" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">tapiocariadonamoca</text>
+  <text x="115" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#80ABA1">Patrocinado • Meta Ads Feed</text>
+  
+  <!-- Location Pill -->
+  <rect x="550" y="62" width="180" height="34" rx="17" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="1"/>
+  <text x="640" y="84" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle" fill="#6EE7B7">SALVADOR • PITUBA</text>
+
+  <!-- Food Illustration / Composition (Combo Board) -->
+  <g filter="url(#shadowCombo)">
+    <rect x="60" y="160" width="680" height="490" rx="30" fill="#141E1C" stroke="#233531" stroke-width="2"/>
+    
+    <!-- Base shadows -->
+    <ellipse cx="310" cy="430" rx="210" ry="120" fill="#090E0D" opacity="0.8"/>
+    <ellipse cx="580" cy="440" rx="90" ry="45" fill="#090E0D" opacity="0.8"/>
+
+    <!-- Left: Folded Savory Tapioca -->
+    <path d="M 130,440 C 140,310 230,265 380,280 C 470,290 500,360 480,445 C 385,475 235,475 130,440 Z" fill="#FDFBF7" filter="url(#shadowCombo)"/>
+    
+    <!-- Golden toasted spots -->
+    <circle cx="240" cy="340" r="15" fill="#D48B30" opacity="0.45"/>
+    <circle cx="340" cy="330" r="18" fill="#E2A855" opacity="0.5"/>
+    <circle cx="410" cy="385" r="14" fill="#D48B30" opacity="0.4"/>
+    
+    <!-- Melty cream filling -->
+    <path d="M 170,440 C 210,470 250,460 290,445 C 335,475 385,465 435,445" fill="#FFF3C4" stroke="#F6D55C" stroke-width="4.5"/>
+    
+    <!-- Fresh chives -->
+    <circle cx="270" cy="410" r="4.5" fill="#10B981"/>
+    <circle cx="330" cy="395" r="5" fill="#059669"/>
+    <circle cx="385" cy="420" r="4.5" fill="#34D399"/>
+
+    <!-- Right: Glass of Fresh Tropical Orange / Passion Fruit Juice -->
+    <g transform="translate(520, 230)">
+      <!-- Straw -->
+      <line x1="90" y1="20" x2="115" y2="-30" stroke="#00FFFF" stroke-width="6" stroke-linecap="round"/>
+      <!-- Glass body -->
+      <path d="M 40,50 L 50,210 C 50,225 130,225 130,210 L 140,50 Z" fill="#203530" stroke="#456E64" stroke-width="2.5"/>
+      <!-- Juice fill -->
+      <path d="M 44,75 L 52,206 C 53,218 127,218 128,206 L 136,75 Z" fill="url(#juiceGrad)"/>
+      <!-- Ice cubes floating -->
+      <rect x="65" y="85" width="22" height="22" rx="4" fill="#FFFFFF" opacity="0.45" transform="rotate(15 76 96)"/>
+      <rect x="95" y="105" width="20" height="20" rx="4" fill="#FFFFFF" opacity="0.45" transform="rotate(-20 105 115)"/>
+      <!-- Orange slice on rim -->
+      <circle cx="40" cy="50" r="24" fill="#FF7A00" stroke="#FFA94D" stroke-width="2.5"/>
+      <circle cx="40" cy="50" r="18" fill="#FFA94D"/>
+      <line x1="40" y1="32" x2="40" y2="68" stroke="#FF7A00" stroke-width="2.5"/>
+      <line x1="22" y1="50" x2="58" y2="50" stroke="#FF7A00" stroke-width="2.5"/>
+    </g>
+
+    <!-- Floating Badge: Combo Almoço -->
+    <g transform="translate(90, 190)">
+      <rect width="190" height="40" rx="20" fill="#10B981" fill-opacity="0.95"/>
+      <text x="95" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle" fill="#0A1C17">⚡ COMBO DO DIA</text>
+    </g>
+
+    <!-- Combo Tag Badge -->
+    <g transform="translate(480, 190)">
+      <rect width="220" height="40" rx="20" fill="#121D1B" stroke="#10B981" stroke-width="1.5"/>
+      <text x="110" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle" fill="#6EE7B7">TAPIOCA + SUCO 300ML</text>
+    </g>
+  </g>
+
+  <!-- Typography & Offer (Bottom Section) -->
+  <text x="60" y="720" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">
+    Almoço leve, saudável e gostoso.
+  </text>
+  <text x="60" y="765" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#34D399">
+    Peça pelo WhatsApp e receba quentinho no seu trabalho.
+  </text>
+  <text x="60" y="805" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#9FBDB6">
+    Campanha Meta Ads ativa com segmentação por geolocalização e raio local.
+  </text>
+
+  <!-- Instagram Ad Action Strip -->
+  <g transform="translate(60, 875)">
+    <rect width="680" height="66" rx="20" fill="url(#cyanMagenta3)"/>
+    <text x="320" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="800" text-anchor="middle" fill="#0A0A0C">
+      Pedir Combo Almoço • Entrega Rápida
+    </text>
+    <path d="M 540,33 L 558,33 L 550,25 M 558,33 L 550,41" stroke="#0A0A0C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>
