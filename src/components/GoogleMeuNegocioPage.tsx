@@ -11,10 +11,11 @@ import {
   ShieldCheck,
   Star,
   Search,
-  CalendarCheck,
   Building2,
   Image,
   FileText,
+  QrCode,
+  Link2,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
@@ -67,6 +68,10 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
     {
       q: 'Isso substitui o tráfego pago?',
       a: 'Não, são complementares, um traz visibilidade orgânica constante, o outro impulsiona resultado mais rápido. Muitos clientes usam os dois juntos.',
+    },
+    {
+      q: 'Depois da otimização inicial, você continua acompanhando meu perfil?',
+      a: 'Sim! Além da otimização, ofereço acompanhamento contínuo pra manter seu perfil sempre atualizado e competitivo. A gente alinha o formato certo pra você na conversa.',
     },
   ];
 
@@ -280,25 +285,25 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
-              <BrandIcon icon={Star} size="lg" variant="emerald" />
+              <BrandIcon icon={QrCode} size="lg" variant="emerald" />
               <div className="space-y-2">
                 <strong className="text-white text-lg sm:text-xl block font-bold">
-                  Checklist de avaliações:
+                  Placa de Avaliação Personalizada
                 </strong>
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Te ensino como pedir avaliação de cliente de um jeito natural, sem parecer forçado, isso pesa muito no ranqueamento local.
+                  Uma plaquinha com QR code que leva direto pro link de avaliação do seu perfil — nas cores do seu negócio. Você recebe em PDF pra usar no WhatsApp ou imprimir, e te ensino também a melhor forma de pedir avaliação pros seus clientes, de um jeito natural.
                 </p>
               </div>
             </div>
 
             <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
-              <BrandIcon icon={CalendarCheck} size="lg" variant="emerald" />
+              <BrandIcon icon={Link2} size="lg" variant="emerald" />
               <div className="space-y-2">
                 <strong className="text-white text-lg sm:text-xl block font-bold">
-                  Revisão trimestral gratuita:
+                  Link Personalizado pro Instagram (Instabio)
                 </strong>
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Revisão trimestral gratuita do perfil nos primeiros 3 meses, pra garantir que tudo continua otimizado.
+                  Uma página de links simples e no ar rápido — WhatsApp, Google Meu Negócio, Instagram, tudo num lugar só — pra colocar na bio do seu Instagram e facilitar pro seu cliente te achar em qualquer rede.
                 </p>
               </div>
             </div>
