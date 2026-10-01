@@ -24,10 +24,19 @@ type PillarId = 'desenvolvimento-digital' | 'design-estrategico' | 'presenca-dig
 
 export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
   const [activePillar, setActivePillar] = useState<PillarId>('desenvolvimento-digital');
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   // References for sticky horizontal nav bar and pillar buttons on mobile/tablet
   const navScrollRef = useRef<HTMLDivElement>(null);
   const navButtonRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+
+  const checkScrollAffordance = () => {
+    const el = navScrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  };
 
   const pillars = [
     {
@@ -140,19 +149,16 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
     const button = navButtonRefs.current[activePillar];
     if (!container || !button) return;
 
-    // Only scroll horizontally if content overflows (mobile & small tablet)
-    if (container.scrollWidth > container.clientWidth + 4) {
-      const containerRect = container.getBoundingClientRect();
-      const buttonRect = button.getBoundingClientRect();
-      const currentScroll = container.scrollLeft;
-      const buttonCenterOffset = buttonRect.left - containerRect.left + currentScroll + buttonRect.width / 2;
-      const targetScrollLeft = buttonCenterOffset - containerRect.width / 2;
+    const containerRect = container.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+    const currentScroll = container.scrollLeft;
+    const buttonCenterOffset = buttonRect.left - containerRect.left + currentScroll + buttonRect.width / 2;
+    const targetScrollLeft = buttonCenterOffset - containerRect.width / 2;
 
-      container.scrollTo({
-        left: Math.max(0, targetScrollLeft),
-        behavior: 'smooth',
-      });
-    }
+    container.scrollTo({
+      left: Math.max(0, targetScrollLeft),
+      behavior: 'smooth',
+    });
   }, [activePillar]);
 
   const scrollToPillar = (id: PillarId) => {
@@ -220,15 +226,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
       {/* Sticky Tab Navigation Across the 3 Pillars */}
       <nav className="sticky top-[68px] sm:top-[74px] z-40 bg-[#18181B]/95 backdrop-blur-md border-b border-white/10 shadow-xl">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 relative">
-          {/* Mobile Edge Gradient Fades for Scroll Affordance */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#18181B] to-transparent z-10 sm:hidden" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#18181B] to-transparent z-10 sm:hidden" />
-
           <div
             ref={navScrollRef}
-            className="w-full overflow-x-auto py-3.5 sm:py-4 scrollbar-none no-scrollbar scroll-smooth flex justify-center"
+            className="w-full overflow-x-auto py-3.5 sm:py-4 scrollbar-none no-scrollbar scroll-smooth flex justify-start sm:justify-center"
           >
-            <div className="flex items-center justify-center min-w-max mx-auto gap-2.5 sm:gap-3 px-4">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 sm:mx-auto pr-4 sm:pr-0">
               {pillars.map((p) => {
                 const isActive = activePillar === p.id;
                 const Icon = p.icon;
