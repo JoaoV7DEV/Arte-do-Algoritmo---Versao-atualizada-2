@@ -14,6 +14,7 @@ import {
   TrendingUp,
   CheckCircle2,
   Eye,
+  X,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
@@ -25,10 +26,32 @@ interface TrafegoPagoPageProps {
 
 export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [isProcessModalOpen, setIsProcessModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+  useEffect(() => {
+    if (isProcessModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isProcessModalOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isProcessModalOpen) {
+        setIsProcessModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isProcessModalOpen]);
 
   const handleBackToServices = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -69,7 +92,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
       src: '/portfolio/tapiocaria/tapiocaria-story-morango.svg',
       title: 'Post Story • Sobremesa do Dia',
       tag: 'Anuncio em Stories',
-      aspectClass: 'aspect-[9/16]',
+      aspectClass: 'aspect-[4/5]',
       desc: 'Formato vertical interativo voltado para desejo imediato e delivery.',
     },
   ];
@@ -160,24 +183,51 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
         {/* ========================================================================= */}
         {/* 3. Como funciona (ASYMMETRIC DESKTOP LAYOUT + WIDE LOWER CARD)           */}
         {/* ========================================================================= */}
-        <section className="space-y-6 pt-2">
+        <section className="tp-compact space-y-6 pt-2" aria-labelledby="tp-process-title">
           {/* Top 2 Columns: Left Narrative, Right 2 Creative Paths */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Left Column (5 cols on desktop): Intro Narrative */}
-            <div className="lg:col-span-5 space-y-4">
-              <span className="text-[14px] font-mono uppercase text-[#C754F0] block font-bold tracking-wider">
-                ESTRATÉGIA PASSO A PASSO
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            {/* Left Column (6 cols on desktop): Intro Narrative / Compact Block */}
+            <div className="lg:col-span-6 space-y-4">
+              <span className="tp-badge text-[14px] font-mono uppercase text-[#C754F0] block font-bold tracking-wider">
+                Estratégia Passo a Passo
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              <h2 id="tp-process-title" className="tp-title text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
                 Como funciona o processo?
               </h2>
-              <p className="text-base sm:text-lg text-gray-200 leading-relaxed pt-1">
-                Cuido da estratégia, segmentação e otimização da campanha do início ao fim, defino o público certo, ajusto o investimento e acompanho os resultados de perto, sempre te mantendo informado.
+              <p className="tp-summary text-base sm:text-lg text-gray-200 leading-relaxed pt-1">
+                <strong className="text-white font-bold">Cuido da estratégia, segmentação e otimização do início ao fim.</strong> Defino o público ideal, ajusto o investimento conforme o desempenho e entrego relatórios simples e periódicos. Trabalho com testes contínuos e decisões baseadas em dados, não em achismo.
+                <span className="block pt-3">
+                  Se quiser entender o processo por etapas com mais detalhes, clique no botão <strong className="text-white font-bold">Saiba mais sobre o processo</strong> abaixo. Se já entendeu e quer seguir adiante, <strong className="text-white font-bold">chame-me no WhatsApp</strong> para definir orçamento ou agendar uma reunião.
+                </span>
               </p>
+
+              {/* Responsive CTA Group: stacked on mobile, inline side-by-side on desktop */}
+              <div className="tp-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-3 relative z-10">
+                <a
+                  href={AGENCY_INFO.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tp-cta-primary w-full sm:w-auto lg:max-w-[260px] inline-flex items-center justify-center gap-2 px-5 py-3 lg:px-4 lg:py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all text-center whitespace-nowrap overflow-hidden text-ellipsis shrink-0"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current shrink-0" />
+                  <span className="hidden lg:inline truncate">Agende uma reunião</span>
+                  <span className="lg:hidden">Agende uma reunião (Google Meet / WhatsApp)</span>
+                </a>
+                <button
+                  type="button"
+                  id="open-tp-modal"
+                  aria-haspopup="dialog"
+                  aria-controls="tp-modal"
+                  onClick={() => setIsProcessModalOpen(true)}
+                  className="tp-cta-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 lg:px-3.5 lg:py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 hover:border-white/20 text-white font-semibold text-xs sm:text-sm transition-all cursor-pointer text-center whitespace-nowrap shrink-0"
+                >
+                  <span>Saiba mais sobre o processo</span>
+                </button>
+              </div>
             </div>
 
-            {/* Right Column (7 cols on desktop): The 2 Creatives Pathways (BOXED) */}
-            <div className="lg:col-span-7 space-y-4">
+            {/* Right Column (6 cols on desktop): The 2 Creatives Pathways (BOXED) */}
+            <div className="lg:col-span-6 space-y-4">
               <h3 className="text-lg sm:text-xl font-bold text-white">
                 Sobre os criativos (as artes e vídeos do anúncio), tem dois caminhos:
               </h3>
@@ -263,7 +313,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
 
           {/* Gallery: 3 images side by side on desktop, horizontal scroll carousel on mobile */}
           <div className="relative">
-            <div className="flex md:grid md:grid-cols-3 gap-5 items-start overflow-x-auto md:overflow-visible pb-4 md:pb-0 scrollbar-none snap-x snap-mandatory">
+            <div className="flex md:grid md:grid-cols-3 gap-5 items-stretch overflow-x-auto md:overflow-visible pb-4 md:pb-0 scrollbar-none snap-x snap-mandatory">
               {tapiocaCreatives.map((item) => (
                 <div
                   key={item.title}
@@ -493,6 +543,132 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
           </p>
         </section>
       </main>
+
+      {/* ========================================== */}
+      {/* MODAL ACESSÍVEL COM CONTEÚDO EXPANDIDO     */}
+      {/* ========================================== */}
+      {isProcessModalOpen && (
+        <div
+          id="tp-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="tp-modal-title"
+          className="tp-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+        >
+          {/* Overlay */}
+          <div
+            className="tp-modal-overlay fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
+            onClick={() => setIsProcessModalOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Modal Container */}
+          <div
+            role="document"
+            className="tp-modal-container relative w-full max-w-2xl bg-[#1A1A1E] border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto z-10 text-white"
+          >
+            {/* Modal Header */}
+            <div className="tp-modal-header flex items-center justify-between gap-4 pb-4 border-b border-white/10">
+              <h3 id="tp-modal-title" className="tp-modal-title text-xl sm:text-2xl font-extrabold text-white">
+                Como funciona (passo a passo)
+              </h3>
+              <button
+                type="button"
+                id="close-tp-modal"
+                aria-label="Fechar modal"
+                onClick={() => setIsProcessModalOpen(false)}
+                className="tp-modal-close p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="tp-modal-body flex flex-col gap-4 sm:gap-5 text-gray-200">
+              {/* 4 Passos */}
+              <ol className="tp-steps-list flex flex-col gap-3 list-none p-0 m-0">
+                <li className="tp-step-item p-4 rounded-xl bg-[#232328] border border-white/5 text-sm sm:text-base leading-relaxed">
+                  <strong className="text-white block mb-0.5">1. Diagnóstico inicial</strong>
+                  Reunião por Google Meet ou WhatsApp para entender objetivos, público e orçamento.
+                </li>
+                <li className="tp-step-item p-4 rounded-xl bg-[#232328] border border-white/5 text-sm sm:text-base leading-relaxed">
+                  <strong className="text-white block mb-0.5">2. Planejamento</strong>
+                  Escolha de canais (Google/Meta), definição de público e orçamento inicial.
+                </li>
+                <li className="tp-step-item p-4 rounded-xl bg-[#232328] border border-white/5 text-sm sm:text-base leading-relaxed">
+                  <strong className="text-white block mb-0.5">3. Lançamento</strong>
+                  Criação e configuração dos anúncios; acompanhamento das primeiras métricas.
+                </li>
+                <li className="tp-step-item p-4 rounded-xl bg-[#232328] border border-white/5 text-sm sm:text-base leading-relaxed">
+                  <strong className="text-white block mb-0.5">4. Otimização contínua</strong>
+                  Ajustes de segmentação, investimento e criativos com testes; relatórios simples e periódicos.
+                </li>
+              </ol>
+
+              {/* Suporte */}
+              <div className="tp-support-box p-4 sm:p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/25 space-y-1 mt-1">
+                <strong className="text-[#00FFFF] text-sm sm:text-base block font-bold">
+                  Suporte e Alinhamento:
+                </strong>
+                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  Comunicação direta por Google Meet ou WhatsApp; todas as decisões são alinhadas com você antes de aplicar mudanças.
+                </p>
+              </div>
+
+              {/* Exemplos Práticos */}
+              <div className="tp-examples-box p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2.5">
+                <h4 className="text-sm sm:text-base font-bold text-white">Exemplos práticos:</h4>
+                <div className="space-y-2 text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  <p>
+                    <strong className="text-gray-100">Loja ou serviço local:</strong> objetivo de mais visitas e contatos por WhatsApp/telefone → Google Ads (Google Meu Negócio + anúncios de busca) costuma trazer clientes com intenção de compra.
+                  </p>
+                  <p>
+                    <strong className="text-gray-100">Lanchonete / pedidos por WhatsApp ou iFood:</strong> objetivo de pedidos rápidos e reconhecimento local → Meta Ads gera alcance e conversões rápidas; investimento e criativos diferentes. <em className="text-gray-400 not-italic block mt-1">Caso real: campanha para tapiocaria com foco em pedidos via WhatsApp.</em>
+                  </p>
+                </div>
+              </div>
+
+              {/* O que um bom gestor faz hoje */}
+              <div className="tp-manager-duties p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2.5">
+                <h4 className="text-sm sm:text-base font-bold text-white">O que um bom gestor faz hoje:</h4>
+                <ul className="space-y-1.5 text-xs sm:text-sm text-gray-300 list-disc pl-5">
+                  <li>Decide por dados: monitora métricas-chave e ajusta campanhas.</li>
+                  <li>Testa constantemente: usa testes A/B em criativos e públicos.</li>
+                  <li>Alinha com o negócio: escolhe Google ou Meta conforme objetivo.</li>
+                  <li>Comunica com clareza: relatórios simples e reuniões regulares.</li>
+                  <li>Otimiza o orçamento: maximiza ROI com ajustes contínuos.</li>
+                </ul>
+              </div>
+
+              {/* Resultados e Próximos Passos */}
+              <div className="tp-results-next p-4 rounded-xl bg-purple-950/20 border border-purple-500/20 text-xs sm:text-sm text-purple-200 leading-relaxed">
+                Ao final de cada ciclo avaliamos ROI e definimos se ampliamos, pausamos ou mudamos a estratégia. Todas as dúvidas e objeções são resolvidas na reunião inicial; lá definimos ferramentas, KPIs e expectativas de resultado.
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="tp-modal-footer pt-4 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3">
+              <button
+                type="button"
+                id="close-tp-modal-btn"
+                onClick={() => setIsProcessModalOpen(false)}
+                className="tp-cta-close-secondary px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white font-medium text-xs sm:text-sm transition-colors cursor-pointer text-center"
+              >
+                Fechar
+              </button>
+              <a
+                href={AGENCY_INFO.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tp-cta-primary inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all text-center"
+              >
+                <MessageCircle className="w-4 h-4 fill-current shrink-0" />
+                <span>Agende uma reunião (Google Meet / WhatsApp)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
