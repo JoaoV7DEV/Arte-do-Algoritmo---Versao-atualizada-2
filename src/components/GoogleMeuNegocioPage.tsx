@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -8,6 +8,8 @@ import {
   CheckCircle2,
   HelpCircle,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ShieldCheck,
   Star,
   Search,
@@ -25,8 +27,75 @@ interface GoogleMeuNegocioPageProps {
   onNavigate?: (page: PageView, anchor?: string) => void;
 }
 
+const PLACA_IMAGES = [
+  {
+    src: '/servicos/google-meu-negocio/placa-avaliacao/placa-01.png',
+    alt: 'Placa de Avaliação Google personalizada com moldura dourada e QR Code',
+    label: 'Versão 01 • Moldura Dourada',
+  },
+  {
+    src: '/servicos/google-meu-negocio/placa-avaliacao/placa-02.png',
+    alt: 'Placa de Avaliação Google em suporte de mesa acrílico',
+    label: 'Versão 02 • Suporte Acrílico',
+  },
+  {
+    src: '/servicos/google-meu-negocio/placa-avaliacao/placa-03.png',
+    alt: 'Placa de Avaliação Google com QR Code e estrelas de avaliação',
+    label: 'Versão 03 • QR Code & Estrelas',
+  },
+  {
+    src: '/servicos/google-meu-negocio/placa-avaliacao/placa-04.png',
+    alt: 'Placa de Avaliação Google com identidade visual e cores da marca',
+    label: 'Versão 04 • Cores da Marca',
+  },
+  {
+    src: '/servicos/google-meu-negocio/placa-avaliacao/placa-05.png',
+    alt: 'Placa de Avaliação Google formato balcão com instruções',
+    label: 'Versão 05 • Formato Balcão',
+  },
+];
+
 export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNavigate }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [placaSlideIndex, setPlacaSlideIndex] = useState(0);
+
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const distance = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 40;
+    if (distance > minSwipeDistance) {
+      setPlacaSlideIndex((prev) => (prev + 1) % PLACA_IMAGES.length);
+    } else if (distance < -minSwipeDistance) {
+      setPlacaSlideIndex((prev) => (prev - 1 + PLACA_IMAGES.length) % PLACA_IMAGES.length);
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  const handleNavigateToHubAnchor = (anchor: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate('servicos', anchor);
+    } else {
+      window.history.pushState(null, '', `/servicos#${anchor}`);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      setTimeout(() => {
+        const el = document.getElementById(anchor);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -283,28 +352,191 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
-              <BrandIcon icon={QrCode} size="lg" variant="emerald" />
-              <div className="space-y-2">
-                <strong className="text-white text-lg sm:text-xl block font-bold">
-                  Placa de Avaliação Personalizada
-                </strong>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+            {/* BÔNUS 1: Placa de Avaliação Personalizada */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex flex-col justify-between gap-6 shadow-lg">
+              <div className="space-y-3.5">
+                {/* Header */}
+                <div className="flex items-center gap-3.5">
+                  <BrandIcon icon={QrCode} size="md" variant="emerald" />
+                  <strong className="text-white text-lg sm:text-xl block font-bold">
+                    Placa de Avaliação Personalizada
+                  </strong>
+                </div>
+
+                {/* Texto Principal sem travessão */}
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Uma plaquinha com QR code que leva direto pro link de avaliação do seu perfil — nas cores do seu negócio. Você recebe em PDF pra usar no WhatsApp ou imprimir, e te ensino também a melhor forma de pedir avaliação pros seus clientes, de um jeito natural.
+                  Uma plaquinha com QR code que leva direto pro link de avaliação do seu perfil, nas cores do seu negócio. Você recebe em PDF pra usar no WhatsApp ou imprimir, e te ensino também a melhor forma de pedir avaliação pros seus clientes, de um jeito natural.
                 </p>
+
+                {/* Título introduzindo as opções e exemplos */}
+                <div className="pt-1">
+                  <span className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider block">
+                    Opções e Exemplos de Placas de Avaliação Feitas
+                  </span>
+                </div>
+
+                {/* Compact Image Carousel com altura aumentada e proporcional */}
+                <div
+                  className="relative w-full h-80 sm:h-96 md:h-[390px] lg:h-[410px] rounded-2xl bg-[#121214] border border-white/10 overflow-hidden flex items-center justify-center select-none"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  <img
+                    src={PLACA_IMAGES[placaSlideIndex].src}
+                    alt={PLACA_IMAGES[placaSlideIndex].alt}
+                    className="w-full h-full object-cover transition-all duration-300"
+                    loading="lazy"
+                  />
+
+                  {/* Left / Right Arrow Buttons */}
+                  <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-between pointer-events-none">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPlacaSlideIndex(
+                          (prev) => (prev - 1 + PLACA_IMAGES.length) % PLACA_IMAGES.length
+                        )
+                      }
+                      className="p-2 rounded-full bg-black/80 hover:bg-black text-gray-300 hover:text-emerald-400 border border-white/20 transition-all pointer-events-auto shadow-lg cursor-pointer"
+                      title="Imagem anterior"
+                      aria-label="Imagem anterior"
+                    >
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPlacaSlideIndex((prev) => (prev + 1) % PLACA_IMAGES.length)
+                      }
+                      className="p-2 rounded-full bg-black/80 hover:bg-black text-gray-300 hover:text-emerald-400 border border-white/20 transition-all pointer-events-auto shadow-lg cursor-pointer"
+                      title="Próxima imagem"
+                      aria-label="Próxima imagem"
+                    >
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+                  </div>
+
+                  {/* Slide Indicators Dots */}
+                  <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 pointer-events-auto">
+                    {PLACA_IMAGES.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setPlacaSlideIndex(idx)}
+                        className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                          placaSlideIndex === idx
+                            ? 'w-4 bg-emerald-400'
+                            : 'w-1.5 bg-white/40 hover:bg-white/70'
+                        }`}
+                        aria-label={`Ver imagem ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Counter badge top right */}
+                  <div className="absolute top-2.5 right-2.5 z-10 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-emerald-300 border border-emerald-500/30">
+                    {placaSlideIndex + 1} / {PLACA_IMAGES.length}
+                  </div>
+                </div>
+
+                {/* Observação logo abaixo da galeria, sem espaço sobrando */}
+                <p className="text-xs text-gray-400 leading-relaxed font-normal pt-1">
+                  Exemplo da versão com suporte, a versão em PDF para impressão entra como bônus, o suporte fica disponível como opção à parte.
+                </p>
+              </div>
+
+              {/* Teaser for Placa de Pix com botão proporcional */}
+              <div className="pt-3.5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs sm:text-sm text-gray-300">
+                <span>Também faço Placa de Pix personalizada, no mesmo conceito</span>
+                <a
+                  href="/servicos#placa-pix"
+                  onClick={(e) => handleNavigateToHubAnchor('placa-pix', e)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 hover:text-white text-xs font-semibold transition-all shadow-sm self-start sm:self-auto shrink-0 cursor-pointer group"
+                >
+                  <span>Saber mais</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-emerald-400 group-hover:translate-x-0.5 transition-transform" />
+                </a>
               </div>
             </div>
 
-            <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
-              <BrandIcon icon={Link2} size="lg" variant="emerald" />
-              <div className="space-y-2">
-                <strong className="text-white text-lg sm:text-xl block font-bold">
-                  Link Personalizado pro Instagram (Instabio)
-                </strong>
+            {/* BÔNUS 2: Link Personalizado pro Instagram (Instabio) */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex flex-col justify-between gap-6 shadow-lg">
+              <div className="space-y-3.5">
+                {/* Header */}
+                <div className="flex items-center gap-3.5">
+                  <BrandIcon icon={Link2} size="md" variant="emerald" />
+                  <strong className="text-white text-lg sm:text-xl block font-bold">
+                    Link Personalizado pro Instagram (Instabio)
+                  </strong>
+                </div>
+
+                {/* Texto Principal com exemplo da Dayana e sem travessões */}
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Uma página de links simples e no ar rápido — WhatsApp, Google Meu Negócio, Instagram, tudo num lugar só — pra colocar na bio do seu Instagram e facilitar pro seu cliente te achar em qualquer rede.
+                  Uma página de links simples e no ar rápido, WhatsApp, Google Meu Negócio, Instagram, tudo num lugar só, pra colocar na bio do seu perfil e facilitar pro cliente te achar em qualquer rede. Como exemplo real, foi feito um InstaBio para a <strong className="text-white font-semibold">Dayana (Daiana Raasch)</strong>, cabeleireira e terapeuta capilar, totalmente personalizado nas cores e identidade visual do negócio dela.
                 </p>
+
+                {/* Título introduzindo o exemplo */}
+                <div className="pt-1">
+                  <span className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider block">
+                    Exemplo Real de Página de Links Produzida
+                  </span>
+                </div>
+
+                {/* Browser-window-style Preview Mockup com altura proporcional ao carrossel */}
+                <div className="rounded-2xl bg-[#121214] border border-white/10 overflow-hidden shadow-md">
+                  {/* Browser Bar */}
+                  <div className="px-3.5 py-2 bg-[#18181B] border-b border-white/10 flex items-center justify-between text-xs font-mono">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+                    </div>
+                    <span className="text-[11px] text-gray-400 truncate max-w-[170px] sm:max-w-[200px]">
+                      biiomagnetica.my.canva.site
+                    </span>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-500/30">
+                      Online
+                    </span>
+                  </div>
+
+                  {/* Image Viewport com altura aumentada e botão integrado no canto inferior direito */}
+                  <div className="relative w-full h-72 sm:h-80 md:h-[350px] lg:h-[370px] overflow-hidden bg-[#121214] flex items-center justify-center">
+                    <img
+                      src="/servicos/google-meu-negocio/instabio/preview.png"
+                      alt="Preview da Página de Link na Bio (Instabio) para Dayana"
+                      className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+
+                    {/* Botão "Ver exemplo real →" posicionado no canto inferior direito dentro da imagem */}
+                    <div className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-3.5 z-10">
+                      <a
+                        href="https://biiomagnetica.my.canva.site/daiana-raasch"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl bg-black/80 hover:bg-black/95 backdrop-blur-md border border-white/20 hover:border-emerald-400/60 text-white text-xs sm:text-sm font-semibold transition-all group shadow-lg cursor-pointer"
+                      >
+                        <span>Ver exemplo real</span>
+                        <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Frase adicional com link inline sem travessão */}
+              <div className="pt-3.5 border-t border-white/10 text-xs sm:text-sm text-gray-300 leading-relaxed">
+                Não tem Instagram ainda, ou o seu precisa de um upgrade?{' '}
+                <a
+                  href="/servicos#item-artes-redes-sociais"
+                  onClick={(e) => handleNavigateToHubAnchor('item-artes-redes-sociais', e)}
+                  className="text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2 transition-colors cursor-pointer"
+                >
+                  saiba mais
+                </a>
+                , aí entra outro serviço que pode te interessar.
               </div>
             </div>
           </div>

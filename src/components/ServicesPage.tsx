@@ -11,6 +11,8 @@ import {
   Target,
   Search,
   LifeBuoy,
+  QrCode,
+  ChevronDown,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
@@ -26,6 +28,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
   const [activePillar, setActivePillar] = useState<PillarId>('desenvolvimento-digital');
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPlacaPixExpanded, setIsPlacaPixExpanded] = useState(false);
 
   // References for sticky horizontal nav bar and pillar buttons on mobile/tablet
   const navScrollRef = useRef<HTMLDivElement>(null);
@@ -160,6 +163,31 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
       behavior: 'smooth',
     });
   }, [activePillar]);
+
+  // Handle direct hash navigation to specific item or sub-block
+  useEffect(() => {
+    const handleHashNavigation = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+
+      if (hash === 'placa-pix') {
+        setIsPlacaPixExpanded(true);
+        setTimeout(() => {
+          const el = document.getElementById('placa-pix');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      } else {
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    };
+
+    handleHashNavigation();
+    window.addEventListener('hashchange', handleHashNavigation);
+    return () => window.removeEventListener('hashchange', handleHashNavigation);
+  }, []);
 
   const scrollToPillar = (id: PillarId) => {
     setActivePillar(id);
@@ -378,28 +406,87 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
             </div>
 
             {/* 4 Service Items Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {pillars[1].items.map((item, idx) => (
-                <div
-                  key={item.name}
-                  className="p-7 rounded-2xl bg-[#141416]/85 border border-white/[0.07] hover:border-pink-500/40 transition-all flex items-start gap-4.5 group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
-                    <CheckCircle2 className="w-5 h-5" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-xs font-mono text-[#E71870] font-bold">0{idx + 1}</span>
-                      <h3 className="text-lg sm:text-xl font-bold text-white">
-                        {item.name}
-                      </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+              {pillars[1].items.map((item, idx) => {
+                const isMateriaisGraficos = idx === 2;
+                const isArtesRedesSociais = idx === 3;
+
+                return (
+                  <div
+                    key={item.name}
+                    id={isArtesRedesSociais ? 'item-artes-redes-sociais' : undefined}
+                    className={`p-7 rounded-2xl bg-[#141416]/85 border border-white/[0.07] hover:border-pink-500/40 transition-all flex flex-col justify-between group ${
+                      isArtesRedesSociais ? 'scroll-mt-36' : ''
+                    }`}
+                  >
+                    <div className="flex items-start gap-4.5">
+                      <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                        <CheckCircle2 className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-1.5 flex-1">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-xs font-mono text-[#E71870] font-bold">0{idx + 1}</span>
+                          <h3 className="text-lg sm:text-xl font-bold text-white">
+                            {item.name}
+                          </h3>
+                        </div>
+                        <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
+                          {item.desc}
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
-                      {item.desc}
-                    </p>
+
+                    {/* Task 5: Expandable Placa de Pix block inside Materiais Gráficos */}
+                    {isMateriaisGraficos && (
+                      <div id="placa-pix" className="mt-5 pt-4 border-t border-white/10 scroll-mt-36">
+                        <button
+                          type="button"
+                          onClick={() => setIsPlacaPixExpanded(!isPlacaPixExpanded)}
+                          className="w-full flex items-center justify-between gap-3 p-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-pink-500/25 hover:border-pink-500/45 text-left transition-all cursor-pointer group/pix shadow-sm"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <QrCode className="w-4 h-4 text-[#E71870] shrink-0" />
+                            <span className="text-sm font-bold text-white group-hover/pix:text-pink-300 transition-colors">
+                              Placa de Pix Personalizada
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <span className="text-[11px] font-mono text-gray-400 group-hover/pix:text-white transition-colors">
+                              {isPlacaPixExpanded ? 'Recolher' : 'Ver detalhes'}
+                            </span>
+                            <ChevronDown
+                              className={`w-4 h-4 text-[#E71870] transition-transform duration-300 ${
+                                isPlacaPixExpanded ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </div>
+                        </button>
+
+                        {isPlacaPixExpanded && (
+                          <div className="mt-3.5 space-y-3.5 rounded-2xl bg-[#121214] border border-pink-500/20 p-4 sm:p-5 shadow-inner">
+                            <div className="relative w-full h-56 sm:h-64 rounded-xl overflow-hidden bg-black/40 border border-white/10 flex items-center justify-center">
+                              <img
+                                src="/servicos/design-estrategico/placa-pix/placa-pix-01.png"
+                                alt="Placa de Pix Personalizada com QR Code e suporte de acrílico"
+                                className="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-500"
+                                loading="lazy"
+                              />
+                            </div>
+
+                            <p className="text-sm text-gray-200 leading-relaxed font-normal">
+                              Uma plaquinha com QR code do seu Pix, nas cores e identidade visual do seu negócio — pra facilitar o pagamento na hora, sem erro de digitação de chave. Você recebe em PDF pra usar no WhatsApp ou imprimir. Se você for da minha região, entrego a versão impressa pessoalmente sem custo; se quiser a versão com suporte de acrílico, tem um valor à parte — inclusive dá pra enviar pelos Correios se você for de outra cidade.
+                            </p>
+
+                            <p className="text-xs font-mono text-gray-400">
+                              Esse serviço é separado — não faz parte de nenhum bônus.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

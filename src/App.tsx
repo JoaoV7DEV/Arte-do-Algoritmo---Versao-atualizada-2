@@ -149,6 +149,13 @@ export default function App() {
         setCurrentPage('servico-google-meu-negocio');
       } else if (path === '/servicos') {
         setCurrentPage('servicos');
+        if (hash) {
+          const anchorId = hash.replace('#', '');
+          setTimeout(() => {
+            const el = document.getElementById(anchorId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 120);
+        }
       } else if (path === '/projetos') {
         setCurrentPage('projetos');
       } else if (path === '/sobre') {

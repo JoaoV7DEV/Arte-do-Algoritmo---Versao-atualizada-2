@@ -15,6 +15,9 @@ import {
   CheckCircle2,
   Eye,
   X,
+  Maximize2,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
@@ -27,13 +30,14 @@ interface TrafegoPagoPageProps {
 export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [isProcessModalOpen, setIsProcessModalOpen] = useState(false);
+  const [selectedCreativeIndex, setSelectedCreativeIndex] = useState<number | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   useEffect(() => {
-    if (isProcessModalOpen) {
+    if (isProcessModalOpen || selectedCreativeIndex !== null) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -41,17 +45,27 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isProcessModalOpen]);
+  }, [isProcessModalOpen, selectedCreativeIndex]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isProcessModalOpen) {
-        setIsProcessModalOpen(false);
+      if (e.key === 'Escape') {
+        if (selectedCreativeIndex !== null) setSelectedCreativeIndex(null);
+        if (isProcessModalOpen) setIsProcessModalOpen(false);
+      }
+      if (selectedCreativeIndex !== null) {
+        if (e.key === 'ArrowLeft') {
+          setSelectedCreativeIndex(
+            (prev) => (prev! - 1 + tapiocaCreatives.length) % tapiocaCreatives.length
+          );
+        } else if (e.key === 'ArrowRight') {
+          setSelectedCreativeIndex((prev) => (prev! + 1) % tapiocaCreatives.length);
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isProcessModalOpen]);
+  }, [isProcessModalOpen, selectedCreativeIndex]);
 
   const handleBackToServices = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -75,25 +89,28 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
 
   const tapiocaCreatives = [
     {
-      src: '/portfolio/tapiocaria/tapiocaria-feed-carne-seca.svg',
-      title: 'Post Feed • Carne Seca & Coalho',
+      src: '/servicos/trafego-pago/anuncio-feed-1.png',
+      title: 'Post Feed',
       tag: 'Anuncio em Feed',
-      aspectClass: 'aspect-[4/5]',
-      desc: 'Anúncio focado em produto mais vendido com chamada direta para WhatsApp.',
+      formatBadge: 'Feed 4:5',
+      formatLabel: 'Formato Feed (4:5)',
+      desc: 'Anúncio em imagem para o feed do Instagram com foco em oferta e pedidos diretos no WhatsApp.',
     },
     {
-      src: '/portfolio/tapiocaria/tapiocaria-feed-combo.svg',
-      title: 'Post Feed • Combo Almoço Local',
+      src: '/servicos/trafego-pago/anuncio-feed-2.png',
+      title: 'Post Feed',
       tag: 'Anuncio em Feed',
-      aspectClass: 'aspect-[4/5]',
-      desc: 'Segmentação geográfica por raio de entrega com combo de alta conversão.',
+      formatBadge: 'Feed 4:5',
+      formatLabel: 'Formato Feed (4:5)',
+      desc: 'Peça promocional no feed com foco em combo e atração de clientes locais da região.',
     },
     {
-      src: '/portfolio/tapiocaria/tapiocaria-story-morango.svg',
-      title: 'Post Story • Sobremesa do Dia',
+      src: '/servicos/trafego-pago/anuncio-story-1.png',
+      title: 'Post Story',
       tag: 'Anuncio em Stories',
-      aspectClass: 'aspect-[4/5]',
-      desc: 'Formato vertical interativo voltado para desejo imediato e delivery.',
+      formatBadge: 'Story 9:16',
+      formatLabel: 'Formato Stories Completo (9:16)',
+      desc: 'Criativo vertical dinâmico em formato Stories voltado para engajamento e pedidos rápidos via delivery.',
     },
   ];
 
@@ -300,10 +317,9 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
 
             <div className="self-start md:self-end shrink-0 pt-1">
               <a
-                href={AGENCY_INFO.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF]/15 hover:from-[#00FFFF]/25 to-[#C754F0]/15 hover:to-[#C754F0]/25 border border-[#00FFFF]/40 hover:border-[#00FFFF] text-white text-sm font-semibold transition-all shadow-sm group"
+                href="/projetos#case-trafego-pago"
+                onClick={handleCaseClick}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF]/15 hover:from-[#00FFFF]/25 to-[#C754F0]/15 hover:to-[#C754F0]/25 border border-[#00FFFF]/40 hover:border-[#00FFFF] text-white text-sm font-semibold transition-all shadow-sm group cursor-pointer"
               >
                 <span>Saiba mais deste serviço</span>
                 <ArrowRight className="w-4 h-4 text-[#00FFFF] group-hover:translate-x-1 transition-transform" />
@@ -314,13 +330,23 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
           {/* Gallery: 3 images side by side on desktop, horizontal scroll carousel on mobile */}
           <div className="relative">
             <div className="flex md:grid md:grid-cols-3 gap-5 items-stretch overflow-x-auto md:overflow-visible pb-4 md:pb-0 scrollbar-none snap-x snap-mandatory">
-              {tapiocaCreatives.map((item) => (
+              {tapiocaCreatives.map((item, idx) => (
                 <div
-                  key={item.title}
-                  className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center rounded-2xl bg-[#1A1A1E] border border-white/10 hover:border-[#00FFFF]/40 transition-all overflow-hidden flex flex-col group shadow-xl"
+                  key={`${item.title}-${idx}`}
+                  onClick={() => setSelectedCreativeIndex(idx)}
+                  className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center rounded-2xl bg-[#1A1A1E] border border-white/10 hover:border-[#00FFFF]/50 hover:shadow-[0_0_25px_rgba(0,255,255,0.15)] transition-all overflow-hidden flex flex-col group shadow-xl cursor-pointer"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedCreativeIndex(idx);
+                    }
+                  }}
+                  aria-label={`Ver detalhes completos do anúncio ${item.title}`}
                 >
-                  {/* Image container with specific aspect ratio: 4:5 for feed, 9:16 for stories */}
-                  <div className={`relative w-full bg-[#121214] overflow-hidden border-b border-white/10 ${item.aspectClass}`}>
+                  {/* Image container with aspect-ratio: 4:5 for uniform card height */}
+                  <div className="relative w-full aspect-[4/5] bg-[#121214] overflow-hidden border-b border-white/10">
                     <img
                       src={item.src}
                       alt={item.title}
@@ -330,13 +356,26 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
                     <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-bold text-[#00FFFF] border border-white/15">
                       {item.tag}
                     </div>
+
+                    {/* Quick view indicator */}
+                    <div className="absolute bottom-3 left-3 z-10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-xs font-mono font-bold text-[#00FFFF] border border-[#00FFFF]/40 group-hover:bg-[#00FFFF] group-hover:text-black transition-all shadow-lg">
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Ver detalhes</span>
+                      </span>
+                    </div>
                   </div>
 
                   {/* Caption */}
                   <div className="p-4 sm:p-5 space-y-1.5 flex-1 flex flex-col justify-between">
-                    <h4 className="text-sm sm:text-base font-bold text-white group-hover:text-[#00FFFF] transition-colors">
-                      {item.title}
-                    </h4>
+                    <div className="flex items-center justify-between gap-2">
+                      <h4 className="text-sm sm:text-base font-bold text-white group-hover:text-[#00FFFF] transition-colors">
+                        {item.title}
+                      </h4>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-300">
+                        {item.formatBadge}
+                      </span>
+                    </div>
                     <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
                       {item.desc}
                     </p>
@@ -345,11 +384,113 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
               ))}
             </div>
             {/* Mobile swipe helper */}
-            <div className="sm:hidden text-center text-[11px] font-mono text-gray-400 pt-1">
-              ← Deslize para ver todos os criativos →
+            <div className="sm:hidden text-center text-[11px] font-mono text-gray-400 pt-2">
+              ← Deslize para ver todos os criativos • Toque para ampliar →
             </div>
           </div>
         </section>
+
+        {/* Lightbox Pop-up Modal for Full Creative View */}
+        {selectedCreativeIndex !== null && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="creative-modal-title"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+            onClick={() => setSelectedCreativeIndex(null)}
+          >
+            <div
+              className="relative max-w-2xl w-full bg-[#18181B] border border-cyan-500/30 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4 flex flex-col items-center max-h-[92vh] overflow-y-auto scrollbar-none"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="w-full flex items-center justify-between pb-3 border-b border-white/10 gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[#00FFFF]">
+                    {tapiocaCreatives[selectedCreativeIndex].tag}
+                  </span>
+                  <span className="text-xs text-gray-300 font-mono hidden sm:inline">
+                    {tapiocaCreatives[selectedCreativeIndex].formatLabel}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-gray-400">
+                    {selectedCreativeIndex + 1} de {tapiocaCreatives.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCreativeIndex(null)}
+                    className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 transition-all cursor-pointer"
+                    title="Fechar visualização"
+                    aria-label="Fechar"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Image Viewport with Nav Arrows */}
+              <div className="relative w-full flex items-center justify-center bg-[#0F0F11] rounded-2xl overflow-hidden p-2 sm:p-3 border border-white/5 min-h-[300px]">
+                {/* Previous Button */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedCreativeIndex(
+                      (selectedCreativeIndex - 1 + tapiocaCreatives.length) %
+                        tapiocaCreatives.length
+                    )
+                  }
+                  className="absolute left-2.5 sm:left-4 z-20 p-2 sm:p-2.5 rounded-full bg-black/80 hover:bg-black text-white hover:text-[#00FFFF] border border-white/20 transition-all shadow-xl cursor-pointer"
+                  title="Criativo anterior"
+                  aria-label="Criativo anterior"
+                >
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+
+                {/* The Full, Uncropped Image in Native Resolution (e.g. full 9:16 for Stories!) */}
+                <img
+                  src={tapiocaCreatives[selectedCreativeIndex].src}
+                  alt={tapiocaCreatives[selectedCreativeIndex].title}
+                  className="max-h-[65vh] sm:max-h-[70vh] w-auto max-w-full object-contain rounded-xl shadow-2xl transition-all duration-300"
+                />
+
+                {/* Next Button */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedCreativeIndex(
+                      (selectedCreativeIndex + 1) % tapiocaCreatives.length
+                    )
+                  }
+                  className="absolute right-2.5 sm:right-4 z-20 p-2 sm:p-2.5 rounded-full bg-black/80 hover:bg-black text-white hover:text-[#00FFFF] border border-white/20 transition-all shadow-xl cursor-pointer"
+                  title="Próximo criativo"
+                  aria-label="Próximo criativo"
+                >
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </div>
+
+              {/* Modal Footer Description */}
+              <div className="w-full space-y-1.5 text-center sm:text-left pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h3
+                    id="creative-modal-title"
+                    className="text-base sm:text-lg font-bold text-white"
+                  >
+                    {tapiocaCreatives[selectedCreativeIndex].title} • Tapiocaria Dona Moça
+                  </h3>
+                  <span className="text-xs font-mono text-[#00FFFF]">
+                    {tapiocaCreatives[selectedCreativeIndex].formatLabel}
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
+                  {tapiocaCreatives[selectedCreativeIndex].desc}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ========================================================================= */}
         {/* 4. O que eu preciso de você (UNBOXED OUTER CONTAINER + BOXED REQUISITOS)  */}
