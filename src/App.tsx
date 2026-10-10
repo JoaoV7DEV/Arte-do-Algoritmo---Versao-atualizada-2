@@ -81,6 +81,12 @@ const getInitialPage = (): PageView => {
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageView>(getInitialPage);
+  const [currentAnchor, setCurrentAnchor] = useState<string | undefined>(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      return window.location.hash.replace('#', '');
+    }
+    return undefined;
+  });
 
   // Sync document title and SEO meta description on page change
   useEffect(() => {
@@ -220,7 +226,10 @@ export default function App() {
     else if (page === 'projeto-01s') targetPath = '/projetos/01s-mobilidade';
 
     setCurrentPage(page);
-    if (window.location.pathname !== targetPath) {
+    setCurrentAnchor(anchor);
+    if (anchor) {
+      window.history.pushState(null, '', `${targetPath}#${anchor}`);
+    } else if (window.location.pathname !== targetPath) {
       window.history.pushState(null, '', targetPath);
     }
 
@@ -277,7 +286,7 @@ export default function App() {
           </>
         )}
 
-        {currentPage === 'servicos' && <ServicesPage onNavigate={handleNavigate} />}
+        {currentPage === 'servicos' && <ServicesPage onNavigate={handleNavigate} initialAnchor={currentAnchor} />}
         {currentPage === 'servico-trafego-pago' && <TrafegoPagoPage onNavigate={handleNavigate} />}
         {currentPage === 'servico-google-meu-negocio' && <GoogleMeuNegocioPage onNavigate={handleNavigate} />}
 

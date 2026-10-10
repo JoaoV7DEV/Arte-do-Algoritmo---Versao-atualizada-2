@@ -20,15 +20,17 @@ import { BrandIcon } from './BrandIcon';
 
 interface ServicesPageProps {
   onNavigate?: (page: PageView, anchor?: string) => void;
+  initialAnchor?: string;
 }
 
 type PillarId = 'desenvolvimento-digital' | 'design-estrategico' | 'presenca-digital';
 
-export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
+export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialAnchor }) => {
   const [activePillar, setActivePillar] = useState<PillarId>('desenvolvimento-digital');
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isPlacaPixExpanded, setIsPlacaPixExpanded] = useState(false);
+  const [highlightedCardId, setHighlightedCardId] = useState<string | null>(null);
 
   // References for sticky horizontal nav bar and pillar buttons on mobile/tablet
   const navScrollRef = useRef<HTMLDivElement>(null);
@@ -166,8 +168,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
 
   // Handle direct hash navigation to specific item or sub-block
   useEffect(() => {
-    const handleHashNavigation = () => {
-      const hash = window.location.hash.replace('#', '');
+    const checkAnchor = (targetAnchor?: string) => {
+      const hash = targetAnchor || window.location.hash.replace('#', '');
       if (!hash) return;
 
       if (hash === 'placa-pix') {
@@ -175,6 +177,15 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
         setTimeout(() => {
           const el = document.getElementById('placa-pix');
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      } else if (hash === 'artes-redes-sociais' || hash === 'item-artes-redes-sociais') {
+        setTimeout(() => {
+          const el = document.getElementById('artes-redes-sociais');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setHighlightedCardId('artes-redes-sociais');
+            setTimeout(() => setHighlightedCardId(null), 3000);
+          }
         }, 150);
       } else {
         setTimeout(() => {
@@ -184,10 +195,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
       }
     };
 
-    handleHashNavigation();
-    window.addEventListener('hashchange', handleHashNavigation);
-    return () => window.removeEventListener('hashchange', handleHashNavigation);
-  }, []);
+    checkAnchor(initialAnchor);
+    const onHashChange = () => checkAnchor();
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, [initialAnchor]);
 
   const scrollToPillar = (id: PillarId) => {
     setActivePillar(id);
@@ -406,17 +418,20 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
             </div>
 
             {/* 4 Service Items Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
               {pillars[1].items.map((item, idx) => {
-                const isMateriaisGraficos = idx === 2;
                 const isArtesRedesSociais = idx === 3;
 
                 return (
                   <div
                     key={item.name}
-                    id={isArtesRedesSociais ? 'item-artes-redes-sociais' : undefined}
+                    id={isArtesRedesSociais ? 'artes-redes-sociais' : undefined}
                     className={`p-7 rounded-2xl bg-[#141416]/85 border border-white/[0.07] hover:border-pink-500/40 transition-all flex flex-col justify-between group ${
                       isArtesRedesSociais ? 'scroll-mt-36' : ''
+                    } ${
+                      isArtesRedesSociais && highlightedCardId === 'artes-redes-sociais'
+                        ? 'ring-2 ring-[#E71870] shadow-[0_0_35px_rgba(231,24,112,0.45)] scale-[1.01]'
+                        : ''
                     }`}
                   >
                     <div className="flex items-start gap-4.5">
@@ -435,58 +450,79 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                         </p>
                       </div>
                     </div>
-
-                    {/* Task 5: Expandable Placa de Pix block inside Materiais Gráficos */}
-                    {isMateriaisGraficos && (
-                      <div id="placa-pix" className="mt-5 pt-4 border-t border-white/10 scroll-mt-36">
-                        <button
-                          type="button"
-                          onClick={() => setIsPlacaPixExpanded(!isPlacaPixExpanded)}
-                          className="w-full flex items-center justify-between gap-3 p-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-pink-500/25 hover:border-pink-500/45 text-left transition-all cursor-pointer group/pix shadow-sm"
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <QrCode className="w-4 h-4 text-[#E71870] shrink-0" />
-                            <span className="text-sm font-bold text-white group-hover/pix:text-pink-300 transition-colors">
-                              Placa de Pix Personalizada
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1.5 shrink-0">
-                            <span className="text-[11px] font-mono text-gray-400 group-hover/pix:text-white transition-colors">
-                              {isPlacaPixExpanded ? 'Recolher' : 'Ver detalhes'}
-                            </span>
-                            <ChevronDown
-                              className={`w-4 h-4 text-[#E71870] transition-transform duration-300 ${
-                                isPlacaPixExpanded ? 'rotate-180' : ''
-                              }`}
-                            />
-                          </div>
-                        </button>
-
-                        {isPlacaPixExpanded && (
-                          <div className="mt-3.5 space-y-3.5 rounded-2xl bg-[#121214] border border-pink-500/20 p-4 sm:p-5 shadow-inner">
-                            <div className="relative w-full h-56 sm:h-64 rounded-xl overflow-hidden bg-black/40 border border-white/10 flex items-center justify-center">
-                              <img
-                                src="/servicos/design-estrategico/placa-pix/placa-pix-01.png"
-                                alt="Placa de Pix Personalizada com QR Code e suporte de acrílico"
-                                className="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-500"
-                                loading="lazy"
-                              />
-                            </div>
-
-                            <p className="text-sm text-gray-200 leading-relaxed font-normal">
-                              Uma plaquinha com QR code do seu Pix, nas cores e identidade visual do seu negócio — pra facilitar o pagamento na hora, sem erro de digitação de chave. Você recebe em PDF pra usar no WhatsApp ou imprimir. Se você for da minha região, entrego a versão impressa pessoalmente sem custo; se quiser a versão com suporte de acrílico, tem um valor à parte — inclusive dá pra enviar pelos Correios se você for de outra cidade.
-                            </p>
-
-                            <p className="text-xs font-mono text-gray-400">
-                              Esse serviço é separado — não faz parte de nenhum bônus.
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )}
                   </div>
                 );
               })}
+            </div>
+
+            {/* TASK 1: Full-width Row: Placa de Pix Personalizada */}
+            <div id="placa-pix" className="mt-6 rounded-2xl bg-[#141416]/85 border border-pink-500/25 overflow-hidden transition-all scroll-mt-36">
+              {/* Collapsed / Toggle Bar Header */}
+              <div className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#E71870] block">
+                    MATERIAIS GRÁFICOS • SERVIÇO À PARTE
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                    Placa de Pix Personalizada
+                  </h3>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsPlacaPixExpanded(!isPlacaPixExpanded)}
+                  className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/35 hover:border-pink-500/50 text-white font-semibold text-sm transition-all self-start sm:self-auto cursor-pointer shadow-sm group"
+                  aria-expanded={isPlacaPixExpanded}
+                >
+                  <QrCode className="w-4 h-4 text-[#E71870]" />
+                  <span>Conhecer a Placa de Pix</span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-[#E71870] transition-transform duration-300 ${
+                      isPlacaPixExpanded ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* Expanded State */}
+              {isPlacaPixExpanded && (
+                <div className="p-5 sm:p-7 pt-2 sm:pt-2 border-t border-white/[0.08] grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
+                  {/* Desktop: Image Left (~35-40% width, md:col-span-5 lg:col-span-4) */}
+                  <div className="md:col-span-5 lg:col-span-4 flex justify-center md:justify-start">
+                    <div className="w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden shadow-xl border border-white/10">
+                      <img
+                        src="/servicos/design-estrategico/placa-pix/placa-pix-01.png"
+                        alt="Placa de Pix Personalizada"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Text + CTA Right (md:col-span-7 lg:col-span-8) */}
+                  <div className="md:col-span-7 lg:col-span-8 space-y-4">
+                    <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                      Uma plaquinha com QR code do seu Pix, nas cores e identidade visual do seu negócio — pra facilitar o pagamento na hora, sem erro de digitação de chave. Você recebe em PDF pra usar no WhatsApp ou imprimir. Se você for da minha região, entrego a versão impressa pessoalmente sem custo; se quiser a versão com suporte de acrílico, tem um valor à parte — inclusive dá pra enviar pelos Correios se você for de outra cidade.
+                    </p>
+
+                    <p className="text-xs sm:text-sm font-mono text-gray-400">
+                      Esse serviço é separado — não faz parte de nenhum bônus.
+                    </p>
+
+                    <div className="pt-2">
+                      <a
+                        href={`https://wa.me/5571991845299?text=${encodeURIComponent('Olá! Vi a Placa de Pix Personalizada no site e quero saber mais.')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#E71870] to-[#C754F0] hover:from-[#d01564] hover:to-[#b348d8] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-pink-500/25 transition-all cursor-pointer"
+                      >
+                        <MessageCircle className="w-5 h-5 fill-current" />
+                        <span>Pedir minha Placa de Pix</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -538,7 +574,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20">
                   Tráfego Orgânico
                 </span>
-                <span className="text-xs text-gray-400 font-mono">Posicionamento gratuito e constante no Google</span>
+                <span className="text-xs text-gray-400 font-mono">Visibilidade no Google sem pagar por clique</span>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -631,8 +667,20 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                   </div>
 
                   <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between text-xs text-gray-400 font-mono">
-                    <span>Rankeamento a longo prazo</span>
-                    <span className="text-emerald-400">Indexação técnica</span>
+                    <span>Resultado a médio e longo prazo</span>
+                    <span className="text-emerald-400">Base técnica do site</span>
+                  </div>
+
+                  <div className="pt-4 mt-1">
+                    <a
+                      href={AGENCY_INFO.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Fale no WhatsApp</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -646,7 +694,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C754F0] bg-[#C754F0]/10 px-3.5 py-1.5 rounded-full border border-[#C754F0]/20">
                   Tráfego Pago
                 </span>
-                <span className="text-xs text-gray-400 font-mono">Anúncios de alta precisão para captação imediata</span>
+                <span className="text-xs text-gray-400 font-mono">Anúncios pra aparecer pra quem já está procurando</span>
               </div>
 
               {/* Compact Hub Card: Tráfego Pago */}

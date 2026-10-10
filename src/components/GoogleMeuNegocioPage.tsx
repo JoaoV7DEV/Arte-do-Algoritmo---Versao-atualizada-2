@@ -238,8 +238,8 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
               </p>
 
               <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent border border-emerald-500/20 text-xs sm:text-sm text-gray-300 font-mono space-y-1 shadow-sm">
-                <span className="text-emerald-400 font-bold block">OBJETIVO CENTRAL:</span>
-                <span>Alcançar os 3 primeiros lugares do mapa (Google Local 3-Pack).</span>
+                <span className="text-emerald-400 font-bold block">META DO TRABALHO:</span>
+                <span>Levar o seu perfil para as primeiras posições das buscas locais. O resultado depende da concorrência e da região do seu negócio.</span>
               </div>
             </div>
 
@@ -286,7 +286,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
                   </div>
                 </div>
                 <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal pl-1">
-                  Estratégia para captar depoimentos reais de 5 estrelas e modelos de resposta com palavras-chave relevantes.
+                  Estratégia para incentivar avaliações reais dos seus clientes, com modelos de resposta que ajudam seu perfil a ser encontrado.
                 </p>
               </div>
             </div>
@@ -443,7 +443,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
 
                 {/* Observação logo abaixo da galeria, sem espaço sobrando */}
                 <p className="text-xs text-gray-400 leading-relaxed font-normal pt-1">
-                  Exemplo da versão com suporte, a versão em PDF para impressão entra como bônus, o suporte fica disponível como opção à parte.
+                  Exemplo da versão com suporte. A versão em PDF para impressão entra como bônus; o suporte fica disponível como opção à parte.
                 </p>
               </div>
 
@@ -472,9 +472,9 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
                   </strong>
                 </div>
 
-                {/* Texto Principal com exemplo da Dayana e sem travessões */}
+                {/* Texto Principal atualizado */}
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Uma página de links simples e no ar rápido, WhatsApp, Google Meu Negócio, Instagram, tudo num lugar só, pra colocar na bio do seu perfil e facilitar pro cliente te achar em qualquer rede. Como exemplo real, foi feito um InstaBio para a <strong className="text-white font-semibold">Dayana (Daiana Raasch)</strong>, cabeleireira e terapeuta capilar, totalmente personalizado nas cores e identidade visual do negócio dela.
+                  Uma página de links simples e no ar rápido — WhatsApp, Google Meu Negócio, Instagram, tudo num lugar só — pra facilitar pro seu cliente te achar em qualquer rede. Funciona na bio do Instagram, no campo de link do seu perfil do Google Meu Negócio, ou onde fizer mais sentido pro seu negócio. Tudo nas cores e na identidade visual da sua marca.
                 </p>
 
                 {/* Título introduzindo o exemplo */}
@@ -505,7 +505,7 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
                   <div className="relative w-full h-72 sm:h-80 md:h-[350px] lg:h-[370px] overflow-hidden bg-[#121214] flex items-center justify-center">
                     <img
                       src="/servicos/google-meu-negocio/instabio/preview.png"
-                      alt="Preview da Página de Link na Bio (Instabio) para Dayana"
+                      alt="Preview da Página de Link na Bio (Instabio) para Daiana Raasch"
                       className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
@@ -524,14 +524,19 @@ export const GoogleMeuNegocioPage: React.FC<GoogleMeuNegocioPageProps> = ({ onNa
                     </div>
                   </div>
                 </div>
+
+                {/* Legenda sob o mockup */}
+                <p className="text-xs text-gray-400 font-normal pt-1">
+                  InstaBio criado para Daiana Raasch, tricologista e terapeuta capilar.
+                </p>
               </div>
 
-              {/* Frase adicional com link inline sem travessão */}
+              {/* Frase adicional com link inline para o card de artes para redes sociais */}
               <div className="pt-3.5 border-t border-white/10 text-xs sm:text-sm text-gray-300 leading-relaxed">
                 Não tem Instagram ainda, ou o seu precisa de um upgrade?{' '}
                 <a
-                  href="/servicos#item-artes-redes-sociais"
-                  onClick={(e) => handleNavigateToHubAnchor('item-artes-redes-sociais', e)}
+                  href="/servicos#artes-redes-sociais"
+                  onClick={(e) => handleNavigateToHubAnchor('artes-redes-sociais', e)}
                   className="text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2 transition-colors cursor-pointer"
                 >
                   saiba mais

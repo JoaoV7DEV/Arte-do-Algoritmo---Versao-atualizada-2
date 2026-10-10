@@ -90,27 +90,27 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
   const tapiocaCreatives = [
     {
       src: '/servicos/trafego-pago/anuncio-feed-1.png',
-      title: 'Post Feed',
+      title: 'Post Feed • Monte sua tapioca',
       tag: 'Anuncio em Feed',
       formatBadge: 'Feed 4:5',
       formatLabel: 'Formato Feed (4:5)',
-      desc: 'Anúncio em imagem para o feed do Instagram com foco em oferta e pedidos diretos no WhatsApp.',
+      desc: 'Peça de feed apresentando a tapioca montada do jeito do cliente.',
     },
     {
       src: '/servicos/trafego-pago/anuncio-feed-2.png',
-      title: 'Post Feed',
+      title: 'Post Feed • Combo Dona Flor e seus dois amigos',
       tag: 'Anuncio em Feed',
       formatBadge: 'Feed 4:5',
       formatLabel: 'Formato Feed (4:5)',
-      desc: 'Peça promocional no feed com foco em combo e atração de clientes locais da região.',
+      desc: 'Peça de feed com combo promocional da casa.',
     },
     {
       src: '/servicos/trafego-pago/anuncio-story-1.png',
-      title: 'Post Story',
+      title: 'Post Story • Que tal uma tapioca hoje?',
       tag: 'Anuncio em Stories',
       formatBadge: 'Story 9:16',
       formatLabel: 'Formato Stories Completo (9:16)',
-      desc: 'Criativo vertical dinâmico em formato Stories voltado para engajamento e pedidos rápidos via delivery.',
+      desc: 'Peça vertical para Stories com chamada, horário de funcionamento e endereço.',
     },
   ];
 
@@ -303,7 +303,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#00FFFF]/15 via-[#C754F0]/20 to-[#E71870]/15 border border-[#00FFFF]/30 shadow-[0_0_15px_rgba(0,255,255,0.15)]">
                 <span className="w-2 h-2 rounded-full bg-[#00FFFF] animate-pulse" />
                 <span className="text-xs font-mono font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-purple-200 to-[#E71870]">
-                  Alcance real gerado para negócios locais
+                  CASO REAL • NEGÓCIO LOCAL
                 </span>
               </div>
 
@@ -311,7 +311,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
                 Exemplo real de Anuncio produzido
               </h3>
               <p className="text-sm sm:text-base text-gray-300">
-                Criativos usados na campanha de Facebook Ads (MetaAds) para a <strong className="text-white">Tapiocaria Dona Moça</strong> em Salvador/BA (Post Feed, Stories e Video).
+                Criativos usados em campanha de Meta Ads (Facebook e Instagram) da Tapiocaria Dona Moça, em Salvador/BA.
               </p>
             </div>
 
@@ -350,19 +350,21 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
                     <img
                       src={item.src}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                        idx === 2 ? 'object-top' : 'object-center'
+                      }`}
                       loading="lazy"
                     />
-                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-bold text-[#00FFFF] border border-white/15">
-                      {item.tag}
+
+                    {/* Expand icon in top-left corner */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <div className="w-8 h-8 rounded-full bg-black/75 backdrop-blur-md text-[#00FFFF] border border-white/20 flex items-center justify-center group-hover:bg-[#00FFFF] group-hover:text-black group-hover:border-[#00FFFF] transition-all shadow-md">
+                        <Maximize2 className="w-3.5 h-3.5" />
+                      </div>
                     </div>
 
-                    {/* Quick view indicator */}
-                    <div className="absolute bottom-3 left-3 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-xs font-mono font-bold text-[#00FFFF] border border-[#00FFFF]/40 group-hover:bg-[#00FFFF] group-hover:text-black transition-all shadow-lg">
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Ver detalhes</span>
-                      </span>
+                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-bold text-[#00FFFF] border border-white/15">
+                      {item.tag}
                     </div>
                   </div>
 
@@ -556,7 +558,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
                   Relatório de performance simplificado
                 </strong>
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Relatório de performance simplificado, sem economês, te mostro o que os números significam de verdade pro seu negócio, não só gráfico bonito.
+                  Sem economês, te mostro o que os números significam de verdade pro seu negócio, não só gráfico bonito.
                 </p>
               </div>
             </div>
@@ -568,7 +570,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
                   Otimização estendida nos primeiros 15 dias
                 </strong>
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Otimização estendida nos primeiros 15 dias, sem custo adicional, período em que ajusto a campanha com mais atenção enquanto os dados de performance ainda estão se estabilizando.
+                  Sem custo adicional, ajusto a campanha com mais atenção enquanto os dados de performance ainda estão se estabilizando.
                 </p>
               </div>
             </div>
