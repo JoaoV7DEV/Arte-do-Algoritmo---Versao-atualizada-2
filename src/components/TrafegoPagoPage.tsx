@@ -308,10 +308,10 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Exemplo real de Anuncio produzido
+                Exemplo real de anúncios de uma campanha
               </h3>
               <p className="text-sm sm:text-base text-gray-300">
-                Criativos usados em campanha de Meta Ads (Facebook e Instagram) da Tapiocaria Dona Moça, em Salvador/BA.
+                Artes usadas na campanha de Meta Ads (Facebook e Instagram) da Tapiocaria Dona Moça, em Salvador/BA. Conduzi a campanha e criei parte das artes.
               </p>
             </div>
 
@@ -321,7 +321,7 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
                 onClick={handleCaseClick}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF]/15 hover:from-[#00FFFF]/25 to-[#C754F0]/15 hover:to-[#C754F0]/25 border border-[#00FFFF]/40 hover:border-[#00FFFF] text-white text-sm font-semibold transition-all shadow-sm group cursor-pointer"
               >
-                <span>Saiba mais deste serviço</span>
+                <span>Ver todos os anúncios e vídeos</span>
                 <ArrowRight className="w-4 h-4 text-[#00FFFF] group-hover:translate-x-1 transition-transform" />
               </a>
             </div>

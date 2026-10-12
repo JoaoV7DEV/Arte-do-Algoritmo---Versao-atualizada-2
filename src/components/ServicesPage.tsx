@@ -486,17 +486,20 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
 
               {/* Expanded State */}
               {isPlacaPixExpanded && (
-                <div className="p-5 sm:p-7 pt-2 sm:pt-2 border-t border-white/[0.08] grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <div className="p-5 sm:p-7 pt-7 sm:pt-8 border-t border-white/[0.08] grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
                   {/* Desktop: Image Left (~35-40% width, md:col-span-5 lg:col-span-4) */}
-                  <div className="md:col-span-5 lg:col-span-4 flex justify-center md:justify-start">
+                  <div className="md:col-span-5 lg:col-span-4 flex flex-col items-center md:items-start">
                     <div className="w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden shadow-xl border border-white/10">
                       <img
                         src="/servicos/design-estrategico/placa-pix/placa-pix-01.png"
-                        alt="Placa de Pix Personalizada"
+                        alt="Duas placas de Pix personalizadas em suportes de acrílico, uma laranja e outra preta com vermelho."
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
                     </div>
+                    <p className="text-xs text-gray-400 mt-2.5 text-center md:text-left">
+                      Duas placas de clientes diferentes, em suportes de acrílico.
+                    </p>
                   </div>
 
                   {/* Text + CTA Right (md:col-span-7 lg:col-span-8) */}

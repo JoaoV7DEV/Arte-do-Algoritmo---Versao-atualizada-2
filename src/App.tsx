@@ -104,7 +104,7 @@ export default function App() {
       pageDesc = 'Otimização completa do seu Perfil da Empresa no Google para negócios locais serem encontrados nas primeiras posições de busca e mapa.';
     } else if (currentPage === 'projetos') {
       pageTitle = 'Portfólio de Projetos | Arte do Algoritmo';
-      pageDesc = 'Conheça cases reais de desenvolvimento de sites e identidades visuais criados pela Arte do Algoritmo com foco em autoridade e resultados.';
+      pageDesc = 'Portfólio da Arte do Algoritmo: sites, identidades visuais e resultados reais de Google Meu Negócio e tráfego pago para negócios locais.';
     } else if (currentPage === 'sobre') {
       pageTitle = 'Sobre a Agência | Arte do Algoritmo';
       pageDesc = 'Saiba quem somos, nossa metodologia e como unimos precisão técnica, design marcante e compromisso com o crescimento do seu negócio.';
@@ -164,6 +164,14 @@ export default function App() {
         }
       } else if (path === '/projetos') {
         setCurrentPage('projetos');
+        if (hash) {
+          const anchorId = hash.replace('#', '');
+          setCurrentAnchor(anchorId);
+          setTimeout(() => {
+            const el = document.getElementById(anchorId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 120);
+        }
       } else if (path === '/sobre') {
         setCurrentPage('sobre');
       } else {
@@ -290,7 +298,7 @@ export default function App() {
         {currentPage === 'servico-trafego-pago' && <TrafegoPagoPage onNavigate={handleNavigate} />}
         {currentPage === 'servico-google-meu-negocio' && <GoogleMeuNegocioPage onNavigate={handleNavigate} />}
 
-        {currentPage === 'projetos' && <ProjectsPage onNavigate={handleNavigate} />}
+        {currentPage === 'projetos' && <ProjectsPage onNavigate={handleNavigate} initialAnchor={currentAnchor} />}
 
         {currentPage === 'sobre' && <AboutPage />}
 

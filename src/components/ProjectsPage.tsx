@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
-import { Sparkles, Layers, Globe, Palette, FileImage, MessageSquare, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Sparkles, Layers, Globe, Palette, FileImage, MessageSquare, ArrowRight, TrendingUp } from 'lucide-react';
 import { FeaturedCaseStudy } from './FeaturedCaseStudy';
 import { Mob3lPortfolioCard } from './Mob3lPortfolioCard';
+import { CaseResultsSection } from './CaseResultsSection';
 import { GraphicDesignPortfolio } from './GraphicDesignPortfolio';
 import { SocialMediaPack } from './SocialMediaPack';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
 
-type PortfolioCategory = 'todos' | 'sites' | 'identidade' | 'design-grafico' | 'redes-sociais';
+type PortfolioCategory = 'todos' | 'resultados' | 'sites' | 'identidade' | 'design-grafico' | 'redes-sociais';
 
 interface ProjectsPageProps {
   onNavigate?: (page: PageView, anchor?: string) => void;
+  initialAnchor?: string;
 }
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate, initialAnchor }) => {
   const [activeFilter, setActiveFilter] = useState<PortfolioCategory>('todos');
+
+  // Handle hash anchors from external pages (e.g. /projetos#case-trafego-pago or #case-google-meu-negocio)
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '') || initialAnchor;
+      if (hash === 'case-google-meu-negocio' || hash === 'case-trafego-pago') {
+        setActiveFilter('todos');
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 120);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, [initialAnchor]);
 
   return (
     <div className="pt-28 pb-24 min-h-screen bg-[#272727] text-white">
@@ -42,7 +64,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mx-auto">
             <button
               onClick={() => setActiveFilter('todos')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeFilter === 'todos'
                   ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
                   : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
@@ -53,8 +75,20 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
             </button>
 
             <button
+              onClick={() => setActiveFilter('resultados')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                activeFilter === 'resultados'
+                  ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                  : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
+              }`}
+            >
+              <TrendingUp className="w-4 h-4" />
+              <span>Resultados</span>
+            </button>
+
+            <button
               onClick={() => setActiveFilter('sites')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeFilter === 'sites'
                   ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
                   : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
@@ -66,7 +100,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
 
             <button
               onClick={() => setActiveFilter('identidade')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeFilter === 'identidade'
                   ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
                   : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
@@ -78,7 +112,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
 
             <button
               onClick={() => setActiveFilter('design-grafico')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeFilter === 'design-grafico'
                   ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
                   : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
@@ -90,7 +124,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
 
             <button
               onClick={() => setActiveFilter('redes-sociais')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeFilter === 'redes-sociais'
                   ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
                   : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
@@ -104,11 +138,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Main Content Areas based on Filter */}
-      <main className="space-y-12">
-        {/* Placeholder anchors for service cases (content added in future prompts) */}
-        <div id="case-trafego-pago" className="scroll-mt-36" />
-        <div id="case-google-meu-negocio" className="scroll-mt-36" />
-
+      <main className="space-y-16">
         {/* Flagship Case Study: 01S Mobilidade (Visible on Todos, Sites, or Identidade) */}
         {(activeFilter === 'todos' || activeFilter === 'sites' || activeFilter === 'identidade') && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -122,6 +152,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
           activeFilter === 'identidade') && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Mob3lPortfolioCard activeFilter={activeFilter} onNavigate={onNavigate} />
+          </div>
+        )}
+
+        {/* TASK 1: Cases de Resultado (Google Meu Negócio + Tráfego Pago) */}
+        {(activeFilter === 'todos' || activeFilter === 'resultados') && (
+          <div>
+            <CaseResultsSection onNavigate={onNavigate} />
           </div>
         )}
 
