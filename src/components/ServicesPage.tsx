@@ -505,11 +505,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
                   {/* Text + CTA Right (md:col-span-7 lg:col-span-8) */}
                   <div className="md:col-span-7 lg:col-span-8 space-y-4">
                     <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
-                      Uma plaquinha com QR code do seu Pix, nas cores e identidade visual do seu negócio — pra facilitar o pagamento na hora, sem erro de digitação de chave. Você recebe em PDF pra usar no WhatsApp ou imprimir. Se você for da minha região, entrego a versão impressa pessoalmente sem custo; se quiser a versão com suporte de acrílico, tem um valor à parte — inclusive dá pra enviar pelos Correios se você for de outra cidade.
+                      Uma plaquinha com QR code do seu Pix, nas cores e identidade visual do seu negócio, pra facilitar o pagamento na hora, sem erro de digitação de chave. Você recebe em PDF pra usar no WhatsApp ou imprimir. Se você for da minha região, entrego a versão impressa pessoalmente sem custo; se quiser a versão com suporte de acrílico, tem um valor à parte, inclusive dá pra enviar pelos Correios se você for de outra cidade.
                     </p>
 
                     <p className="text-xs sm:text-sm font-mono text-gray-400">
-                      Esse serviço é separado — não faz parte de nenhum bônus.
+                      Esse serviço é separado, não faz parte de nenhum bônus.
                     </p>
 
                     <div className="pt-2">
@@ -604,9 +604,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
                       </span>
                     </div>
 
-                    <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
-                      Apareça no Google quando seu cliente procurar por você.
-                    </p>
+                    <div className="space-y-1.5 sm:space-y-2">
+                      <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                        Apareça no Google quando seu cliente procurar por você.
+                      </p>
+                      <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-normal">
+                        Muita gente pesquisa no Google antes de comprar. Eu otimizo o seu Perfil da Empresa pra seu negócio aparecer no mapa e nas buscas, com informações certas, fotos e avaliações. Quer saber como funciona?
+                      </p>
+                    </div>
                   </div>
 
                   {/* TASK 7: Desktop: 3 in a row. Mobile: WhatsApp full width on top, then Ver exemplo real & Saber mais side-by-side in 2-column row */}
@@ -665,7 +670,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
                     </div>
 
                     <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
-                      Estrutura técnica para posicionar seu site organicamente nos mecanismos de busca, com código limpo, semântica correta e velocidade de carregamento.
+                      Eu preparo o seu site pra ser encontrado no Google: estrutura organizada, páginas rápidas e informações que o Google entende. É um trabalho de base, que costuma dar resultado com o tempo. Quer saber se o seu site precisa disso?
                     </p>
                   </div>
 
@@ -694,10 +699,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
             {/* =================================================================== */}
             <div className="space-y-6 mb-12">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C754F0] bg-[#C754F0]/10 px-3.5 py-1.5 rounded-full border border-[#C754F0]/20">
+                <span className="text-[13px] font-mono font-bold uppercase tracking-wider text-[#C754F0] bg-[#C754F0]/10 px-3.5 py-1.5 rounded-full border border-[#C754F0]/20" style={{ fontSize: '13px' }}>
                   Tráfego Pago
                 </span>
-                <span className="text-xs text-gray-400 font-mono">Anúncios pra aparecer pra quem já está procurando</span>
+                <span className="text-[13px] text-gray-400 font-mono" style={{ fontSize: '13px' }}>Anúncios pra aparecer pra quem já está procurando</span>
               </div>
 
               {/* Compact Hub Card: Tráfego Pago */}
@@ -718,14 +723,19 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
                         </h3>
                       </div>
                     </div>
-                    <span className="hidden sm:inline-block text-[11px] font-mono text-gray-300 px-3 py-1 rounded bg-[#C754F0]/10 border border-[#C754F0]/20 ml-auto shrink-0">
+                    <span className="hidden sm:inline-block text-[13px] font-mono text-gray-300 px-3 py-1 rounded bg-[#C754F0]/10 border border-[#C754F0]/20 ml-auto shrink-0" style={{ fontSize: '13px' }}>
                       Facebook (Meta Ads) & Google Ads
                     </span>
                   </div>
 
-                  <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal max-w-3xl">
-                    Anúncios pensados pro seu negócio ser encontrado por quem já quer comprar.
-                  </p>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal max-w-3xl">
+                      Anúncios pensados pro seu negócio ser encontrado por quem já quer comprar.
+                    </p>
+                    <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-normal max-w-3xl">
+                      Quem está procurando o que você vende já está no Instagram, no Facebook e no Google. Eu planejo e acompanho seus anúncios no Meta Ads e no Google Ads pra seu negócio aparecer pra essas pessoas e, se você não tiver o material, eu produzo. Quer entender como funciona?
+                    </p>
+                  </div>
                 </div>
 
                 {/* TASK 7: Desktop: 3 in a row. Mobile: WhatsApp full width on top, then Ver exemplo real & Saber mais side-by-side in 2-column row */}
@@ -796,7 +806,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all self-start md:self-auto shrink-0 min-h-[40px]"
                 >
                   <MessageCircle className="w-4 h-4 text-[#00FFFF]" />
-                  <span>Tirar dúvidas</span>
+                  <span className="text-[16px]" style={{ fontSize: '16px' }}>Tirar dúvidas</span>
                 </a>
               </div>
             </div>
@@ -808,7 +818,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-4">
-            <span className="text-xs font-mono uppercase text-[#00FFFF] font-bold tracking-wider">
+            <span className="text-[16px] font-mono uppercase text-[#00FFFF] font-bold tracking-wider" style={{ fontSize: '16px' }}>
               PRONTO PARA COMEÇAR?
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
