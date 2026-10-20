@@ -18,6 +18,7 @@ import {
   Maximize2,
   ChevronLeft,
   ChevronRight,
+  Link2,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
@@ -552,13 +553,13 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
-              <BrandIcon icon={BarChart3} size="lg" variant="emerald" />
+              <BrandIcon icon={Link2} size="lg" variant="emerald" />
               <div className="space-y-2">
                 <strong className="text-white text-lg sm:text-xl block font-bold">
-                  Relatório de performance simplificado
+                  Link Personalizado pro Instagram (Instabio)
                 </strong>
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Sem economês, te mostro o que os números significam de verdade pro seu negócio, não só gráfico bonito.
+                  Uma página de links simples e no ar rápido, pra quem clica no seu anúncio ou na sua bio achar direto seu WhatsApp, catálogo ou endereço. Tudo nas cores e na identidade visual da sua marca.
                 </p>
               </div>
             </div>

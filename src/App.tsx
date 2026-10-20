@@ -20,6 +20,7 @@ import { AboutPage } from './components/AboutPage';
 import { ServicesPage } from './components/ServicesPage';
 import { TrafegoPagoPage } from './components/TrafegoPagoPage';
 import { GoogleMeuNegocioPage } from './components/GoogleMeuNegocioPage';
+import { ArtesRedesSociaisPage } from './components/ArtesRedesSociaisPage';
 import { Mob3lCasePage } from './components/Mob3lCasePage';
 import { ZeroOneCasePage } from './components/ZeroOneCasePage';
 import { PageView } from './components/Navbar';
@@ -58,6 +59,15 @@ const getInitialPage = (): PageView => {
     hash === '#google-meu-negocio'
   ) {
     return 'servico-google-meu-negocio';
+  }
+  if (
+    path === '/servicos/artes-para-redes-sociais' ||
+    path === '/servicos/artes-redes-sociais' ||
+    hash.startsWith('#servicos/artes-para-redes-sociais') ||
+    hash === '#artes-para-redes-sociais' ||
+    hash === '#artes-redes-sociais'
+  ) {
+    return 'servico-artes-para-redes-sociais';
   }
   if (
     path === '/servicos' ||
@@ -102,6 +112,9 @@ export default function App() {
     } else if (currentPage === 'servico-google-meu-negocio') {
       pageTitle = 'Google Meu Negócio e Otimização Local | Arte do Algoritmo';
       pageDesc = 'Otimização completa do seu Perfil da Empresa no Google para negócios locais serem encontrados nas primeiras posições de busca e mapa.';
+    } else if (currentPage === 'servico-artes-para-redes-sociais') {
+      pageTitle = 'Artes para Redes Sociais e Packs de Templates | Arte do Algoritmo';
+      pageDesc = 'Packs de artes editáveis no Canva por segmento e posts prontos para Instagram. Presença profissional e consistente para seu negócio.';
     } else if (currentPage === 'projetos') {
       pageTitle = 'Portfólio de Projetos | Arte do Algoritmo';
       pageDesc = 'Portfólio da Arte do Algoritmo: sites, identidades visuais e resultados reais de Google Meu Negócio e tráfego pago para negócios locais.';
@@ -153,6 +166,8 @@ export default function App() {
         setCurrentPage('servico-trafego-pago');
       } else if (path === '/servicos/google-meu-negocio') {
         setCurrentPage('servico-google-meu-negocio');
+      } else if (path === '/servicos/artes-para-redes-sociais' || path === '/servicos/artes-redes-sociais') {
+        setCurrentPage('servico-artes-para-redes-sociais');
       } else if (path === '/servicos') {
         setCurrentPage('servicos');
         if (hash) {
@@ -188,6 +203,9 @@ export default function App() {
         } else if (hash.startsWith('#servicos/google-meu-negocio') || hash === '#google-meu-negocio') {
           setCurrentPage('servico-google-meu-negocio');
           window.history.replaceState(null, '', '/servicos/google-meu-negocio');
+        } else if (hash.startsWith('#servicos/artes-para-redes-sociais') || hash === '#artes-para-redes-sociais' || hash === '#artes-redes-sociais') {
+          setCurrentPage('servico-artes-para-redes-sociais');
+          window.history.replaceState(null, '', '/servicos/artes-para-redes-sociais');
         } else if (hash.startsWith('#servicos')) {
           setCurrentPage('servicos');
           window.history.replaceState(null, '', '/servicos');
@@ -223,11 +241,12 @@ export default function App() {
       return;
     }
 
-    // 2. Independent pages: /servicos, /projetos, /sobre, /projetos/mob3l, /projetos/01s-mobilidade, /servicos/trafego-pago, /servicos/google-meu-negocio
+    // 2. Independent pages: /servicos, /projetos, /sobre, /projetos/mob3l, /projetos/01s-mobilidade, /servicos/trafego-pago, /servicos/google-meu-negocio, /servicos/artes-para-redes-sociais
     let targetPath = '/';
     if (page === 'servicos') targetPath = '/servicos';
     else if (page === 'servico-trafego-pago') targetPath = '/servicos/trafego-pago';
     else if (page === 'servico-google-meu-negocio') targetPath = '/servicos/google-meu-negocio';
+    else if (page === 'servico-artes-para-redes-sociais') targetPath = '/servicos/artes-para-redes-sociais';
     else if (page === 'projetos') targetPath = '/projetos';
     else if (page === 'sobre') targetPath = '/sobre';
     else if (page === 'projeto-mob3l') targetPath = '/projetos/mob3l';
@@ -297,6 +316,7 @@ export default function App() {
         {currentPage === 'servicos' && <ServicesPage onNavigate={handleNavigate} initialAnchor={currentAnchor} />}
         {currentPage === 'servico-trafego-pago' && <TrafegoPagoPage onNavigate={handleNavigate} />}
         {currentPage === 'servico-google-meu-negocio' && <GoogleMeuNegocioPage onNavigate={handleNavigate} />}
+        {currentPage === 'servico-artes-para-redes-sociais' && <ArtesRedesSociaisPage onNavigate={handleNavigate} />}
 
         {currentPage === 'projetos' && <ProjectsPage onNavigate={handleNavigate} initialAnchor={currentAnchor} />}
 

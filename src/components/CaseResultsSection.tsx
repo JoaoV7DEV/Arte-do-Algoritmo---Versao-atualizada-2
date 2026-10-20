@@ -373,25 +373,25 @@ export const CaseResultsSection: React.FC<CaseResultsSectionProps> = ({ onNaviga
                     loading="lazy"
                   />
 
-                  {/* Top-right zoom badge */}
-                  <div className="absolute top-3 right-3">
+                  {/* Bottom-right zoom icon (keeps top ~25% free of overlays) */}
+                  <div className="absolute bottom-3 right-3">
                     <div className="w-8 h-8 rounded-full bg-black/75 backdrop-blur-md text-emerald-400 border border-white/20 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-black transition-all shadow-md">
                       <Maximize2 className="w-3.5 h-3.5" />
                     </div>
                   </div>
-
-                  {/* Top-left badge */}
-                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono font-bold text-emerald-300">
-                    {card.badge}
-                  </div>
                 </div>
 
-                {/* Collapsed Card Info: title, niche chip, button */}
+                {/* Collapsed Card Info: badge + niche chip, title, button */}
                 <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 gap-3.5 border-t border-white/[0.06]">
                   <div className="space-y-2">
-                    <span className="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-mono text-emerald-400 bg-emerald-950/50 border border-emerald-500/30">
-                      {card.niche}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-bold tracking-wider text-emerald-300 bg-emerald-500/15 border border-emerald-500/30">
+                        {card.badge}
+                      </span>
+                      <span className="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-mono text-emerald-400 bg-emerald-950/50 border border-emerald-500/30">
+                        {card.niche}
+                      </span>
+                    </div>
 
                     <h4 className="text-sm sm:text-base font-bold text-white group-hover:text-emerald-300 transition-colors leading-snug">
                       {card.title}

@@ -61,78 +61,87 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate, initialA
           </p>
 
           {/* Quick Filter Tabs matching requested categories */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mx-auto">
-            <button
-              onClick={() => setActiveFilter('todos')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                activeFilter === 'todos'
-                  ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
-                  : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
-              }`}
-            >
-              <Layers className="w-4 h-4" />
-              <span>Todos</span>
-            </button>
+          <div className="relative max-w-full lg:max-w-5xl mx-auto">
+            {/* Subtle edge fades for mobile scroll */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-8 bg-gradient-to-r from-[#272727] to-transparent lg:hidden z-10" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 sm:w-8 bg-gradient-to-l from-[#272727] to-transparent lg:hidden z-10" />
 
-            <button
-              onClick={() => setActiveFilter('resultados')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                activeFilter === 'resultados'
-                  ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
-                  : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
-              }`}
+            <div
+              className="flex items-center overflow-x-auto scrollbar-none snap-x snap-mandatory flex-nowrap justify-start lg:justify-center gap-2 sm:gap-2.5 lg:gap-3 px-4 sm:px-6 lg:px-0 py-1"
+              style={{ WebkitOverflowScrolling: 'touch' }}
             >
-              <TrendingUp className="w-4 h-4" />
-              <span>Resultados</span>
-            </button>
+              <button
+                onClick={() => setActiveFilter('todos')}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shrink-0 snap-start whitespace-nowrap ${
+                  activeFilter === 'todos'
+                    ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                    : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
+              >
+                <Layers className="w-4 h-4 shrink-0" />
+                <span>Todos</span>
+              </button>
 
-            <button
-              onClick={() => setActiveFilter('sites')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                activeFilter === 'sites'
-                  ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
-                  : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
-              }`}
-            >
-              <Globe className="w-4 h-4" />
-              <span>Sites</span>
-            </button>
+              <button
+                onClick={() => setActiveFilter('resultados')}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shrink-0 snap-start whitespace-nowrap ${
+                  activeFilter === 'resultados'
+                    ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                    : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
+              >
+                <TrendingUp className="w-4 h-4 shrink-0" />
+                <span>Resultados</span>
+              </button>
 
-            <button
-              onClick={() => setActiveFilter('identidade')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                activeFilter === 'identidade'
-                  ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
-                  : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
-              }`}
-            >
-              <Palette className="w-4 h-4" />
-              <span>Identidade Visual</span>
-            </button>
+              <button
+                onClick={() => setActiveFilter('sites')}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shrink-0 snap-start whitespace-nowrap ${
+                  activeFilter === 'sites'
+                    ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                    : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
+              >
+                <Globe className="w-4 h-4 shrink-0" />
+                <span>Sites</span>
+              </button>
 
-            <button
-              onClick={() => setActiveFilter('design-grafico')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                activeFilter === 'design-grafico'
-                  ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
-                  : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
-              }`}
-            >
-              <FileImage className="w-4 h-4" />
-              <span>Design Gráfico</span>
-            </button>
+              <button
+                onClick={() => setActiveFilter('identidade')}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shrink-0 snap-start whitespace-nowrap ${
+                  activeFilter === 'identidade'
+                    ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                    : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
+              >
+                <Palette className="w-4 h-4 shrink-0" />
+                <span>Identidade Visual</span>
+              </button>
 
-            <button
-              onClick={() => setActiveFilter('redes-sociais')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                activeFilter === 'redes-sociais'
-                  ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
-                  : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
-              }`}
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>Redes Sociais</span>
-            </button>
+              <button
+                onClick={() => setActiveFilter('design-grafico')}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shrink-0 snap-start whitespace-nowrap ${
+                  activeFilter === 'design-grafico'
+                    ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                    : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
+              >
+                <FileImage className="w-4 h-4 shrink-0" />
+                <span>Design Gráfico</span>
+              </button>
+
+              <button
+                onClick={() => setActiveFilter('redes-sociais')}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shrink-0 snap-start whitespace-nowrap ${
+                  activeFilter === 'redes-sociais'
+                    ? 'bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#18181B] shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                    : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
+              >
+                <MessageSquare className="w-4 h-4 shrink-0" />
+                <span>Redes Sociais</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>

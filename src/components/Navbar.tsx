@@ -11,7 +11,8 @@ export type PageView =
   | 'projeto-mob3l'
   | 'projeto-01s'
   | 'servico-trafego-pago'
-  | 'servico-google-meu-negocio';
+  | 'servico-google-meu-negocio'
+  | 'servico-artes-para-redes-sociais';
 
 interface NavbarProps {
   currentPage: PageView;

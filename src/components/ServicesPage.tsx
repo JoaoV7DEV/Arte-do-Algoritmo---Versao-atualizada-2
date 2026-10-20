@@ -219,6 +219,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
       let path = '/servicos';
       if (page === 'servico-trafego-pago') path = '/servicos/trafego-pago';
       if (page === 'servico-google-meu-negocio') path = '/servicos/google-meu-negocio';
+      if (page === 'servico-artes-para-redes-sociais') path = '/servicos/artes-para-redes-sociais';
       window.history.pushState(null, '', path);
       window.dispatchEvent(new PopStateEvent('popstate'));
     }
@@ -422,17 +423,86 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
               {pillars[1].items.map((item, idx) => {
                 const isArtesRedesSociais = idx === 3;
 
+                if (isArtesRedesSociais) {
+                  return (
+                    <div
+                      key={item.name}
+                      id="artes-redes-sociais"
+                      className={`p-7 rounded-2xl bg-[#141416]/95 border-2 border-pink-500/30 hover:border-pink-500/50 transition-all flex flex-col justify-between group scroll-mt-36 shadow-lg h-full ${
+                        highlightedCardId === 'artes-redes-sociais'
+                          ? 'ring-2 ring-[#E71870] shadow-[0_0_35px_rgba(231,24,112,0.45)] scale-[1.01]'
+                          : ''
+                      }`}
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                              <CheckCircle2 className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <span className="text-[11px] font-mono text-[#E71870] font-bold uppercase block tracking-wider">
+                                DESIGN ESTRATÉGICO
+                              </span>
+                              <h3 className="text-xl sm:text-2xl font-bold text-white">
+                                Artes para redes sociais
+                              </h3>
+                            </div>
+                          </div>
+                          <span className="text-xs font-mono text-[#E71870] font-bold">04</span>
+                        </div>
+
+                        <div className="space-y-2">
+                          <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                            Seu Instagram sempre com post bonito, mesmo sem tempo nem orçamento pra social media.
+                          </p>
+                          <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-normal">
+                            Packs de artes por segmento, editáveis no Canva, ou posts prontos pra publicar, feitos por mim. Você escolhe o caminho. Quer ver como funciona?
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Three buttons, stacked layout because the card is half width */}
+                      <div className="pt-6 mt-6 border-t border-white/[0.08] space-y-2.5">
+                        {/* Primary full width */}
+                        <a
+                          href={AGENCY_INFO.whatsappUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[42px]"
+                        >
+                          <MessageCircle className="w-4 h-4 fill-current" />
+                          <span>Fale no WhatsApp</span>
+                        </a>
+
+                        {/* Side by side below it */}
+                        <div className="grid grid-cols-2 gap-2.5 w-full">
+                          <a
+                            href="/projetos#galeria-redes-sociais"
+                            onClick={(e) => handleNavigateToCase('galeria-redes-sociais', e)}
+                            className="w-full inline-flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[42px] text-center"
+                          >
+                            <span>Ver exemplo real</span>
+                          </a>
+
+                          <a
+                            href="/servicos/artes-para-redes-sociais"
+                            onClick={(e) => handleNavigateToService('servico-artes-para-redes-sociais', e)}
+                            className="w-full inline-flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/30 text-pink-300 hover:text-white font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[42px] text-center"
+                          >
+                            <span>Saber mais</span>
+                            <ArrowRight className="w-3.5 h-3.5 text-[#E71870] group-hover:translate-x-1 transition-transform shrink-0" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <div
                     key={item.name}
-                    id={isArtesRedesSociais ? 'artes-redes-sociais' : undefined}
-                    className={`p-7 rounded-2xl bg-[#141416]/85 border border-white/[0.07] hover:border-pink-500/40 transition-all flex flex-col justify-between group ${
-                      isArtesRedesSociais ? 'scroll-mt-36' : ''
-                    } ${
-                      isArtesRedesSociais && highlightedCardId === 'artes-redes-sociais'
-                        ? 'ring-2 ring-[#E71870] shadow-[0_0_35px_rgba(231,24,112,0.45)] scale-[1.01]'
-                        : ''
-                    }`}
+                    className="p-7 rounded-2xl bg-[#141416]/85 border border-white/[0.07] hover:border-pink-500/40 transition-all flex flex-col justify-between group h-full"
                   >
                     <div className="flex items-start gap-4.5">
                       <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
