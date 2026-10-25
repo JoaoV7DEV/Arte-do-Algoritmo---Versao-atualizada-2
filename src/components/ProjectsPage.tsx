@@ -3,8 +3,8 @@ import { Sparkles, Layers, Globe, Palette, FileImage, MessageSquare, ArrowRight,
 import { FeaturedCaseStudy } from './FeaturedCaseStudy';
 import { Mob3lPortfolioCard } from './Mob3lPortfolioCard';
 import { CaseResultsSection } from './CaseResultsSection';
-import { GraphicDesignPortfolio } from './GraphicDesignPortfolio';
-import { SocialMediaPack } from './SocialMediaPack';
+import { LogosPortfolioSection } from './LogosPortfolioSection';
+import { SocialProfilesPortfolioSection } from './SocialProfilesPortfolioSection';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
 
@@ -22,7 +22,12 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate, initialA
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '') || initialAnchor;
-      if (hash === 'case-google-meu-negocio' || hash === 'case-trafego-pago') {
+      if (
+        hash === 'case-google-meu-negocio' ||
+        hash === 'case-trafego-pago' ||
+        hash === 'case-identidade-visual' ||
+        hash === 'galeria-redes-sociais'
+      ) {
         setActiveFilter('todos');
         setTimeout(() => {
           const el = document.getElementById(hash);
@@ -171,17 +176,17 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate, initialA
           </div>
         )}
 
-        {/* Graphic Design & Visual Identities */}
+        {/* Block A: Logotipos e identidade visual (Visible on Todos, Identidade Visual, or Design Gráfico) */}
         {(activeFilter === 'todos' || activeFilter === 'identidade' || activeFilter === 'design-grafico') && (
           <div>
-            <GraphicDesignPortfolio />
+            <LogosPortfolioSection onNavigate={onNavigate} />
           </div>
         )}
 
-        {/* Social Media Designs Pack */}
+        {/* Block B: Identidade visual em perfis do Instagram (Visible on Todos or Redes Sociais) */}
         {(activeFilter === 'todos' || activeFilter === 'redes-sociais') && (
           <div>
-            <SocialMediaPack />
+            <SocialProfilesPortfolioSection onNavigate={onNavigate} />
           </div>
         )}
 

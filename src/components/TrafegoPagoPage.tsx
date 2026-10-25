@@ -553,13 +553,13 @@ export const TrafegoPagoPage: React.FC<TrafegoPagoPageProps> = ({ onNavigate }) 
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-7 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 flex items-start gap-4.5 shadow-lg">
-              <BrandIcon icon={Link2} size="lg" variant="emerald" />
+              <BrandIcon icon={MessageCircle} size="lg" variant="emerald" />
               <div className="space-y-2">
                 <strong className="text-white text-lg sm:text-xl block font-bold">
-                  Link Personalizado pro Instagram (Instabio)
+                  Kit de atendimento no WhatsApp
                 </strong>
                 <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
-                  Uma página de links simples e no ar rápido, pra quem clica no seu anúncio ou na sua bio achar direto seu WhatsApp, catálogo ou endereço. Tudo nas cores e na identidade visual da sua marca.
+                  Se você quiser, eu envio modelos de respostas rápidas e de mensagens de saudação e de ausência, pra você atender bem quem chegar pelos anúncios.
                 </p>
               </div>
             </div>
