@@ -23,6 +23,7 @@ import {
   Eye,
   Gift,
   Search,
+  Plus,
 } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
@@ -81,11 +82,6 @@ interface LightboxModalData {
 export const ArtesRedesSociaisPage: React.FC<ArtesRedesSociaisPageProps> = ({ onNavigate }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [selectedSegmentIdx, setSelectedSegmentIdx] = useState(0);
-  const [mobileAccordionOpen, setMobileAccordionOpen] = useState<{ [key: string]: boolean }>({
-    'pack-editavel': true,
-    'pack-editavel-edicao': false,
-    'pack-pronto': false,
-  });
   const [lightboxData, setLightboxData] = useState<LightboxModalData | null>(null);
 
   // Video state
@@ -707,230 +703,123 @@ export const ArtesRedesSociaisPage: React.FC<ArtesRedesSociaisPageProps> = ({ on
             </h2>
           </div>
 
-          {/* Desktop: 3 columns. Mobile: accordion */}
-          {/* Desktop View */}
-          <div className="hidden md:grid md:grid-cols-3 gap-6 items-start">
-            {/* Column 1 */}
-            <div className="p-7 rounded-2xl bg-[#1E1E22] border border-white/10 space-y-4 shadow-lg h-full">
-              <h3 className="text-xl font-bold text-white border-b border-white/10 pb-3">
-                Pack editável
-              </h3>
-              <ul className="space-y-3 text-sm text-gray-300 leading-relaxed font-normal">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Normalmente de 20 a 30 artes de feed (1:1 e 4:5), alguns com carrossel</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Editáveis no Canva, inclusive no plano gratuito</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Link do Canva enviado pelo WhatsApp depois da confirmação do pagamento, junto com um vídeo curto mostrando como editar</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Suporte por 6 meses, a partir da entrega, para dúvidas de edição, download e postagem</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Existem pacotes base, com mais posts ou na quantidade que você precisar, e posts avulsos, sob orçamento</span>
-                </li>
-              </ul>
-            </div>
+          {/* Two-column layout on Desktop & Tablet, single-column on Mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+            {/* Left Column: Você edita */}
+            <div className="flex flex-col h-full">
+              {/* Group Label */}
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-mono font-bold uppercase tracking-wider text-[#E71870] mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#E71870]" />
+                <span>Você edita</span>
+              </div>
 
-            {/* Column 2 */}
-            <div className="p-7 rounded-2xl bg-[#1E1E22] border border-white/10 space-y-4 shadow-lg h-full">
-              <h3 className="text-xl font-bold text-white border-b border-white/10 pb-3">
-                Pack editável + edição por mim
-              </h3>
-              <ul className="space-y-3 text-sm text-gray-300 leading-relaxed font-normal">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Os mesmos templates, editados com as suas preferências (textos, cores e fotos)</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Entra no orçamento</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 3 */}
-            <div className="p-7 rounded-2xl bg-[#1E1E22] border border-white/10 space-y-4 shadow-lg h-full">
-              <h3 className="text-xl font-bold text-white border-b border-white/10 pb-3">
-                Pack pronto pra postar
-              </h3>
-              <ul className="space-y-3 text-sm text-gray-300 leading-relaxed font-normal">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Posts em 1:1, 4:5 ou 9:16 (só as artes, sem legenda nem hashtags)</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Lista de temas pra você aprovar</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Cores e fotos do seu negócio, pra manter a identidade (o logotipo é opcional)</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Cronograma com a lista de datas, que você pode ajustar</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Pacotes de 7, 15, 30 dias ou mais: a quantidade de posts define o período</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Ajustes em post de que você não gostou ou que tenha informação errada</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
-                  <span>Entrega em geral em até 3 dias úteis. Em pacotes maiores, o prazo é combinado antes</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Mobile Accordion View */}
-          <div className="md:hidden space-y-3">
-            {/* Accordion 1 */}
-            <div className="rounded-2xl bg-[#1E1E22] border border-white/10 overflow-hidden shadow-sm">
-              <button
-                type="button"
-                onClick={() =>
-                  setMobileAccordionOpen((prev) => ({
-                    ...prev,
-                    'pack-editavel': !prev['pack-editavel'],
-                  }))
-                }
-                className="w-full px-5 py-4 text-left flex items-center justify-between font-bold text-base text-white cursor-pointer"
-              >
-                <span>Pack editável</span>
-                <ChevronDown
-                  className={`w-4 h-4 text-gray-400 transition-transform ${
-                    mobileAccordionOpen['pack-editavel'] ? 'rotate-180 text-[#E71870]' : ''
-                  }`}
-                />
-              </button>
-              {mobileAccordionOpen['pack-editavel'] && (
-                <div className="px-5 pb-5 pt-1 border-t border-white/[0.06]">
-                  <ul className="space-y-2.5 text-sm text-gray-300 leading-relaxed font-normal">
-                    <li className="flex items-start gap-2">
+              {/* Stacked Cards Container */}
+              <div className="flex-1 flex flex-col justify-between space-y-5">
+                {/* 1) Pack editável */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-white/10 shadow-lg flex-1">
+                  <h3 className="text-xl font-bold text-white border-b border-white/10 pb-3 mb-4">
+                    Pack editável
+                  </h3>
+                  <ul className="space-y-3 text-sm text-gray-300 leading-relaxed font-normal">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Normalmente de 20 a 30 artes de feed (1:1 e 4:5), alguns com carrossel</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Editáveis no Canva, inclusive no plano gratuito</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Link do Canva enviado pelo WhatsApp depois da confirmação do pagamento, junto com um vídeo curto mostrando como editar</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Suporte por 6 meses, a partir da entrega, para dúvidas de edição, download e postagem</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Existem pacotes base, com mais posts ou na quantidade que você precisar, e posts avulsos, sob orçamento</span>
                     </li>
                   </ul>
                 </div>
-              )}
-            </div>
 
-            {/* Accordion 2 */}
-            <div className="rounded-2xl bg-[#1E1E22] border border-white/10 overflow-hidden shadow-sm">
-              <button
-                type="button"
-                onClick={() =>
-                  setMobileAccordionOpen((prev) => ({
-                    ...prev,
-                    'pack-editavel-edicao': !prev['pack-editavel-edicao'],
-                  }))
-                }
-                className="w-full px-5 py-4 text-left flex items-center justify-between font-bold text-base text-white cursor-pointer"
-              >
-                <span>Pack editável + edição por mim</span>
-                <ChevronDown
-                  className={`w-4 h-4 text-gray-400 transition-transform ${
-                    mobileAccordionOpen['pack-editavel-edicao'] ? 'rotate-180 text-[#E71870]' : ''
-                  }`}
-                />
-              </button>
-              {mobileAccordionOpen['pack-editavel-edicao'] && (
-                <div className="px-5 pb-5 pt-1 border-t border-white/[0.06]">
-                  <ul className="space-y-2.5 text-sm text-gray-300 leading-relaxed font-normal">
-                    <li className="flex items-start gap-2">
+                {/* 2) Pack editável + edição por mim (Optional Add-on with '+' badge) */}
+                <div className="relative p-5 sm:p-6 rounded-2xl bg-pink-950/15 border-2 border-dashed border-[#E71870]/40 shadow-md">
+                  {/* Round '+' badge overlapping the boundary between the two cards */}
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-[#E71870] text-[#141416] flex items-center justify-center shadow-md border-2 border-[#1E1E22] z-10 select-none">
+                    <Plus className="w-4 h-4 stroke-[3]" />
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 border-b border-pink-500/20 pb-2.5 mb-3">
+                    <h4 className="text-base sm:text-lg font-bold text-white">
+                      Pack editável + edição por mim
+                    </h4>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-pink-500/15 text-[#E71870] border border-pink-500/30">
+                      Complemento opcional
+                    </span>
+                  </div>
+
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Os mesmos templates, editados com as suas preferências (textos, cores e fotos)</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Entra no orçamento</span>
                     </li>
                   </ul>
                 </div>
-              )}
+              </div>
             </div>
 
-            {/* Accordion 3 */}
-            <div className="rounded-2xl bg-[#1E1E22] border border-white/10 overflow-hidden shadow-sm">
-              <button
-                type="button"
-                onClick={() =>
-                  setMobileAccordionOpen((prev) => ({
-                    ...prev,
-                    'pack-pronto': !prev['pack-pronto'],
-                  }))
-                }
-                className="w-full px-5 py-4 text-left flex items-center justify-between font-bold text-base text-white cursor-pointer"
-              >
-                <span>Pack pronto pra postar</span>
-                <ChevronDown
-                  className={`w-4 h-4 text-gray-400 transition-transform ${
-                    mobileAccordionOpen['pack-pronto'] ? 'rotate-180 text-[#E71870]' : ''
-                  }`}
-                />
-              </button>
-              {mobileAccordionOpen['pack-pronto'] && (
-                <div className="px-5 pb-5 pt-1 border-t border-white/[0.06]">
-                  <ul className="space-y-2.5 text-sm text-gray-300 leading-relaxed font-normal">
-                    <li className="flex items-start gap-2">
+            {/* Right Column: Eu crio */}
+            <div className="flex flex-col h-full">
+              {/* Group Label */}
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-mono font-bold uppercase tracking-wider text-[#E71870] mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#E71870]" />
+                <span>Eu crio</span>
+              </div>
+
+              {/* Card 3: Pack pronto pra postar */}
+              <div className="p-6 sm:p-7 rounded-2xl bg-[#1E1E22] border border-white/10 shadow-lg flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white border-b border-white/10 pb-3 mb-4">
+                    Pack pronto pra postar
+                  </h3>
+                  <ul className="space-y-3.5 sm:space-y-4 text-sm text-gray-300 leading-relaxed font-normal py-1">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Posts em 1:1, 4:5 ou 9:16 (só as artes, sem legenda nem hashtags)</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Lista de temas pra você aprovar</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Cores e fotos do seu negócio, pra manter a identidade (o logotipo é opcional)</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Cronograma com a lista de datas, que você pode ajustar</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Pacotes de 7, 15, 30 dias ou mais: a quantidade de posts define o período</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Ajustes em post de que você não gostou ou que tenha informação errada</span>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E71870] mt-2 shrink-0" />
                       <span>Entrega em geral em até 3 dias úteis. Em pacotes maiores, o prazo é combinado antes</span>
                     </li>
                   </ul>
                 </div>
-              )}
+              </div>
             </div>
           </div>
 

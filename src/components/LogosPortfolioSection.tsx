@@ -34,7 +34,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Cliente',
         isClient: true,
         src: '/portfolio/identidade-visual/logos/clientes/logo-a-casa-dela.jpg',
-        alt: 'Logotipo A Casa Dela - Loja online de utensílios para casa'
+        alt: 'Logotipo A Casa Dela, loja online de utensílios para casa'
       },
       {
         id: 'compras-happy',
@@ -43,7 +43,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Cliente',
         isClient: true,
         src: '/portfolio/identidade-visual/logos/clientes/logo-compras-happy.jpg',
-        alt: 'Logotipo Compras Happy - Loja de variedades online'
+        alt: 'Logotipo Compras Happy, loja de variedades online'
       }
     ]
   },
@@ -57,7 +57,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Cliente',
         isClient: true,
         src: '/portfolio/identidade-visual/logos/clientes/logo-vanessa-oliveira.jpg',
-        alt: 'Logotipo Corretora Vanessa Oliveira - Corretora de imóveis'
+        alt: 'Logotipo Corretora Vanessa Oliveira, corretora de imóveis'
       },
       {
         id: 'everton-limberger',
@@ -66,7 +66,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Cliente',
         isClient: true,
         src: '/portfolio/identidade-visual/logos/clientes/logo-everton-limberger.jpg',
-        alt: 'Logotipo Psicólogo Everton Limberger - Psicologia'
+        alt: 'Logotipo Psicólogo Everton Limberger, psicologia'
       },
       {
         id: 'refinatta-salgados',
@@ -75,7 +75,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Cliente',
         isClient: true,
         src: '/portfolio/identidade-visual/logos/clientes/logo-refinatta-salgados.jpg',
-        alt: 'Logotipo Refinatta Salgados - Lanchonete de coxinhas'
+        alt: 'Logotipo Refinatta Salgados, lanchonete de coxinhas'
       }
     ]
   },
@@ -89,7 +89,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-raizes-verdes.png',
-        alt: 'Logotipo conceitual Raízes Verdes'
+        alt: 'Logotipo Raízes Verdes (estudo conceitual)'
       },
       {
         id: 'aroma-organico',
@@ -97,7 +97,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-aroma-organico.png',
-        alt: 'Logotipo conceitual Aroma Orgânico'
+        alt: 'Logotipo Aroma Orgânico (estudo conceitual)'
       },
       {
         id: 'nature',
@@ -105,7 +105,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-nature.png',
-        alt: 'Logotipo conceitual Nature'
+        alt: 'Logotipo Nature (estudo conceitual)'
       },
       {
         id: 'puro-organico',
@@ -113,7 +113,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-puro-organico.png',
-        alt: 'Logotipo conceitual Puro Orgânico'
+        alt: 'Logotipo Puro Orgânico (estudo conceitual)'
       },
       {
         id: 'natural-drink',
@@ -121,7 +121,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-natural-drink.png',
-        alt: 'Logotipo conceitual NaturalDrink'
+        alt: 'Logotipo NaturalDrink (estudo conceitual)'
       },
       {
         id: 'coco-vida',
@@ -129,7 +129,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-coco-vida.png',
-        alt: 'Logotipo conceitual Coco Vida'
+        alt: 'Logotipo Coco Vida (estudo conceitual)'
       },
       {
         id: 'biossencia',
@@ -137,7 +137,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-biossencia.png',
-        alt: 'Logotipo conceitual Biossência'
+        alt: 'Logotipo Biossência (estudo conceitual)'
       },
       {
         id: 'navida-naturais',
@@ -145,7 +145,7 @@ const LOGO_GROUPS: LogoGroup[] = [
         tag: 'Estudo conceitual',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/produtos-naturais/logo-navida-naturais.png',
-        alt: 'Logotipo conceitual Navida Naturais'
+        alt: 'Logotipo Navida Naturais (estudo conceitual)'
       }
     ]
   },
@@ -155,20 +155,20 @@ const LOGO_GROUPS: LogoGroup[] = [
       {
         id: 'digital-dreams-shop',
         name: 'Digital Dreams Shop',
-        caption: 'Loja fictícia de eletrônicos',
+        caption: 'Loja de produtos digitais',
         tag: 'Logo fictícia',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/estudos/logo-digital-dreams-shop.jpg',
-        alt: 'Logotipo fictício Digital Dreams Shop'
+        alt: 'Logotipo Digital Dreams Shop, loja de produtos digitais (logo fictícia)'
       },
       {
         id: 'cine-club-ia',
         name: 'Cine Club',
-        caption: 'Conceito criado com IA',
+        caption: 'Perfil de entretenimento do cinema no Instagram',
         tag: 'Feita com IA',
         isClient: false,
         src: '/portfolio/identidade-visual/logos/estudos/logo-cine-club-ia.jpg',
-        alt: 'Logotipo conceitual Cine Club'
+        alt: 'Logotipo Cine Club, perfil de entretenimento do cinema no instagram (feita com IA)'
       }
     ]
   }
@@ -312,6 +312,8 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
                         src={logo.src}
                         alt={logo.alt}
                         loading="lazy"
+                        width={240}
+                        height={240}
                         className="max-h-full max-w-full object-contain filter drop-shadow-md"
                       />
                     </div>
@@ -416,6 +418,8 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
               <img
                 src={currentLogo.src}
                 alt={currentLogo.alt}
+                width={360}
+                height={360}
                 className="max-h-full max-w-full object-contain filter drop-shadow-xl"
               />
             </div>

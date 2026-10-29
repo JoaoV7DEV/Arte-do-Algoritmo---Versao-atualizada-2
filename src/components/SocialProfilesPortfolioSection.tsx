@@ -24,29 +24,29 @@ interface SocialProfilesPortfolioSectionProps {
 const PROFILE_CASES: ProfileCase[] = [
   {
     id: 'petvet',
-    name: 'PetVet',
-    niche: 'Pet shop & veterinária',
+    name: 'Perfil do PetVet: antes e depois',
+    niche: 'Petshop',
     badge: 'ANTES → DEPOIS',
     coverImage: '/portfolio/redes-sociais/identidade-perfis/petvet-antes-depois-colagem.jpg',
-    coverAlt: 'Antes e depois da identidade visual do perfil PetVet no Instagram',
+    coverAlt: 'Antes e depois do perfil do Instagram do PetVet',
     beforeImage: '/portfolio/redes-sociais/identidade-perfis/petvet-antes.jpg',
-    beforeAlt: 'Perfil do PetVet antes da melhoria de identidade visual',
+    beforeAlt: 'Feed do Instagram do PetVet antes da melhoria de identidade visual',
     afterImage: '/portfolio/redes-sociais/identidade-perfis/petvet-depois.jpg',
-    afterAlt: 'Perfil do PetVet depois com identidade visual padronizada e destaques organizados',
-    details: 'Perfil antes com posts repetitivos e sem padrão visual. Depois da reformulação: capas de destaques personalizadas, paleta de cores acolhedora, tipografia legível e templates estruturados para comunicados, dicas e fotos reais da clínica e pet shop.'
+    afterAlt: 'Feed do Instagram do PetVet depois da melhoria de identidade visual',
+    details: 'Perfil de um petshop e consultório veterinário. No antes, o feed repete o mesmo painel de madeira com o logo e mistura vídeos do dia a dia da loja. No depois, o feed segue a identidade da marca, em laranja e verde, com destaques e posts prontos feitos sob medida, com apoio de IA. Neste caso, o trabalho entrou como Social Media, para deixar o perfil mais completo.'
   },
   {
     id: 'arte-do-algoritmo',
-    name: 'Arte do Algoritmo',
-    niche: 'Design & Estratégia Digital',
+    name: 'Perfil da Arte do Algoritmo: antes e depois',
+    niche: 'Agência digital',
     badge: 'ANTES → DEPOIS',
     coverImage: '/portfolio/redes-sociais/identidade-perfis/arte-do-algoritmo-antes-depois-colagem.jpg',
-    coverAlt: 'Antes e depois da identidade visual do perfil Arte do Algoritmo no Instagram',
+    coverAlt: 'Antes e depois do perfil do Instagram da Arte do Algoritmo',
     beforeImage: '/portfolio/redes-sociais/identidade-perfis/arte-do-algoritmo-antes.jpg',
-    beforeAlt: 'Perfil Arte do Algoritmo antes da melhoria de identidade visual',
+    beforeAlt: 'Feed do Instagram da Arte do Algoritmo antes da melhoria de identidade visual',
     afterImage: '/portfolio/redes-sociais/identidade-perfis/arte-do-algoritmo-depois.jpg',
-    afterAlt: 'Perfil Arte do Algoritmo depois com identidade visual e carrosséis estruturados',
-    details: 'Perfil antes com templates desconexos de múltiplos nichos e sem foco de autoridade. Depois da reformulação: identidade visual unificada com cores assinatura (ciano e magenta neon), capas de destaques limpas e carrosséis estratégicos focados em conversão.'
+    afterAlt: 'Feed do Instagram da Arte do Algoritmo depois da melhoria de identidade visual',
+    details: 'Perfil da própria Arte do Algoritmo. No antes, o feed misturava artes de vários nichos, sem uma identidade única. No depois, o feed segue a identidade da marca, com cores e estilo próprios, posts sobre tráfego pago e Google Meu Negócio e destaques como Feedbacks, Trabalhos e Pack de Artes.'
   }
 ];
 
@@ -106,7 +106,7 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
             Identidade visual em perfis do Instagram
           </h2>
           <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-            Veja como a organização visual, paleta de cores e templates estratégicos transformam a percepção de autoridade de um negócio.
+            Antes e depois do feed de perfis que passaram por melhoria de identidade visual.
           </p>
         </div>
 
@@ -127,6 +127,8 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
                     src={item.coverImage}
                     alt={item.coverAlt}
                     loading="lazy"
+                    width={280}
+                    height={498}
                     className="w-full h-full object-cover"
                   />
                   {/* Subtle hover overlay */}
@@ -277,6 +279,8 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
                 <img
                   src={mobileTab === 'antes' ? selectedCase.beforeImage : selectedCase.afterImage}
                   alt={mobileTab === 'antes' ? selectedCase.beforeAlt : selectedCase.afterAlt}
+                  width={280}
+                  height={498}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -287,12 +291,14 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
               {/* Antes */}
               <div className="flex flex-col items-center space-y-3">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-red-500/15 text-red-300 border border-red-500/30">
-                  <span>Antes da reformulação</span>
+                  <span>Antes</span>
                 </div>
                 <div className="w-full max-w-[280px] aspect-[9/16] rounded-2xl bg-black border border-white/10 overflow-hidden shadow-xl">
                   <img
                     src={selectedCase.beforeImage}
                     alt={selectedCase.beforeAlt}
+                    width={280}
+                    height={498}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -302,12 +308,14 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
               <div className="flex flex-col items-center space-y-3">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-pink-500/15 text-[#E71870] border border-pink-500/30">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Depois da reformulação</span>
+                  <span>Depois</span>
                 </div>
                 <div className="w-full max-w-[280px] aspect-[9/16] rounded-2xl bg-black border border-white/10 overflow-hidden shadow-xl">
                   <img
                     src={selectedCase.afterImage}
                     alt={selectedCase.afterAlt}
+                    width={280}
+                    height={498}
                     className="w-full h-full object-cover"
                   />
                 </div>
