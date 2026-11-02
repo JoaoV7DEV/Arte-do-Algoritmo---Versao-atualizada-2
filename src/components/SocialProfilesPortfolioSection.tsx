@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Maximize2, MessageCircle, ArrowRight, X, Sparkles, Layers } from 'lucide-react';
+import { Maximize2, MessageCircle, ArrowRight, X, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
+import { AutoLoopRail } from './AutoLoopRail';
 
 interface ProfileCase {
   id: string;
@@ -15,6 +16,13 @@ interface ProfileCase {
   afterImage: string;
   afterAlt: string;
   details: string;
+}
+
+export interface StoryItem {
+  id: string;
+  src: string;
+  caption: string;
+  alt: string;
 }
 
 interface SocialProfilesPortfolioSectionProps {
@@ -33,7 +41,7 @@ const PROFILE_CASES: ProfileCase[] = [
     beforeAlt: 'Feed do Instagram do PetVet antes da melhoria de identidade visual',
     afterImage: '/portfolio/redes-sociais/identidade-perfis/petvet-depois.jpg',
     afterAlt: 'Feed do Instagram do PetVet depois da melhoria de identidade visual',
-    details: 'Perfil de um petshop e consultório veterinário. No antes, o feed repete o mesmo painel de madeira com o logo e mistura vídeos do dia a dia da loja. No depois, o feed segue a identidade da marca, em laranja e verde, com destaques e posts prontos feitos sob medida, com apoio de IA. Neste caso, o trabalho entrou como Social Media, para deixar o perfil mais completo.'
+    details: 'Perfil de um petshop e consultório veterinário. No antes, o feed repete o mesmo painel de madeira com o logo e mistura vídeos do dia a dia da loja. No depois, o feed segue a identidade da marca, em laranja e verde, com destaques e posts prontos feitos sob medida, com apoio de IA. Neste caso, o trabalho entrou como Social Media, para deixar o perfil mais completo.',
   },
   {
     id: 'arte-do-algoritmo',
@@ -46,17 +54,82 @@ const PROFILE_CASES: ProfileCase[] = [
     beforeAlt: 'Feed do Instagram da Arte do Algoritmo antes da melhoria de identidade visual',
     afterImage: '/portfolio/redes-sociais/identidade-perfis/arte-do-algoritmo-depois.jpg',
     afterAlt: 'Feed do Instagram da Arte do Algoritmo depois da melhoria de identidade visual',
-    details: 'Perfil da própria Arte do Algoritmo. No antes, o feed misturava artes de vários nichos, sem uma identidade única. No depois, o feed segue a identidade da marca, com cores e estilo próprios, posts sobre tráfego pago e Google Meu Negócio e destaques como Feedbacks, Trabalhos e Pack de Artes.'
-  }
+    details: 'Perfil da própria Arte do Algoritmo. No antes, o feed misturava artes de vários nichos, sem uma identidade única. No depois, o feed segue a identidade da marca, com cores e estilo próprios, posts sobre tráfego pago e Google Meu Negócio e destaques como Feedbacks, Trabalhos e Pack de Artes.',
+  },
+];
+
+const TOCA_DO_ACAI_STORIES: StoryItem[] = [
+  {
+    id: 'toca-01',
+    src: '/portfolio/redes-sociais/stories/toca-do-acai-story-01.jpg',
+    caption: 'Divulgação do pedido pelo iFood',
+    alt: 'Story do Instagram da Toca do Açaí: Divulgação do pedido pelo iFood',
+  },
+  {
+    id: 'toca-02',
+    src: '/portfolio/redes-sociais/stories/toca-do-acai-story-02.jpg',
+    caption: 'Divulgação do pedido pelo iFood',
+    alt: 'Story do Instagram da Toca do Açaí: Divulgação do pedido pelo iFood',
+  },
+  {
+    id: 'toca-03',
+    src: '/portfolio/redes-sociais/stories/toca-do-acai-story-03.jpg',
+    caption: 'Divulgação do pedido pelo iFood',
+    alt: 'Story do Instagram da Toca do Açaí: Divulgação do pedido pelo iFood',
+  },
+  {
+    id: 'toca-04',
+    src: '/portfolio/redes-sociais/stories/toca-do-acai-story-04.jpg',
+    caption: 'Milkshakes',
+    alt: 'Story do Instagram da Toca do Açaí: Milkshakes',
+  },
+  {
+    id: 'toca-05',
+    src: '/portfolio/redes-sociais/stories/toca-do-acai-story-05.jpg',
+    caption: 'Milkshakes',
+    alt: 'Story do Instagram da Toca do Açaí: Milkshakes',
+  },
+  {
+    id: 'toca-06',
+    src: '/portfolio/redes-sociais/stories/toca-do-acai-story-06.jpg',
+    caption: 'Batidinha de açaí',
+    alt: 'Story do Instagram da Toca do Açaí: Batidinha de açaí',
+  },
+];
+
+const HINODE_STORIES: StoryItem[] = [
+  {
+    id: 'hinode-01',
+    src: '/portfolio/redes-sociais/stories/hinode-story-01.jpg',
+    caption: 'Story de divulgação, consultora Hinode (1)',
+    alt: 'Story do Instagram da consultora Hinode (1)',
+  },
+  {
+    id: 'hinode-02',
+    src: '/portfolio/redes-sociais/stories/hinode-story-02.jpg',
+    caption: 'Story de divulgação, consultora Hinode (2)',
+    alt: 'Story do Instagram da consultora Hinode (2)',
+  },
+  {
+    id: 'hinode-03',
+    src: '/portfolio/redes-sociais/stories/hinode-story-03.png',
+    caption: 'Story de divulgação, consultora Hinode (3)',
+    alt: 'Story do Instagram da consultora Hinode (3)',
+  },
 ];
 
 export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSectionProps> = ({ onNavigate }) => {
+  // Before/after comparison lightbox state
   const [selectedCase, setSelectedCase] = useState<ProfileCase | null>(null);
   const [mobileTab, setMobileTab] = useState<'antes' | 'depois'>('depois');
 
-  // Body scroll lock & ESC key listener for lightbox
+  // Stories shared lightbox state
+  const [activeStoryGroup, setActiveStoryGroup] = useState<StoryItem[] | null>(null);
+  const [selectedStoryIndex, setSelectedStoryIndex] = useState<number | null>(null);
+
+  // Body scroll lock & ESC key listener for both lightboxes
   useEffect(() => {
-    if (selectedCase) {
+    if (selectedCase || selectedStoryIndex !== null) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -65,6 +138,14 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSelectedCase(null);
+        setActiveStoryGroup(null);
+        setSelectedStoryIndex(null);
+      } else if (selectedStoryIndex !== null && activeStoryGroup) {
+        if (e.key === 'ArrowLeft') {
+          setSelectedStoryIndex((prev) => (prev !== null ? (prev - 1 + activeStoryGroup.length) % activeStoryGroup.length : null));
+        } else if (e.key === 'ArrowRight') {
+          setSelectedStoryIndex((prev) => (prev !== null ? (prev + 1) % activeStoryGroup.length : null));
+        }
       }
     };
 
@@ -73,12 +154,19 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedCase]);
+  }, [selectedCase, selectedStoryIndex, activeStoryGroup]);
 
   const handleOpenModal = (item: ProfileCase) => {
     setSelectedCase(item);
     setMobileTab('depois');
   };
+
+  const handleOpenStoryLightbox = (group: StoryItem[], index: number) => {
+    setActiveStoryGroup(group);
+    setSelectedStoryIndex(index);
+  };
+
+  const currentStory = activeStoryGroup && selectedStoryIndex !== null ? activeStoryGroup[selectedStoryIndex] : null;
 
   const handleNavigateToSocialMediaService = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -89,6 +177,8 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
       window.dispatchEvent(new PopStateEvent('popstate'));
     }
   };
+
+  const isLightboxActive = selectedCase !== null || selectedStoryIndex !== null;
 
   return (
     <section
@@ -110,18 +200,20 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
           </p>
         </div>
 
-        {/* 2 Comparison Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {PROFILE_CASES.map((item) => (
+        {/* Task 5a: Before/After Cards using AutoLoopRail with autoLoop=false */}
+        <AutoLoopRail
+          items={PROFILE_CASES}
+          autoLoop={false}
+          renderItem={(item) => (
             <div
               key={item.id}
-              className="p-6 sm:p-7 rounded-3xl bg-[#1E1E22] border border-white/10 hover:border-pink-500/40 transition-all duration-300 shadow-xl flex flex-col justify-between group"
+              className="p-6 sm:p-7 rounded-3xl bg-[#1E1E22] border border-white/10 hover:border-pink-500/40 transition-all duration-300 shadow-xl flex flex-col justify-between group w-[78vw] max-w-[340px] md:w-full md:max-w-[380px] text-left"
             >
               {/* 9:16 Cover Image */}
               <div className="w-full flex justify-center mb-6">
                 <div
                   onClick={() => handleOpenModal(item)}
-                  className="w-[78vw] max-w-[280px] aspect-[9/16] rounded-2xl bg-black/60 border border-white/10 overflow-hidden relative cursor-pointer group-hover:scale-[1.01] transition-transform duration-300 shadow-2xl"
+                  className="w-full max-w-[280px] aspect-[9/16] rounded-2xl bg-black/60 border border-white/10 overflow-hidden relative cursor-pointer group-hover:scale-[1.01] transition-transform duration-300 shadow-2xl"
                 >
                   <img
                     src={item.coverImage}
@@ -129,7 +221,7 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
                     loading="lazy"
                     width={280}
                     height={498}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover pointer-events-none"
                   />
                   {/* Subtle hover overlay */}
                   <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -167,10 +259,122 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
                 </button>
               </div>
             </div>
-          ))}
+          )}
+        />
+
+        {/* Task 5b: Group H3 "Artes para stories" with two AutoLoopRails */}
+        <div className="mt-20 space-y-12">
+          <div className="space-y-2 border-b border-white/10 pb-4">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
+              Artes para stories
+            </h3>
+            <p className="text-sm sm:text-base text-gray-400">
+              Stories feitos para clientes de diferentes nichos.
+            </p>
+          </div>
+
+          {/* Rail 1: Toca do Açaí · açaiteria */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-sm sm:text-base font-bold font-mono text-white">
+                Toca do Açaí · açaiteria
+              </span>
+            </div>
+
+            <AutoLoopRail
+              items={TOCA_DO_ACAI_STORIES}
+              autoLoop={true}
+              isPausedExternal={isLightboxActive}
+              renderItem={(story, idx, isDuplicate) => (
+                <div
+                  onClick={() => handleOpenStoryLightbox(TOCA_DO_ACAI_STORIES, idx)}
+                  tabIndex={isDuplicate ? -1 : 0}
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (!isDuplicate && (e.key === 'Enter' || e.key === ' ')) {
+                      e.preventDefault();
+                      handleOpenStoryLightbox(TOCA_DO_ACAI_STORIES, idx);
+                    }
+                  }}
+                  className="p-3 sm:p-4 rounded-2xl bg-[#1E1E22] hover:bg-[#232328] border border-white/10 hover:border-pink-500/40 transition-all duration-300 cursor-pointer group flex flex-col justify-between shadow-lg hover:shadow-pink-500/10 shrink-0 select-none text-left"
+                >
+                  {/* 9:16 Image: ~420px desktop, ~340px mobile, width auto */}
+                  <div className="h-[340px] sm:h-[420px] w-auto aspect-[9/16] rounded-xl bg-black border border-white/5 overflow-hidden relative mb-3 group-hover:scale-[1.01] transition-transform duration-300">
+                    <img
+                      src={story.src}
+                      alt={story.alt}
+                      loading="lazy"
+                      width={236}
+                      height={420}
+                      className="w-full h-full object-cover pointer-events-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 max-w-[236px]">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wide bg-pink-500/15 text-[#E71870] border border-pink-500/30">
+                      Cliente
+                    </span>
+                    <p className="text-xs sm:text-sm font-semibold text-white leading-snug group-hover:text-pink-300 transition-colors">
+                      {story.caption}
+                    </p>
+                  </div>
+                </div>
+              )}
+            />
+          </div>
+
+          {/* Rail 2: Hinode · consultora de cosméticos */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-sm sm:text-base font-bold font-mono text-white">
+                Hinode · consultora de cosméticos
+              </span>
+            </div>
+
+            <AutoLoopRail
+              items={HINODE_STORIES}
+              autoLoop={true}
+              isPausedExternal={isLightboxActive}
+              renderItem={(story, idx, isDuplicate) => (
+                <div
+                  onClick={() => handleOpenStoryLightbox(HINODE_STORIES, idx)}
+                  tabIndex={isDuplicate ? -1 : 0}
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (!isDuplicate && (e.key === 'Enter' || e.key === ' ')) {
+                      e.preventDefault();
+                      handleOpenStoryLightbox(HINODE_STORIES, idx);
+                    }
+                  }}
+                  className="p-3 sm:p-4 rounded-2xl bg-[#1E1E22] hover:bg-[#232328] border border-white/10 hover:border-pink-500/40 transition-all duration-300 cursor-pointer group flex flex-col justify-between shadow-lg hover:shadow-pink-500/10 shrink-0 select-none text-left"
+                >
+                  {/* 9:16 Image: ~420px desktop, ~340px mobile, width auto */}
+                  <div className="h-[340px] sm:h-[420px] w-auto aspect-[9/16] rounded-xl bg-black border border-white/5 overflow-hidden relative mb-3 group-hover:scale-[1.01] transition-transform duration-300">
+                    <img
+                      src={story.src}
+                      alt={story.alt}
+                      loading="lazy"
+                      width={236}
+                      height={420}
+                      className="w-full h-full object-cover pointer-events-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 max-w-[236px]">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wide bg-pink-500/15 text-[#E71870] border border-pink-500/30">
+                      Cliente
+                    </span>
+                    <p className="text-xs sm:text-sm font-semibold text-white leading-snug group-hover:text-pink-300 transition-colors">
+                      {story.caption}
+                    </p>
+                  </div>
+                </div>
+              )}
+            />
+          </div>
         </div>
 
-        {/* Closing Row for Block B */}
+        {/* Task 5d: Closing Row moved to the END of Block B (after the stories) */}
         <div className="mt-16 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <p className="text-base sm:text-lg font-bold text-white text-center sm:text-left">
             Quer um perfil com identidade assim?
@@ -181,7 +385,7 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
               href={AGENCY_INFO.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-sm shadow-md hover:shadow-cyan-500/25 transition-all text-center"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-sm shadow-md hover:shadow-cyan-500/25 transition-all text-center cursor-pointer"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
               <span>Fale no WhatsApp</span>
@@ -190,32 +394,16 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
             <a
               href="/servicos/artes-para-redes-sociais"
               onClick={handleNavigateToSocialMediaService}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/35 text-pink-300 hover:text-white font-semibold text-sm transition-all text-center"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/35 text-pink-300 hover:text-white font-semibold text-sm transition-all text-center cursor-pointer"
             >
-              <span>Artes para redes sociais</span>
+              <span>Conheça os packs e caminhos</span>
               <ArrowRight className="w-4 h-4 text-[#E71870]" />
             </a>
           </div>
         </div>
-
-        {/* Slim Banner at the End of Block B */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#18181B] via-[#202025] to-[#18181B] border border-white/10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
-          <p className="text-sm sm:text-base text-gray-200 font-medium">
-            Conheça os packs de artes para redes sociais, editáveis no Canva ou prontos pra postar.
-          </p>
-
-          <a
-            href="/servicos/artes-para-redes-sociais"
-            onClick={handleNavigateToSocialMediaService}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] border border-white/20 text-white font-semibold text-xs sm:text-sm transition-all shrink-0"
-          >
-            <span>Ver os packs</span>
-            <ArrowRight className="w-4 h-4 text-[#E71870]" />
-          </a>
-        </div>
       </div>
 
-      {/* Comparison Lightbox Modal */}
+      {/* Comparison Lightbox Modal for Before/After */}
       {selectedCase && (
         <div
           role="dialog"
@@ -242,7 +430,7 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
                 type="button"
                 onClick={() => setSelectedCase(null)}
                 aria-label="Fechar"
-                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -331,6 +519,90 @@ export const SocialProfilesPortfolioSection: React.FC<SocialProfilesPortfolioSec
                 {selectedCase.details}
               </p>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Shared Lightbox Modal for Stories */}
+      {currentStory && activeStoryGroup && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 bg-black/92 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
+          onClick={() => {
+            setActiveStoryGroup(null);
+            setSelectedStoryIndex(null);
+          }}
+        >
+          <div
+            className="relative max-w-lg w-full bg-[#18181B] border border-white/15 rounded-3xl p-5 sm:p-7 shadow-2xl flex flex-col items-center space-y-5 max-h-[92vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="w-full flex items-center justify-between pb-3 border-b border-white/10">
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-pink-500/15 text-[#E71870] border border-pink-500/30">
+                Cliente
+              </span>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveStoryGroup(null);
+                  setSelectedStoryIndex(null);
+                }}
+                aria-label="Fechar"
+                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* 9:16 Story Preview */}
+            <div className="w-full max-h-[65vh] flex justify-center bg-black rounded-2xl border border-white/10 overflow-hidden p-2">
+              <img
+                src={currentStory.src}
+                alt={currentStory.alt}
+                className="max-h-[60vh] w-auto aspect-[9/16] object-contain filter drop-shadow-xl"
+              />
+            </div>
+
+            {/* Caption */}
+            <div className="w-full text-center space-y-1">
+              <p className="text-base font-bold text-white">
+                {currentStory.caption}
+              </p>
+            </div>
+
+            {/* Navigation controls */}
+            {activeStoryGroup.length > 1 && (
+              <div className="flex items-center justify-between w-full pt-2 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedStoryIndex((prev) => (prev !== null ? (prev - 1 + activeStoryGroup.length) % activeStoryGroup.length : 0))
+                  }
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-gray-300 hover:text-white transition-colors cursor-pointer"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>Anterior</span>
+                </button>
+
+                <span className="text-xs font-mono text-gray-400">
+                  {(selectedStoryIndex ?? 0) + 1} de {activeStoryGroup.length}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedStoryIndex((prev) => (prev !== null ? (prev + 1) % activeStoryGroup.length : 0))
+                  }
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-gray-300 hover:text-white transition-colors cursor-pointer"
+                >
+                  <span>Próximo</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

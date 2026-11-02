@@ -187,6 +187,24 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
             setTimeout(() => setHighlightedCardId(null), 3000);
           }
         }, 150);
+      } else if (hash === 'materiais-graficos' || hash === 'item-materiais-graficos') {
+        setTimeout(() => {
+          const el = document.getElementById('materiais-graficos');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setHighlightedCardId('materiais-graficos');
+            setTimeout(() => setHighlightedCardId(null), 3000);
+          }
+        }, 150);
+      } else if (hash === 'logotipo-identidade-visual' || hash === 'item-logotipo-identidade-visual') {
+        setTimeout(() => {
+          const el = document.getElementById('logotipo-identidade-visual');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setHighlightedCardId('logotipo-identidade-visual');
+            setTimeout(() => setHighlightedCardId(null), 3000);
+          }
+        }, 150);
       } else {
         setTimeout(() => {
           const el = document.getElementById(hash);
@@ -220,6 +238,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
       if (page === 'servico-trafego-pago') path = '/servicos/trafego-pago';
       if (page === 'servico-google-meu-negocio') path = '/servicos/google-meu-negocio';
       if (page === 'servico-artes-para-redes-sociais') path = '/servicos/artes-para-redes-sociais';
+      if (page === 'servico-logotipo-e-identidade-visual') path = '/servicos/logotipo-e-identidade-visual';
       window.history.pushState(null, '', path);
       window.dispatchEvent(new PopStateEvent('popstate'));
     }
@@ -418,111 +437,261 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, initialA
               </a>
             </div>
 
-            {/* 4 Service Items Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-              {pillars[1].items.map((item, idx) => {
-                const isArtesRedesSociais = idx === 3;
+            {/* Área 2 Grid */}
+            <div className="space-y-6">
+              {/* Row 1: Full-width Hub Card: Logotipo e Identidade Visual */}
+              <div
+                id="logotipo-identidade-visual"
+                className={`p-7 sm:p-8 rounded-2xl bg-[#141416]/95 border-2 border-pink-500/30 hover:border-pink-500/50 transition-all flex flex-col justify-between group scroll-mt-36 shadow-lg relative overflow-hidden ${
+                  highlightedCardId === 'logotipo-identidade-visual'
+                    ? 'ring-2 ring-[#E71870] shadow-[0_0_35px_rgba(231,24,112,0.45)] scale-[1.01]'
+                    : ''
+                }`}
+              >
+                <div className="space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <CheckCircle2 className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-[11px] font-mono text-[#E71870] font-bold uppercase block tracking-wider">
+                          DESIGN ESTRATÉGICO
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-bold text-white">
+                          Logotipo e Identidade Visual
+                        </h3>
+                      </div>
+                    </div>
 
-                if (isArtesRedesSociais) {
-                  return (
-                    <div
-                      key={item.name}
-                      id="artes-redes-sociais"
-                      className={`p-7 rounded-2xl bg-[#141416]/95 border-2 border-pink-500/30 hover:border-pink-500/50 transition-all flex flex-col justify-between group scroll-mt-36 shadow-lg h-full ${
-                        highlightedCardId === 'artes-redes-sociais'
-                          ? 'ring-2 ring-[#E71870] shadow-[0_0_35px_rgba(231,24,112,0.45)] scale-[1.01]'
-                          : ''
-                      }`}
+                    {/* Two small chips */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-mono text-gray-300 px-2.5 py-1 rounded bg-white/5 border border-white/10">
+                        Logotipos
+                      </span>
+                      <span className="text-[11px] font-mono text-gray-300 px-2.5 py-1 rounded bg-white/5 border border-white/10">
+                        Identidade visual
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 max-w-4xl">
+                    <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                      Uma marca que as pessoas reconhecem e lembram.
+                    </p>
+                    <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-normal">
+                      Eu crio o seu logotipo e a identidade visual completa — cores, tipografia e manual de aplicação — pra seu negócio ter a mesma cara no Instagram, no balcão e no cartão. Quer saber como funciona?
+                    </p>
+                  </div>
+                </div>
+
+                {/* Three buttons (on mobile: primary full width, the other two side by side) */}
+                <div className="pt-6 mt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                  <a
+                    href={AGENCY_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[42px]"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                    <span>Fale no WhatsApp</span>
+                  </a>
+
+                  <div className="grid grid-cols-2 gap-2.5 w-full sm:contents">
+                    <a
+                      href="/projetos#case-identidade-visual"
+                      onClick={(e) => handleNavigateToCase('case-identidade-visual', e)}
+                      className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[42px] text-center"
                     >
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between gap-3">
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                              <CheckCircle2 className="w-5 h-5" />
-                            </div>
-                            <div>
-                              <span className="text-[11px] font-mono text-[#E71870] font-bold uppercase block tracking-wider">
-                                DESIGN ESTRATÉGICO
-                              </span>
-                              <h3 className="text-xl sm:text-2xl font-bold text-white">
-                                Artes para redes sociais
-                              </h3>
-                            </div>
-                          </div>
-                          <span className="text-xs font-mono text-[#E71870] font-bold">04</span>
-                        </div>
+                      <span>Ver exemplo real</span>
+                    </a>
 
-                        <div className="space-y-2">
-                          <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
-                            Seu Instagram sempre com post bonito, mesmo sem tempo nem orçamento pra social media.
-                          </p>
-                          <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-normal">
-                            Packs de artes por segmento, editáveis no Canva, ou posts prontos pra publicar, feitos por mim. Você escolhe o caminho. Quer ver como funciona?
-                          </p>
+                    <a
+                      href="/servicos/logotipo-e-identidade-visual"
+                      onClick={(e) => handleNavigateToService('servico-logotipo-e-identidade-visual', e)}
+                      className="w-full sm:flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2.5 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/30 text-pink-300 hover:text-white font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[42px] text-center"
+                    >
+                      <span>Saber mais →</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 2: Two equal height cards: Artes para redes sociais (left, unchanged) and Materiais gráficos (right) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                {/* Artes para redes sociais (left, unchanged, keep id="artes-redes-sociais") */}
+                <div
+                  id="artes-redes-sociais"
+                  className={`p-7 rounded-2xl bg-[#141416]/95 border-2 border-pink-500/30 hover:border-pink-500/50 transition-all flex flex-col justify-between group scroll-mt-36 shadow-lg h-full ${
+                    highlightedCardId === 'artes-redes-sociais'
+                      ? 'ring-2 ring-[#E71870] shadow-[0_0_35px_rgba(231,24,112,0.45)] scale-[1.01]'
+                      : ''
+                  }`}
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                          <CheckCircle2 className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <span className="text-[11px] font-mono text-[#E71870] font-bold uppercase block tracking-wider">
+                            DESIGN ESTRATÉGICO
+                          </span>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white">
+                            Artes para redes sociais
+                          </h3>
                         </div>
                       </div>
+                      <span className="text-xs font-mono text-[#E71870] font-bold">04</span>
+                    </div>
 
-                      {/* Three buttons, stacked layout because the card is half width */}
-                      <div className="pt-6 mt-6 border-t border-white/[0.08] space-y-2.5">
-                        {/* Primary full width */}
-                        <a
-                          href={AGENCY_INFO.whatsappUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[42px]"
-                        >
-                          <MessageCircle className="w-4 h-4 fill-current" />
-                          <span>Fale no WhatsApp</span>
-                        </a>
+                    <div className="space-y-2">
+                      <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                        Seu Instagram sempre com post bonito, mesmo sem tempo nem orçamento pra social media.
+                      </p>
+                      <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-normal">
+                        Packs de artes por segmento, editáveis no Canva, ou posts prontos pra publicar, feitos por mim. Você escolhe o caminho. Quer ver como funciona?
+                      </p>
+                    </div>
+                  </div>
 
-                        {/* Side by side below it */}
-                        <div className="grid grid-cols-2 gap-2.5 w-full">
-                          <a
-                            href="/projetos#galeria-redes-sociais"
-                            onClick={(e) => handleNavigateToCase('galeria-redes-sociais', e)}
-                            className="w-full inline-flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[42px] text-center"
-                          >
-                            <span>Ver exemplo real</span>
-                          </a>
+                  {/* Three buttons, stacked layout because the card is half width */}
+                  <div className="pt-6 mt-6 border-t border-white/[0.08] space-y-2.5">
+                    {/* Primary full width */}
+                    <a
+                      href={AGENCY_INFO.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[42px]"
+                    >
+                      <MessageCircle className="w-4 h-4 fill-current" />
+                      <span>Fale no WhatsApp</span>
+                    </a>
 
-                          <a
-                            href="/servicos/artes-para-redes-sociais"
-                            onClick={(e) => handleNavigateToService('servico-artes-para-redes-sociais', e)}
-                            className="w-full inline-flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/30 text-pink-300 hover:text-white font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[42px] text-center"
-                          >
-                            <span>Saber mais</span>
-                            <ArrowRight className="w-3.5 h-3.5 text-[#E71870] group-hover:translate-x-1 transition-transform shrink-0" />
-                          </a>
+                    {/* Side by side below it */}
+                    <div className="grid grid-cols-2 gap-2.5 w-full">
+                      <a
+                        href="/projetos#galeria-redes-sociais"
+                        onClick={(e) => handleNavigateToCase('galeria-redes-sociais', e)}
+                        className="w-full inline-flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[42px] text-center"
+                      >
+                        <span>Ver exemplo real</span>
+                      </a>
+
+                      <a
+                        href="/servicos/artes-para-redes-sociais"
+                        onClick={(e) => handleNavigateToService('servico-artes-para-redes-sociais', e)}
+                        className="w-full inline-flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/30 text-pink-300 hover:text-white font-semibold text-xs sm:text-sm transition-all group shrink-0 min-h-[42px] text-center"
+                      >
+                        <span>Saber mais</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#E71870] group-hover:translate-x-1 transition-transform shrink-0" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Materiais gráficos card (right, id="materiais-graficos") */}
+                <div
+                  id="materiais-graficos"
+                  className={`p-7 rounded-2xl bg-[#141416]/95 border-2 border-pink-500/30 hover:border-pink-500/50 transition-all flex flex-col justify-between group scroll-mt-36 shadow-lg h-full ${
+                    highlightedCardId === 'materiais-graficos'
+                      ? 'ring-2 ring-[#E71870] shadow-[0_0_35px_rgba(231,24,112,0.45)] scale-[1.01]'
+                      : ''
+                  }`}
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                          <CheckCircle2 className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <span className="text-[11px] font-mono text-[#E71870] font-bold uppercase block tracking-wider">
+                            DESIGN ESTRATÉGICO
+                          </span>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white">
+                            Materiais gráficos
+                          </h3>
                         </div>
                       </div>
                     </div>
-                  );
-                }
 
-                return (
-                  <div
-                    key={item.name}
-                    className="p-7 rounded-2xl bg-[#141416]/85 border border-white/[0.07] hover:border-pink-500/40 transition-all flex flex-col justify-between group h-full"
-                  >
-                    <div className="flex items-start gap-4.5">
-                      <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-[#E71870] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
-                        <CheckCircle2 className="w-5 h-5" />
+                    <div className="space-y-3">
+                      <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                        Peças pra sua marca aparecer bem no dia a dia, sempre seguindo a identidade do seu negócio.
+                      </p>
+
+                      {/* Small plain chips (not links) */}
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-0.5">
+                        {['Papelaria', 'Cartões digitais interativos', 'Banners', 'Catálogos'].map((chip) => (
+                          <span
+                            key={chip}
+                            className="inline-flex items-center px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-gray-300"
+                          >
+                            {chip}
+                          </span>
+                        ))}
                       </div>
-                      <div className="space-y-1.5 flex-1">
-                        <div className="flex items-center gap-2.5">
-                          <span className="text-xs font-mono text-[#E71870] font-bold">0{idx + 1}</span>
-                          <h3 className="text-lg sm:text-xl font-bold text-white">
-                            {item.name}
-                          </h3>
+
+                      {/* Strip of 3 equal thumbnails */}
+                      <div className="pt-2 space-y-1.5">
+                        <div className="grid grid-cols-3 gap-2">
+                          {[
+                            {
+                              src: '/portfolio/materiais-graficos/banners/banner-a-casa-dela-03-loja-online.png',
+                            },
+                            {
+                              src: '/portfolio/materiais-graficos/banners/banner-compras-happy-02-loja-online.png',
+                            },
+                            {
+                              src: '/portfolio/materiais-graficos/banners/banner-a-casa-dela-01-arte-quadrada.png',
+                            },
+                          ].map((thumb, tIdx) => (
+                            <a
+                              key={tIdx}
+                              href="/projetos#galeria-materiais-graficos"
+                              onClick={(e) => handleNavigateToCase('galeria-materiais-graficos', e)}
+                              className="block h-[95px] sm:h-[100px] rounded-xl overflow-hidden border border-white/10 hover:border-pink-500/50 hover:scale-[1.02] transition-all group/thumb relative shadow-sm cursor-pointer"
+                            >
+                              <img
+                                src={thumb.src}
+                                alt="Banner para loja online"
+                                className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                              />
+                            </a>
+                          ))}
                         </div>
-                        <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
-                          {item.desc}
+                        <p className="text-[11px] sm:text-xs text-gray-400 font-mono">
+                          Exemplos de banners para lojas online
                         </p>
                       </div>
                     </div>
                   </div>
-                );
-              })}
+
+                  {/* Two buttons */}
+                  <div className="pt-6 mt-6 border-t border-white/[0.08] space-y-2.5">
+                    <a
+                      href={AGENCY_INFO.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#00D2FF] text-[#141416] font-bold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all shrink-0 min-h-[42px]"
+                    >
+                      <MessageCircle className="w-4 h-4 fill-current" />
+                      <span>Fale no WhatsApp</span>
+                    </a>
+
+                    <a
+                      href="/projetos#galeria-materiais-graficos"
+                      onClick={(e) => handleNavigateToCase('galeria-materiais-graficos', e)}
+                      className="w-full inline-flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-medium text-xs sm:text-sm transition-all shrink-0 min-h-[42px] text-center"
+                    >
+                      <span>Ver exemplo real</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* TASK 1: Full-width Row: Placa de Pix Personalizada */}

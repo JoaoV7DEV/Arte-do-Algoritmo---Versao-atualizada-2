@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Palette, MessageCircle, ArrowRight, X, ChevronLeft, ChevronRight, Sparkles, ExternalLink } from 'lucide-react';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
+import { AutoLoopRail } from './AutoLoopRail';
 
 export interface LogoItem {
   id: string;
@@ -175,12 +176,8 @@ const LOGO_GROUPS: LogoGroup[] = [
 ];
 
 export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ onNavigate }) => {
+  const [activeGroupLogos, setActiveGroupLogos] = useState<LogoItem[] | null>(null);
   const [selectedLogoIndex, setSelectedLogoIndex] = useState<number | null>(null);
-
-  // Flattened list of all logos for the lightbox carousel
-  const allLogos = React.useMemo(() => {
-    return LOGO_GROUPS.flatMap(group => group.logos);
-  }, []);
 
   // Keyboard navigation & body scroll lock for lightbox
   useEffect(() => {
@@ -191,13 +188,14 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedLogoIndex === null) return;
+      if (selectedLogoIndex === null || !activeGroupLogos) return;
       if (e.key === 'Escape') {
         setSelectedLogoIndex(null);
+        setActiveGroupLogos(null);
       } else if (e.key === 'ArrowLeft') {
-        setSelectedLogoIndex(prev => (prev !== null ? (prev - 1 + allLogos.length) % allLogos.length : null));
+        setSelectedLogoIndex(prev => (prev !== null ? (prev - 1 + activeGroupLogos.length) % activeGroupLogos.length : null));
       } else if (e.key === 'ArrowRight') {
-        setSelectedLogoIndex(prev => (prev !== null ? (prev + 1) % allLogos.length : null));
+        setSelectedLogoIndex(prev => (prev !== null ? (prev + 1) % activeGroupLogos.length : null));
       }
     };
 
@@ -206,16 +204,17 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedLogoIndex, allLogos.length]);
+  }, [selectedLogoIndex, activeGroupLogos]);
 
-  const handleOpenLightbox = (logoId: string) => {
-    const idx = allLogos.findIndex(item => item.id === logoId);
-    if (idx !== -1) {
-      setSelectedLogoIndex(idx);
-    }
+  const handleOpenLightbox = (groupLogos: LogoItem[], index: number) => {
+    setActiveGroupLogos(groupLogos);
+    setSelectedLogoIndex(index);
   };
 
-  const currentLogo = selectedLogoIndex !== null ? allLogos[selectedLogoIndex] : null;
+  const currentLogo =
+    activeGroupLogos && selectedLogoIndex !== null
+      ? activeGroupLogos[selectedLogoIndex]
+      : null;
 
   const handleNavigateCase = (page: PageView, e: React.MouseEvent) => {
     e.preventDefault();
@@ -283,10 +282,10 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
           </div>
         </div>
 
-        {/* 4 Groups */}
+        {/* 4 Groups with AutoLoopRails */}
         <div className="space-y-16">
           {LOGO_GROUPS.map((group) => (
-            <div key={group.title} className="space-y-6">
+            <div key={group.title} className="space-y-4">
               <div className="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {group.title}
@@ -298,23 +297,33 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
                 )}
               </div>
 
-              {/* Responsive Grid: desktop 4 columns, tablet 3, mobile 2 */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                {group.logos.map((logo) => (
+              {/* AutoLoopRail replacing static grid: card width ~210px desktop, ~160px mobile */}
+              <AutoLoopRail
+                items={group.logos}
+                autoLoop={true}
+                isPausedExternal={selectedLogoIndex !== null}
+                renderItem={(logo, logoIdx, isDuplicate) => (
                   <div
-                    key={logo.id}
-                    onClick={() => handleOpenLightbox(logo.id)}
-                    className="p-4 sm:p-5 rounded-2xl bg-[#1E1E22] hover:bg-[#232328] border border-white/10 hover:border-pink-500/40 transition-all duration-300 cursor-pointer group flex flex-col justify-between shadow-lg hover:shadow-pink-500/10"
+                    onClick={() => handleOpenLightbox(group.logos, logoIdx)}
+                    tabIndex={isDuplicate ? -1 : 0}
+                    role="button"
+                    onKeyDown={(e) => {
+                      if (!isDuplicate && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        handleOpenLightbox(group.logos, logoIdx);
+                      }
+                    }}
+                    className="w-[160px] sm:w-[210px] p-4 sm:p-5 rounded-2xl bg-[#1E1E22] hover:bg-[#232328] border border-white/10 hover:border-pink-500/40 transition-all duration-300 cursor-pointer group flex flex-col justify-between shadow-lg hover:shadow-pink-500/10 shrink-0 select-none text-left"
                   >
                     {/* Square image container */}
-                    <div className="aspect-square w-full rounded-xl bg-[#141416] border border-white/5 p-4 sm:p-6 flex items-center justify-center mb-4 overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-300">
+                    <div className="aspect-square w-full rounded-xl bg-[#141416] border border-white/5 p-4 sm:p-5 flex items-center justify-center mb-4 overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-300">
                       <img
                         src={logo.src}
                         alt={logo.alt}
                         loading="lazy"
-                        width={240}
-                        height={240}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-md"
+                        width={210}
+                        height={210}
+                        className="max-h-full max-w-full object-contain filter drop-shadow-md pointer-events-none"
                       />
                     </div>
 
@@ -344,8 +353,8 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
                       )}
                     </div>
                   </div>
-                ))}
-              </div>
+                )}
+              />
             </div>
           ))}
         </div>
@@ -380,12 +389,15 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
       </div>
 
       {/* Lightbox Modal */}
-      {currentLogo && (
+      {currentLogo && activeGroupLogos && (
         <div
           role="dialog"
           aria-modal="true"
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
-          onClick={() => setSelectedLogoIndex(null)}
+          onClick={() => {
+            setSelectedLogoIndex(null);
+            setActiveGroupLogos(null);
+          }}
         >
           <div
             className="relative max-w-2xl w-full bg-[#18181B] border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col items-center space-y-6"
@@ -405,9 +417,12 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
 
               <button
                 type="button"
-                onClick={() => setSelectedLogoIndex(null)}
+                onClick={() => {
+                  setSelectedLogoIndex(null);
+                  setActiveGroupLogos(null);
+                }}
                 aria-label="Fechar"
-                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -437,29 +452,29 @@ export const LogosPortfolioSection: React.FC<LogosPortfolioSectionProps> = ({ on
             </div>
 
             {/* Navigation controls if multiple */}
-            {allLogos.length > 1 && (
+            {activeGroupLogos.length > 1 && (
               <div className="flex items-center justify-between w-full pt-2">
                 <button
                   type="button"
                   onClick={() =>
-                    setSelectedLogoIndex(prev => (prev !== null ? (prev - 1 + allLogos.length) % allLogos.length : 0))
+                    setSelectedLogoIndex(prev => (prev !== null ? (prev - 1 + activeGroupLogos.length) % activeGroupLogos.length : 0))
                   }
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-gray-300 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-gray-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   <span>Anterior</span>
                 </button>
 
                 <span className="text-xs font-mono text-gray-400">
-                  {(selectedLogoIndex ?? 0) + 1} de {allLogos.length}
+                  {(selectedLogoIndex ?? 0) + 1} de {activeGroupLogos.length}
                 </span>
 
                 <button
                   type="button"
                   onClick={() =>
-                    setSelectedLogoIndex(prev => (prev !== null ? (prev + 1) % allLogos.length : 0))
+                    setSelectedLogoIndex(prev => (prev !== null ? (prev + 1) % activeGroupLogos.length : 0))
                   }
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-gray-300 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-gray-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <span>Próximo</span>
                   <ChevronRight className="w-4 h-4" />

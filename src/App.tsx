@@ -21,6 +21,7 @@ import { ServicesPage } from './components/ServicesPage';
 import { TrafegoPagoPage } from './components/TrafegoPagoPage';
 import { GoogleMeuNegocioPage } from './components/GoogleMeuNegocioPage';
 import { ArtesRedesSociaisPage } from './components/ArtesRedesSociaisPage';
+import { LogotipoIdentidadeVisualPage } from './components/LogotipoIdentidadeVisualPage';
 import { Mob3lCasePage } from './components/Mob3lCasePage';
 import { ZeroOneCasePage } from './components/ZeroOneCasePage';
 import { PageView } from './components/Navbar';
@@ -70,6 +71,15 @@ const getInitialPage = (): PageView => {
     return 'servico-artes-para-redes-sociais';
   }
   if (
+    path === '/servicos/logotipo-e-identidade-visual' ||
+    path === '/servicos/logotipo-identidade-visual' ||
+    hash.startsWith('#servicos/logotipo-e-identidade-visual') ||
+    hash === '#logotipo-e-identidade-visual' ||
+    hash === '#logotipo-identidade-visual'
+  ) {
+    return 'servico-logotipo-e-identidade-visual';
+  }
+  if (
     path === '/servicos' ||
     hash.startsWith('#servicos') ||
     hash === '#servicos'
@@ -115,6 +125,9 @@ export default function App() {
     } else if (currentPage === 'servico-artes-para-redes-sociais') {
       pageTitle = 'Artes para Redes Sociais e Packs de Templates | Arte do Algoritmo';
       pageDesc = 'Packs de artes editáveis no Canva por segmento e posts prontos para Instagram. Presença profissional e consistente para seu negócio.';
+    } else if (currentPage === 'servico-logotipo-e-identidade-visual') {
+      pageTitle = 'Logotipo e Identidade Visual para Negócios Locais | Arte do Algoritmo';
+      pageDesc = 'Criação de logotipo e identidade visual completa — cores, tipografia e manual de aplicação — para negócios locais e empreendedores. Fale no WhatsApp.';
     } else if (currentPage === 'projetos') {
       pageTitle = 'Portfólio de Projetos | Arte do Algoritmo';
       pageDesc = 'Portfólio da Arte do Algoritmo: sites, identidades visuais e resultados reais de Google Meu Negócio e tráfego pago para negócios locais.';
@@ -168,6 +181,8 @@ export default function App() {
         setCurrentPage('servico-google-meu-negocio');
       } else if (path === '/servicos/artes-para-redes-sociais' || path === '/servicos/artes-redes-sociais') {
         setCurrentPage('servico-artes-para-redes-sociais');
+      } else if (path === '/servicos/logotipo-e-identidade-visual' || path === '/servicos/logotipo-identidade-visual') {
+        setCurrentPage('servico-logotipo-e-identidade-visual');
       } else if (path === '/servicos') {
         setCurrentPage('servicos');
         if (hash) {
@@ -206,6 +221,9 @@ export default function App() {
         } else if (hash.startsWith('#servicos/artes-para-redes-sociais') || hash === '#artes-para-redes-sociais' || hash === '#artes-redes-sociais') {
           setCurrentPage('servico-artes-para-redes-sociais');
           window.history.replaceState(null, '', '/servicos/artes-para-redes-sociais');
+        } else if (hash.startsWith('#servicos/logotipo-e-identidade-visual') || hash === '#logotipo-e-identidade-visual' || hash === '#logotipo-identidade-visual') {
+          setCurrentPage('servico-logotipo-e-identidade-visual');
+          window.history.replaceState(null, '', '/servicos/logotipo-e-identidade-visual');
         } else if (hash.startsWith('#servicos')) {
           setCurrentPage('servicos');
           window.history.replaceState(null, '', '/servicos');
@@ -247,6 +265,7 @@ export default function App() {
     else if (page === 'servico-trafego-pago') targetPath = '/servicos/trafego-pago';
     else if (page === 'servico-google-meu-negocio') targetPath = '/servicos/google-meu-negocio';
     else if (page === 'servico-artes-para-redes-sociais') targetPath = '/servicos/artes-para-redes-sociais';
+    else if (page === 'servico-logotipo-e-identidade-visual') targetPath = '/servicos/logotipo-e-identidade-visual';
     else if (page === 'projetos') targetPath = '/projetos';
     else if (page === 'sobre') targetPath = '/sobre';
     else if (page === 'projeto-mob3l') targetPath = '/projetos/mob3l';
@@ -317,6 +336,7 @@ export default function App() {
         {currentPage === 'servico-trafego-pago' && <TrafegoPagoPage onNavigate={handleNavigate} />}
         {currentPage === 'servico-google-meu-negocio' && <GoogleMeuNegocioPage onNavigate={handleNavigate} />}
         {currentPage === 'servico-artes-para-redes-sociais' && <ArtesRedesSociaisPage onNavigate={handleNavigate} />}
+        {currentPage === 'servico-logotipo-e-identidade-visual' && <LogotipoIdentidadeVisualPage onNavigate={handleNavigate} />}
 
         {currentPage === 'projetos' && <ProjectsPage onNavigate={handleNavigate} initialAnchor={currentAnchor} />}
 

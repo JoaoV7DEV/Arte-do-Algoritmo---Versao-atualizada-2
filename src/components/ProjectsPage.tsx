@@ -4,6 +4,7 @@ import { FeaturedCaseStudy } from './FeaturedCaseStudy';
 import { Mob3lPortfolioCard } from './Mob3lPortfolioCard';
 import { CaseResultsSection } from './CaseResultsSection';
 import { LogosPortfolioSection } from './LogosPortfolioSection';
+import { GraphicMaterialsPortfolioSection } from './GraphicMaterialsPortfolioSection';
 import { SocialProfilesPortfolioSection } from './SocialProfilesPortfolioSection';
 import { AGENCY_INFO } from '../data/agencyData';
 import { PageView } from './Navbar';
@@ -26,6 +27,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate, initialA
         hash === 'case-google-meu-negocio' ||
         hash === 'case-trafego-pago' ||
         hash === 'case-identidade-visual' ||
+        hash === 'galeria-materiais-graficos' ||
         hash === 'galeria-redes-sociais'
       ) {
         setActiveFilter('todos');
@@ -176,10 +178,17 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate, initialA
           </div>
         )}
 
-        {/* Block A: Logotipos e identidade visual (Visible on Todos, Identidade Visual, or Design Gráfico) */}
-        {(activeFilter === 'todos' || activeFilter === 'identidade' || activeFilter === 'design-grafico') && (
+        {/* Block A: Logotipos e identidade visual (Visible ONLY on Todos or Identidade Visual) */}
+        {(activeFilter === 'todos' || activeFilter === 'identidade') && (
           <div>
             <LogosPortfolioSection onNavigate={onNavigate} />
+          </div>
+        )}
+
+        {/* Block C: Materiais gráficos (Visible on Todos or Design Gráfico) */}
+        {(activeFilter === 'todos' || activeFilter === 'design-grafico') && (
+          <div>
+            <GraphicMaterialsPortfolioSection onNavigate={onNavigate} />
           </div>
         )}
 
